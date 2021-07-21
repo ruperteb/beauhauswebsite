@@ -9,7 +9,7 @@ async function postItem(parent, args, context, info) {
     }) */
 
     const item = {
-        itemId: args.context.db.length +1,
+        itemId: context.db.length +1,
         name: args.name,
         description: args.description,
         height: args.height,

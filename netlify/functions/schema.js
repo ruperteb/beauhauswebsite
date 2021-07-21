@@ -42,7 +42,7 @@ type Mutation {
 deleteItem (itemId: Int): Item!
 
 updateItem (
-
+  itemId: Int,
   name: String,
   description: String,
   height: Float,
