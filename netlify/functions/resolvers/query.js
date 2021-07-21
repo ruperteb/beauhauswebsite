@@ -8,7 +8,7 @@ async function itemList(parent, args, context, info) {
       },
     }) */
 
-    return "Item List Query"
+    return context.db
     
   }
 
@@ -22,7 +22,7 @@ async function itemList(parent, args, context, info) {
       },
     }) */
 
-    return "Single Item Query"
+    return context.db.find((item) => item.itemId === args.itemId);
     
   }
 

@@ -5,6 +5,8 @@ const typeDefs = require('./schema')
 const Query = require('./resolvers/query')
 const Mutation = require('./resolvers/mutation')
 
+const { data } = require("./db.js");
+
 const resolvers = {
   Query,
   Mutation,
@@ -24,6 +26,12 @@ const resolvers = {
   },
 }; */
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({ 
+  typeDefs,
+  resolvers,
+  context: function () {
+    return { db: data };
+  }, 
+});
 
 exports.handler = server.createHandler();
