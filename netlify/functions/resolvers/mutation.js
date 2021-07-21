@@ -18,7 +18,7 @@ async function postItem(parent, args, context, info) {
         period: args.period,
         manufactureDate: args.manufactureDate,
         price: args.price,
-        images: [args.images],
+        images: args.images,
     };
     context.db.push(item);
     return item;
@@ -46,7 +46,7 @@ async function updateItem(parent, args, context, info) {
         item.period= args.period
         item.manufactureDate= args.manufactureDate
         item.price= args.price
-        item.images= [args.images]
+        item.images= args.images
     
         return item
    
