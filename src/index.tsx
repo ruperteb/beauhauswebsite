@@ -14,11 +14,11 @@ import {
 } from "@apollo/client";
 
 const httpLink = new HttpLink({
-  uri: "https://beauhaus.netlify.app/.netlify/functions/server",
+  uri: "http://localhost:8888/.netlify/functions/server",
   /* credentials: 'include', */
-  fetchOptions: {
+  /* fetchOptions: {
     mode: 'no-cors',
-  },
+  }, */
   
 })
 

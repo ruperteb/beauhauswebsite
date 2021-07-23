@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_ITEMS = gql`
-    query{
-    itemList {
+    query {
+  itemList {
     _id
     name
     description
@@ -38,7 +38,7 @@ export const GET_SINGLE_ITEM = gql`
   }
 `;
 
-export const GET_MULTI_PROPERTY = gql`
+/* export const GET_MULTI_PROPERTY = gql`
   query MultiProperty (
   $propertyIdList: [Int],
       ) {
@@ -1003,4 +1003,4 @@ export const GET_FILTER_VARIABLES = gql`
 
     }
   }
-  `
+  ` */
