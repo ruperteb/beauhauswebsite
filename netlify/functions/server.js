@@ -5,7 +5,8 @@ const typeDefs = require('./schema')
 const Query = require('./resolvers/query')
 const Mutation = require('./resolvers/mutation')
 
-const { data } = require("./db.js");
+/* const { data } = require("./db.js"); */
+const { client, query } = require("./db.js");
 
 const resolvers = {
   Query,
@@ -30,8 +31,15 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: function () {
-    return { db: data };
+    /* return { db: data }; */
+    return { client, query };
   }, 
+  
 });
 
-exports.handler = server.createHandler();
+exports.handler = server.createHandler({
+  cors: {
+    origin: '*',
+    credentials: true,
+},
+});

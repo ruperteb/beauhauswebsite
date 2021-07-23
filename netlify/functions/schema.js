@@ -5,7 +5,7 @@ const typeDefs = gql`
 scalar DateTime
 
 type Item {
-  itemId: Int
+  _id: String
   name: String
   description: String
   height: Float
@@ -20,12 +20,12 @@ type Item {
 type Query {
   
     itemList: [Item],
-    singleItem (itemId: Int!): Item!,
+    singleItem (_id: String): Item,
 
 }
 
 type Mutation {
- postItem (
+ createItem (
 
   name: String,
   description: String,
@@ -39,10 +39,10 @@ type Mutation {
 
  ): Item!
 
-deleteItem (itemId: Int): Item!
+deleteItem ( _id: String): Item!
 
 updateItem (
-  itemId: Int,
+  _id: String
   name: String,
   description: String,
   height: Float,

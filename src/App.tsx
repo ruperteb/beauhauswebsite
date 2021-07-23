@@ -2,7 +2,28 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import { GET_ITEMS, GET_SINGLE_ITEM} from "./gql/gql"
+import { Query} from "./schematypes/schematypes"
+
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  useQuery,
+  gql
+} from "@apollo/client";
+
+
 function App() {
+
+  const {
+    data: itemData,
+    loading: itemLoading,
+    error: itemError
+  } = useQuery<Query>(GET_ITEMS);
+
+  console.log(itemData)
+
   return (
     <div className="App">
       <header className="App-header">

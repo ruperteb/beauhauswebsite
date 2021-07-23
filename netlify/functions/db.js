@@ -1,27 +1,20 @@
-exports.data = [
-    {
-        itemId: 1,
-        name: "Test 1",
-        description: "Test 1",
-        height: 100,
-        width: 100,
-        depth: 100,
-        period: "Victorian",
-        manufactureDate: 2000,
-        price: 500,
-        images: ["test", "test2"],
-    },
-    {
-        itemId: 2,
-        name: "Test 2",
-        description: "Test 2",
-        height: 100,
-        width: 100,
-        depth: 100,
-        period: "Victorian",
-        manufactureDate: 2000,
-        price: 500,
-        images: ["test", "test2"],
-    },
+require("dotenv").config();
+const faunadb = require("faunadb");
 
-];
+const query = faunadb.query;
+
+function createClient() {
+  if (!process.env.FAUNADB_SERVER_SECRET) {
+    throw new Error(
+      `No FAUNADB_SERVER_SECRET in environment, skipping client creation`
+    );
+  }
+  const client = new faunadb.Client({
+    secret: process.env.FAUNADB_SERVER_SECRET,
+  });
+  return client;
+}
+
+exports.client = createClient();
+exports.query = query;
+
