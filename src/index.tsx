@@ -14,7 +14,8 @@ import {
 } from "@apollo/client";
 
 const httpLink = new HttpLink({
-  uri: "http://localhost:8888/.netlify/functions/server",
+  uri: "https://beauhaus.netlify.app/.netlify/functions/server", 
+  /* uri: "http://localhost:8888/.netlify/functions/server",  */
   /* credentials: 'include', */
   /* fetchOptions: {
     mode: 'no-cors',
