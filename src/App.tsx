@@ -1,5 +1,4 @@
-import React from 'react';
-import logo from './logo.svg';
+/* import React from 'react'; */
 import './App.css';
 
 import { GET_ITEMS, GET_SINGLE_ITEM} from "./gql/gql"
