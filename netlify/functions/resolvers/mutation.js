@@ -1,3 +1,5 @@
+const { AuthenticationError } = require("apollo-server-errors")
+
 async function createItem(parent, args, context, info) {
   /* if(context.isAuthenticated === false) {
     throw new AuthenticationError("Not logged in")

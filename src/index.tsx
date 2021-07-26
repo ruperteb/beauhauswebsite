@@ -6,36 +6,9 @@ import reportWebVitals from './reportWebVitals';
 
 import 'semantic-ui-css/semantic.min.css'
 
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  useQuery,
-  gql,
-  HttpLink
-} from "@apollo/client";
-
 import AppRouter from './AppRouter';
 import ApolloWrapper from "./ApolloWrapper";
 import { Auth0Provider } from "@auth0/auth0-react";
-
-const httpLink = new HttpLink({
-  uri: "https://beauhaus.netlify.app/.netlify/functions/server",
-  /* uri: "http://localhost:8888/.netlify/functions/server",  */
-  /* credentials: 'include', */
-  /* fetchOptions: {
-    mode: 'no-cors',
-  }, */
-
-})
-
-const client = new ApolloClient({
-  link: httpLink,
-  cache: new InMemoryCache(),
-
-
-
-});
 
 ReactDOM.render(
   <React.StrictMode>

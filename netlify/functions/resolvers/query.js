@@ -1,3 +1,5 @@
+const { AuthenticationError } = require("apollo-server-errors")
+
 async function itemList(parent, args, context, info) {
   /* if(context.isAuthenticated === false) {
     throw new AuthenticationError("Not logged in")
@@ -9,6 +11,10 @@ async function itemList(parent, args, context, info) {
   }) */
 
   /* return context.db */
+
+  /* if(context.isAuthenticated === false) {
+    throw new AuthenticationError("Not logged in")
+  } */
 
   const { client, query: q } = context;
   const results = await client

@@ -41,6 +41,7 @@ const ApolloWrapper: React.FC<Props> = ({ children }) => {
 
 const httpLink = new HttpLink({
     uri: "https://beauhaus.netlify.app/.netlify/functions/server",
+    /* uri: "http://localhost:8888/.netlify/functions/server", */
    /*  credentials: 'include', */
     /* headers: {
         authorization: localStorage.getItem('token'),

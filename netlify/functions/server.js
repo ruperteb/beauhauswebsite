@@ -32,16 +32,10 @@ const resolvers = {
 const server = new ApolloServer({ 
   typeDefs,
   resolvers,
-  /* context: function () {
-   
-    return { client, query };
-  },  */
-  context: async ({ req }) => {
+  context: async ({ event, context, express }) => {
     let isAuthenticated = false
     try {
-      const authHeader = req.headers.authorization || ""
-      console.log(req.headers.authorization)
-      
+      const authHeader = event.headers.authorization || ""
       if (authHeader) {
        const token = authHeader.split(" ")[1]
         const payload = await verifyToken(token)
@@ -52,14 +46,15 @@ const server = new ApolloServer({
     }
 
     return {
-      ...req,
-      client,
-      query,
-      token: req.headers.authorization,
-      isAuthenticated
-    }
-  },
-  
+    headers: event.headers,
+    functionName: context.functionName,
+    event,
+    context,
+    /* expressRequest: express.req, */
+    client,
+    query,
+    isAuthenticated
+  }},
 });
 
 exports.handler = server.createHandler({
