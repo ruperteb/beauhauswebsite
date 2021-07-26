@@ -51,16 +51,16 @@ export type Mutation = {
 deleteItem ( _id: string): Item,
 
 updateItem (
-  _id: String,
-  name: String,
-  description: String,
+  _id: string,
+  name: string,
+  description: string,
   height: number,
   width: number,
   depth: number,
-  period: String,
+  period: string,
   manufactureDate: number,
   price: number,
-  images: [String],
+  images: [string],
 
 ): Item,
 

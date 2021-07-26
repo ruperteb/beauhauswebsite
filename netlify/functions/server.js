@@ -8,6 +8,8 @@ const Mutation = require('./resolvers/mutation')
 /* const { data } = require("./db.js"); */
 const { client, query } = require("./db.js");
 
+const verifyToken = require('./validate');
+
 const resolvers = {
   Query,
   Mutation,
@@ -30,10 +32,31 @@ const resolvers = {
 const server = new ApolloServer({ 
   typeDefs,
   resolvers,
-  context: function () {
-    /* return { db: data }; */
+  /* context: function () {
+   
     return { client, query };
-  }, 
+  },  */
+  context: async ({ req }) => {
+    let isAuthenticated = false
+    try {
+      const authHeader = req.headers.authorization || ""
+      
+      if (authHeader) {
+       const token = authHeader.split(" ")[1]
+        const payload = await verifyToken(token)
+        isAuthenticated = payload ? true : false
+      }
+    } catch (error) {
+      console.error("Not Authorised")
+    }
+
+    return {
+      ...req,
+      client,
+      query,
+      isAuthenticated
+    }
+  },
   
 });
 
