@@ -11,6 +11,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import App from "./App"
 import Login from "./components/Login"
+import Test from "./components/Test"
 
 export default function AppRouter() {
 
@@ -25,7 +26,7 @@ export default function AppRouter() {
                    
                 </Route>
                 <Route path="/main">
-                    <App></App>
+                    <Test></Test>
                 </Route>
                 <Route path="/">
                     {isAuthenticated? <Redirect to="/main" /> : <Redirect to="/login" /> }
