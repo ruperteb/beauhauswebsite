@@ -27,7 +27,7 @@ export default function AppRouter() {
                    
                 </Route>
                 <Route path="/main">
-                    <Test></Test>
+                    <App></App>
                 </Route>
                 <Route path="/">
                     {isAuthenticated? <Redirect to="/main" /> : <Redirect to="/login" /> }
