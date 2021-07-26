@@ -40,6 +40,7 @@ const server = new ApolloServer({
     let isAuthenticated = false
     try {
       const authHeader = req.headers.authorization || ""
+      console.log(req.headers.authorization)
       
       if (authHeader) {
        const token = authHeader.split(" ")[1]
