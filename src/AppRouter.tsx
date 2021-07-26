@@ -16,6 +16,7 @@ import Test from "./components/Test"
 export default function AppRouter() {
 
     const { isAuthenticated } = useAuth0();
+    console.log(isAuthenticated)
 
     return (
         <Router>
