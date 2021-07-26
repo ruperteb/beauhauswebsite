@@ -54,6 +54,7 @@ const server = new ApolloServer({
       ...req,
       client,
       query,
+      token: req.headers.authorization,
       isAuthenticated
     }
   },
