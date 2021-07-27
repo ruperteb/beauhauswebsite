@@ -10,6 +10,9 @@ import AppRouter from './AppRouter';
 import ApolloWrapper from "./ApolloWrapper";
 import { Auth0Provider } from "@auth0/auth0-react";
 
+import { store } from './redux/store';
+import { Provider } from 'react-redux';
+
 ReactDOM.render(
   <React.StrictMode>
     <Auth0Provider
@@ -18,9 +21,11 @@ ReactDOM.render(
       audience={process.env.REACT_APP_AUDIENCE}
       redirectUri={`${window.location.origin}/main`}
     >
-      <ApolloWrapper>
-        <AppRouter />
-      </ApolloWrapper>
+      <Provider store={store}>
+        <ApolloWrapper>
+          <AppRouter />
+        </ApolloWrapper>
+      </Provider>
     </Auth0Provider>
   </React.StrictMode>,
   document.getElementById('root')

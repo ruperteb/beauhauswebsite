@@ -16,6 +16,9 @@ import { Button } from 'semantic-ui-react'
 
 import { useAuth0 } from "@auth0/auth0-react";
 
+import { useAppSelector, useAppDispatch } from './redux/hooks'
+import { navigationSlice } from "../src/redux/slices/navigationSlice";
+
 function App() {
 
   const {
@@ -27,6 +30,14 @@ function App() {
   console.log(itemData)
 
   const { logout } = useAuth0()
+
+  const currentPage = useAppSelector((state) => state.navigation.currentPage)
+  const currentPageURL = useAppSelector((state) => state.navigation.currentPageURL)
+  const scrollY = useAppSelector((state) => state.navigation.scrollY)
+
+  console.log(currentPage)
+  console.log(currentPageURL)
+  console.log(scrollY)
 
   return (
     <div className="App">
