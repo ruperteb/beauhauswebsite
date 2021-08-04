@@ -13,13 +13,15 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import { store } from './redux/store';
 import { Provider } from 'react-redux';
 
+import "typeface-cinzel"
+
 ReactDOM.render(
   <React.StrictMode>
     <Auth0Provider
       domain={process.env.REACT_APP_AUTH0_DOMAIN!}
       clientId={process.env.REACT_APP_AUTH0_CLIENT_ID!}
       audience={process.env.REACT_APP_AUDIENCE}
-      redirectUri={`${window.location.origin}/main`}
+      redirectUri={`${window.location.origin}/dashboard`}
     >
       <Provider store={store}>
         <ApolloWrapper>

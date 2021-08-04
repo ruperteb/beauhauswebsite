@@ -5,7 +5,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const Login = () => {
   const { loginWithRedirect, isAuthenticated } = useAuth0();
-  if (!isAuthenticated) { loginWithRedirect() }
+  if (!isAuthenticated) { loginWithRedirect(/* {
+    redirectUri: `${window.location.origin}/dashboard`
+  } */) 
+
+}
 
 
   return (

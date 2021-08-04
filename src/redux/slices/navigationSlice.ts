@@ -4,6 +4,8 @@ import { current } from '@reduxjs/toolkit'
 
 
 export interface NavigationState {
+    showSidebar: boolean;
+
     currentPage: number;
     currentPageURL: string
 
@@ -13,8 +15,16 @@ export interface NavigationState {
     navigationHeight: number;
     homeHeight: number;
     aboutHeight: number;
-    significantHeight: number;
+    collectionsHeight: number;
     contactHeight: number;
+
+    homePixelsPassed: number;
+    aboutPixelsPassed: number;
+    collectionsPixelsPassed: number;
+
+    homeBottomPassed: boolean;
+    aboutBottomPassed: boolean;
+    collectionsBottomPassed: boolean;
 
     navigationHeightMobile: number;
     homeHeightMobile: number;
@@ -25,6 +35,8 @@ export interface NavigationState {
 }
 
 const initialState: NavigationState = {
+    showSidebar: false,
+
     currentPage: 0,
     currentPageURL: "#home",
 
@@ -34,8 +46,16 @@ const initialState: NavigationState = {
     navigationHeight: 0,
     homeHeight: 0,
     aboutHeight: 0,
-    significantHeight: 0,
+    collectionsHeight: 0,
     contactHeight: 0,
+
+    homePixelsPassed: 0,
+    aboutPixelsPassed: 0,
+    collectionsPixelsPassed: 0,
+
+    homeBottomPassed: false,
+    aboutBottomPassed: false,
+    collectionsBottomPassed: false,
 
     navigationHeightMobile: 0,
     homeHeightMobile: 0,
@@ -56,6 +76,9 @@ export const navigationSlice = createSlice({
     initialState,
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
+        setSidebarVisibility: (state, action: PayloadAction<boolean>) => {
+            state.showSidebar = action.payload; 
+        },
         setCurrentPage: (state, action: PayloadAction<number>) => {
             state.currentPage = action.payload; 
         },
@@ -76,11 +99,29 @@ export const navigationSlice = createSlice({
         setAboutHeight: (state, action: PayloadAction<number>) => {
             state.aboutHeight = action.payload; 
         },
-        setSignificantHeight: (state, action: PayloadAction<number>) => {
-            state.significantHeight = action.payload; 
+        setCollectionsHeight: (state, action: PayloadAction<number>) => {
+            state.collectionsHeight = action.payload; 
         },
         setContactHeight: (state, action: PayloadAction<number>) => {
             state.contactHeight = action.payload; 
+        },
+        setHomePixelsPassed: (state, action: PayloadAction<number>) => {
+            state.homePixelsPassed = action.payload; 
+        },
+        setAboutPixelsPassed: (state, action: PayloadAction<number>) => {
+            state.aboutPixelsPassed = action.payload; 
+        },
+        setCollectionsPixelsPassed: (state, action: PayloadAction<number>) => {
+            state.collectionsPixelsPassed = action.payload; 
+        },
+        setHomeBottomPassed: (state, action: PayloadAction<boolean>) => {
+            state.homeBottomPassed = action.payload; 
+        },
+        setAboutBottomPassed: (state, action: PayloadAction<boolean>) => {
+            state.aboutBottomPassed = action.payload; 
+        },
+        setCollectionsBottomPassed: (state, action: PayloadAction<boolean>) => {
+            state.collectionsBottomPassed = action.payload; 
         },
         setScrollYMobile: (state, action: PayloadAction<number>) => {
             state.scrollYMobile = action.payload;
@@ -117,11 +158,13 @@ export const navigationSlice = createSlice({
     }, */
 });
 
-export const { setCurrentPage, setCurrentPageURL, setScrollY, setNavigationHeight, setHomeHeight, setAboutHeight, setSignificantHeight, setContactHeight, setScrollYMobile, setNavigationHeightMobile, setHomeHeightMobile, setAboutHeightMobile, setSignificantHeightMobile, setContactHeightMobile  } = navigationSlice.actions;
+export const {setSidebarVisibility, setCurrentPage, setCurrentPageURL, setScrollY, setNavigationHeight, setHomeHeight, setAboutHeight, setCollectionsHeight, setContactHeight, setHomePixelsPassed, setAboutPixelsPassed, setCollectionsPixelsPassed, setHomeBottomPassed, setAboutBottomPassed, setCollectionsBottomPassed, setScrollYMobile, setNavigationHeightMobile, setHomeHeightMobile, setAboutHeightMobile, setSignificantHeightMobile, setContactHeightMobile  } = navigationSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
+export const selectShowSidebar = (state: RootState) => state.navigation.showSidebar;
+
 export const selectCurrentPage = (state: RootState) => state.navigation.currentPage;
 
 export const selectCurrentPageURL = (state: RootState) => state.navigation.currentPageURL;
@@ -136,9 +179,21 @@ export const selectAboutHeight = (state: RootState) => state.navigation.aboutHei
 
 export const selectAboutBottom = (state: RootState) => state.navigation.navigationHeight + state.navigation.homeHeight + state.navigation.aboutHeight ;
 
-export const selectSignificantHeight = (state: RootState) => state.navigation.significantHeight;
+export const selectCollectionsHeight = (state: RootState) => state.navigation.collectionsHeight;
 
 export const selectContactHeight = (state: RootState) => state.navigation.contactHeight;
+
+export const selectHomePixelsPassed = (state: RootState) => state.navigation.homePixelsPassed;
+
+export const selectAboutPixelsPassed = (state: RootState) => state.navigation.aboutPixelsPassed;
+
+export const selectCollectionsPixelsPassed = (state: RootState) => state.navigation.collectionsPixelsPassed;
+
+export const selectHomeBottomPassed = (state: RootState) => state.navigation.homeBottomPassed;
+
+export const selectAboutBottomPassed = (state: RootState) => state.navigation.aboutBottomPassed;
+
+export const selectCollectionsBottomPassed = (state: RootState) => state.navigation.collectionsBottomPassed;
 
 export const selectScrollYMobile = (state: RootState) => state.navigation.scrollYMobile;
 
