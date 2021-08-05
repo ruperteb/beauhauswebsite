@@ -4,28 +4,28 @@ import { Button } from 'semantic-ui-react'
 import { useAuth0 } from "@auth0/auth0-react";
 
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    Redirect
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
 } from "react-router-dom";
 
 interface Props {
-    path: string
+  path: string
 }
 
-export const PrivateRoute: React.FunctionComponent<Props> = ({children, ...rest }) => {
+export const PrivateRoute: React.FunctionComponent<Props> = ({ children, ...rest }) => {
 
-    const {isAuthenticated, isLoading } = useAuth0()
+  const { isAuthenticated, isLoading } = useAuth0()
 
-   if (isLoading) return <div>Loading</div>
+  if (isLoading) return <div>Loading</div>
 
-    return (
-        <Route
+  return (
+    <Route
       {...rest}
       render={({ location }) =>
-      isAuthenticated ? (
+        isAuthenticated ? (
           children
         ) : (
           <Redirect
@@ -37,7 +37,7 @@ export const PrivateRoute: React.FunctionComponent<Props> = ({children, ...rest 
         )
       }
     />
-    );
+  );
 };
 
 export default PrivateRoute

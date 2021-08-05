@@ -27,15 +27,17 @@ const AboutTextDiv = styled.div`
 display: flex;
 flex-direction: column;
 `
-const AboutHeadingTextDiv = styled(motion.div)`
+const AboutHeadingTextDiv = styled(motion.h1)`
 margin-left: 10%;
 margin-right: 10%;
-margin-top: 20% !important;
-margin-bottom: 100px;
+margin-top: auto !important;
+margin-bottom: 2rem;
 font-family: "cinzel";
 font-size: 36px;
-color: #ccaa66;
-text-shadow: 1px 1px 1px black;
+/* color: #ccaa66;
+text-shadow: 1px 1px 1px black; */
+color: #084b6d;
+text-shadow: 1px 1px 1px #eadede;
 `
 
 const AboutSubHeadingTextDiv = styled(motion.div)`
@@ -45,11 +47,13 @@ margin-top: 0px;
 margin-bottom: auto;
 font-family: sans-serif;
 font-size: 16px;
-color: white;
+/* color: white; */
+color: #084b6d;
 `
 
 const BlankDiv = styled(motion.div)`
-background-color: #334a60;
+/* background-color: #334a60; */
+background-color: #b8c8bd;
 width: 100%;
 height: 100%;
 position: absolute;
@@ -77,7 +81,7 @@ export const About: React.FunctionComponent<Props> = ({ }) => {
     }
 
     const textVariants = {
-        hidden: { opacity: 0, y: "-75px", /* x: -50 */ },
+        hidden: { opacity: 0, y: "200px", /* x: -50 */ },
         visible: { opacity: 1, y: "0px", /* x: 0 */ },
     }
 
@@ -113,7 +117,7 @@ export const About: React.FunctionComponent<Props> = ({ }) => {
         } else return false
     }
 
-    console.log(homePixelsPassed)
+    /* console.log(homePixelsPassed) */
     /* console.log(visibility) */
 
     return (
@@ -124,7 +128,7 @@ export const About: React.FunctionComponent<Props> = ({ }) => {
                 variants={panelVariants}
                 transition={{ duration: 0.5 }}
             >
-                <Grid style={{ backgroundColor: "#334a60", marginTop: 0, marginBottom: 0 }}>
+                <Grid stackable style={{ /* backgroundColor: "#334a60" */ backgroundColor: "#b8c8bd", marginTop: 0, marginBottom: 0 }}>
                     <AboutGridRow >
                         <Grid.Column style={{ display: "flex" }} width={6}>
                             <AboutTextDiv>

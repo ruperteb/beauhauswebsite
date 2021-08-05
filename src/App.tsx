@@ -17,6 +17,7 @@ import Sidebar from './components/sidebar/Sidebar';
 import Header from './components/mainheader/MainHeader';
 import Home from './components/home/Home';
 import About from './components/about/About';
+import Collections from './components/collections/Collections';
 
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -48,27 +49,19 @@ function App() {
 
   const { logout, user } = useAuth0()
 
-  const currentPage = useAppSelector((state) => state.navigation.currentPage)
+  /* const currentPage = useAppSelector((state) => state.navigation.currentPage)
   const currentPageURL = useAppSelector((state) => state.navigation.currentPageURL)
-  const scrollY = useAppSelector((state) => state.navigation.scrollY)
-
-  console.log(currentPage)
-  console.log(currentPageURL)
-  console.log(scrollY)
-
+  const scrollY = useAppSelector((state) => state.navigation.scrollY) */
 
   return (
     <div className="App">
 
-      {/* <SidebarWrapper> */}
+     
       <Header></Header>
         <Home></Home>
         <Sidebar></Sidebar>
         <About></About>
-<div style={{height: "1000px"}}></div>
-     {/*  </SidebarWrapper> */}
-
-
+        <Collections></Collections>
 
     </div>
   );

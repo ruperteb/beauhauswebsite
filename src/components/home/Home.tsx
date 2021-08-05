@@ -34,8 +34,11 @@ margin-top: auto !important;
 margin-bottom: 60px;
 font-family: "cinzel";
 font-size: 36px;
-color: #ccaa66;
-text-shadow: 1px 1px 1px black;
+/* color: #ccaa66; */
+color: #084b6d;
+/* text-shadow: 1px 1px 1px black; */
+text-shadow: 1px 1px 1px #eadede;
+
 `
 
 const HomeSubHeadingTextDiv = styled.div`
@@ -45,7 +48,8 @@ margin-top: 0px;
 margin-bottom: 60px;
 font-family: sans-serif;
 font-size: 16px;
-color: white;
+/* color: white; */
+color: #084b6d;
 `
 
 const HomeButton = styled(Button)`
@@ -61,22 +65,28 @@ padding-right: 2em !important;
 
 font-family: sans-serif;
 font-size: 16px;
-color: white  !important;
+/* color: white  !important; */
+color: #084b6d  !important;
 display:flex;
 width: fit-content;
 border-style: solid  !important;
 border-width: 2px  !important;
-border-color: #a29064  !important;
+/* border-color: #a29064  !important; */
+border-color: #084b6d  !important;
 background-color: transparent  !important;
 -webkit-transition: color 200ms ease, background-color 200ms ease  !important;
 transition: color 200ms ease, background-color 200ms ease  !important;
 border-radius: 0 !important;
-box-shadow: -1px 1px 1px 2px #0000001f !important;
+box-shadow: 0px 0px 2px 2px #0000001f !important;
 &:hover {
-color: white !important; // <Thing> when hovered
+color: white !important;
+/* color: white !important;
 background-color: #a29064 !important;
 border-color: #a29064 !important;
-box-shadow: -1px 1px 1px 2px #0000001f !important;
+box-shadow: -1px 1px 1px 2px #0000001f !important; */
+background-color: #084b6d !important;
+border-color: #084b6d !important;
+box-shadow: 0px 0px 2px 2px #0000001f !important;
   }
 `
 
@@ -105,7 +115,7 @@ export const Home: React.FunctionComponent<Props> = ({ }) => {
                 variants={panelVariants}
                 transition={{ duration: 0.5 }}
             >
-                <Grid style={{ marginTop: "150px", marginBottom: 0, backgroundColor: "#334a60" }}>
+                <Grid stackable style={{ marginTop: "150px", marginBottom: 0, /* backgroundColor: "#334a60" */ backgroundColor: "#b8c8bd" }}>
                     <HomeGridRow >
                         <Grid.Column width={10}>
                             <HomeImage src={Antiques}></HomeImage>
@@ -119,7 +129,7 @@ export const Home: React.FunctionComponent<Props> = ({ }) => {
                                     Our curated selection of items covers a range of styles, periods and areas of interest:
                                 </HomeSubHeadingTextDiv>
                                 <HomeButton animated>
-                                    <Button.Content visible style={{ marginRight: 0, textShadow: "1px 1px 1px black" }}>Collections</Button.Content>
+                                    <Button.Content visible style={{ marginRight: 0, fontSize: "1.2rem" /* textShadow: "1px 1px 1px black" */ }}>Collections</Button.Content>
                                     <Button.Content hidden>
                                         <Icon name='arrow right' style={{ textShadow: "1px 1px 1px black" }} />
                                     </Button.Content>
