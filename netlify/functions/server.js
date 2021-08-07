@@ -31,7 +31,7 @@ let transporter = nodemailer.createTransport({
  });
 
  let mailOptions = {
-  from: "test@gmail.com",
+  from: "beauhausmail@gmail.com",
   to: process.env.REACT_APP_EMAIL,
   subject: "Nodemailer API",
   text: "Hi from your nodemailer API",
