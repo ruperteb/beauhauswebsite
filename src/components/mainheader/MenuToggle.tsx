@@ -31,8 +31,8 @@ const StyledButton = styled.div`
   height: 50px;
   border-radius: 50%;
   background: transparent;
-  margin-top: auto;
-  margin-bottom: 50%;
+ /*  margin-top: auto;
+  margin-bottom: 50%; */
   display: flex;
   transform: scale(1.5);
   `
@@ -67,7 +67,7 @@ export const MenuToggle: React.FunctionComponent<Props> = ({  }) => {
             animate={showSidebar ? "open" : "closed"}
         /* custom={height} */
         /* ref={containerRef} */
-        style={{display: "flex", marginLeft: "auto", marginRight: "auto"}}
+        style={{display: "flex", margin: "auto", marginBottom: "1.5rem"}}
         >
             <StyledButton onClick={() => onMenuSelect()}>
                 <svg width="23" height="23" viewBox="0 0 23 23" style={{margin: "auto"}}>

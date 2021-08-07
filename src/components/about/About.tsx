@@ -4,17 +4,20 @@ import { Button, Segment, Container, Grid, Image, Icon, Visibility, VisibilityEv
 import styled from 'styled-components'
 
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
-import { navigationSlice } from '../../redux/slices/navigationSlice';
+import { navigationSlice, selectAboutPixelsPassed, selectHomePixelsPassed } from '../../redux/slices/navigationSlice';
+
+import useResizeObserver from "@react-hook/resize-observer";
 
 import Antiques from "../../assets/Antiques_about.jpg"
 interface Props {
 
 }
 
-const HomeImage = styled(Image)`
+const AboutImage = styled(Image)`
     /* height: 150px; */
     margin-left: auto;
     margin-right: auto;
+    min-height: 400px;
    /*  position: relative;
     z-index: -1; */
   `
@@ -65,8 +68,7 @@ position: absolute;
 export const About: React.FunctionComponent<Props> = ({ }) => {
 
     const showSidebar = useAppSelector((state) => state.navigation.showSidebar)
-    const homePixelsPassed = useAppSelector((state) => state.navigation.homePixelsPassed)
-    const homeBottomPassed = useAppSelector((state) => state.navigation.homeBottomPassed)
+    const aboutPixelsPassed = useAppSelector(selectAboutPixelsPassed)
 
     const dispatch = useAppDispatch()
 
@@ -85,45 +87,21 @@ export const About: React.FunctionComponent<Props> = ({ }) => {
         visible: { opacity: 1, y: "0px", /* x: 0 */ },
     }
 
-    /* const [visibility, setVisibility] = React.useState<VisibilityCalculations>(
-        {
-            direction: 'down',
-            height: 0,
-            width: 0,
-            topPassed: false,
-            bottomPassed: false,
-            pixelsPassed: 0,
-            percentagePassed: 0,
-            topVisible: false,
-            bottomVisible: false,
-            fits: false,
-            passing: false,
-            onScreen: false,
-            offScreen: false,
-        }) */
-
-    /* const contextRef = React.createRef<HTMLElement>() */
-
-    const handleUpdate = ((nothing: null, data: VisibilityEventData) => {
-        /* setVisibility(data.calculations) */
-        dispatch(navigationSlice.actions.setAboutHeight(data.calculations.height))
-        dispatch(navigationSlice.actions.setAboutPixelsPassed(data.calculations.pixelsPassed))
-        dispatch(navigationSlice.actions.setAboutBottomPassed(data.calculations.bottomPassed))
-    })
-
     const visibility = () => {
-        if (homePixelsPassed >= 100 || homeBottomPassed === true ) {
+        if (aboutPixelsPassed >= 300 /* || homeBottomPassed === true */) {
             return true
         } else return false
     }
 
-    /* console.log(homePixelsPassed) */
-    /* console.log(visibility) */
+    const aboutRef = React.useRef<HTMLDivElement>(null)
+
+      useResizeObserver(aboutRef, (entry) => {
+            dispatch(navigationSlice.actions.setAboutHeight(entry.contentRect.height))
+    });
 
     return (
-
-        <Visibility offset={[0, 0]} onUpdate={handleUpdate}>
             <motion.div
+                ref={aboutRef}
                 animate={showSidebar ? "visible" : "hidden"}
                 variants={panelVariants}
                 transition={{ duration: 0.5 }}
@@ -132,18 +110,18 @@ export const About: React.FunctionComponent<Props> = ({ }) => {
                     <AboutGridRow >
                         <Grid.Column style={{ display: "flex" }} width={6}>
                             <AboutTextDiv>
-                                <AboutHeadingTextDiv animate={visibility() ? "visible" : "hidden"} variants={textVariants} transition={{ duration: 1, delay: 0.1 }}>
+                                <AboutHeadingTextDiv initial={false} animate={visibility() ? "visible" : "hidden"} variants={textVariants} transition={{ duration: 1, delay: 0.1 }}>
                                     About Us
                                 </AboutHeadingTextDiv>
-                                <AboutSubHeadingTextDiv animate={visibility() ? "visible" : "hidden"} variants={textVariants} transition={{ duration: 1, delay: 0.2 }}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                <AboutSubHeadingTextDiv initial={false} animate={visibility() ? "visible" : "hidden"} variants={textVariants} transition={{ duration: 1, delay: 0.2 }}>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                                 </AboutSubHeadingTextDiv>
 
                             </AboutTextDiv>
 
                         </Grid.Column>
                         <Grid.Column width={10} style={{ paddingLeft: 0, paddingRight: 0 }}>
-                            <HomeImage src={Antiques}></HomeImage>
+                            <AboutImage src={Antiques}></AboutImage>
                             <BlankDiv
                                 animate={visibility() ? "visible" : "hidden"}
                                 variants={blankDivVariants}
@@ -156,9 +134,6 @@ export const About: React.FunctionComponent<Props> = ({ }) => {
                     </AboutGridRow>
                 </Grid>
             </motion.div>
-        </Visibility>
-
-
     );
 };
 

@@ -7,6 +7,9 @@ import { useAppSelector, useAppDispatch } from '../../redux/hooks'
 import { navigationSlice } from '../../redux/slices/navigationSlice';
 
 import Antiques from "../../assets/Antiques_home.jpg"
+
+import useResizeObserver from "@react-hook/resize-observer";
+
 interface Props {
 
 }
@@ -15,6 +18,7 @@ const HomeImage = styled(Image)`
     /* height: 150px; */
     margin-left: auto;
     margin-right: auto;
+    min-height: 500px;
    /*  position: relative;
     z-index: -1; */
   `
@@ -101,21 +105,23 @@ export const Home: React.FunctionComponent<Props> = ({ }) => {
         visible: { x: "260px" },
     }
 
-    const handleUpdate = ((nothing: null, data: VisibilityEventData) => {
-        /* setVisibility(data.calculations) */
-        dispatch(navigationSlice.actions.setHomeHeight(data.calculations.height))
-        dispatch(navigationSlice.actions.setHomePixelsPassed(data.calculations.pixelsPassed))
-        dispatch(navigationSlice.actions.setHomeBottomPassed(data.calculations.bottomPassed))
-    })
 
+    const homeRef = React.useRef<HTMLDivElement>(null)
+
+      useResizeObserver(homeRef, (entry) => {
+        dispatch(navigationSlice.actions.setHomeHeight(entry.contentRect.height))
+    });
+
+     
     return (
-        <Visibility offset={[0, 0]} onUpdate={handleUpdate}>
+        
             <motion.div
+                ref={homeRef}
                 animate={showSidebar ? "visible" : "hidden"}
                 variants={panelVariants}
                 transition={{ duration: 0.5 }}
             >
-                <Grid stackable style={{ marginTop: "150px", marginBottom: 0, /* backgroundColor: "#334a60" */ backgroundColor: "#b8c8bd" }}>
+                <Grid stackable style={{ marginTop: "125px", marginBottom: 0, /* backgroundColor: "#334a60" */ backgroundColor: "#b8c8bd" }}>
                     <HomeGridRow >
                         <Grid.Column width={10}>
                             <HomeImage src={Antiques}></HomeImage>
@@ -140,7 +146,7 @@ export const Home: React.FunctionComponent<Props> = ({ }) => {
                     </HomeGridRow>
                 </Grid>
             </motion.div>
-        </Visibility>
+       
 
 
     );

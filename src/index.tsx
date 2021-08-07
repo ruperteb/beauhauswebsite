@@ -14,6 +14,9 @@ import { store } from './redux/store';
 import { Provider } from 'react-redux';
 
 import "typeface-cinzel"
+import "typeface-montserrat"
+
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 ReactDOM.render(
   <React.StrictMode>

@@ -6,7 +6,7 @@ import { motion, useMotionValue, useTransform, useViewportScroll } from "framer-
 
 
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
-import { navigationSlice, setAboutBottomPassed } from '../../redux/slices/navigationSlice';
+import { navigationSlice, selectCollectionsPixelsPassed, selectAboutPixelsPassed } from '../../redux/slices/navigationSlice';
 
 import Furniture from "../../assets/Antiques_furniture.jpg"
 import Art from "../../assets/Antiques_art.jpg"
@@ -85,12 +85,14 @@ text-shadow: 1px 1px 1px #eadede;
 export const Collections: React.FunctionComponent<Props> = ({ }) => {
 
     const showSidebar = useAppSelector((state) => state.navigation.showSidebar)
-    /* const aboutPixelsPassed = useAppSelector((state) => state.navigation.aboutPixelsPassed)
-    const aboutBottomPassed = useAppSelector((state) => state.navigation.aboutBottomPassed) */
 
+    /* const windowHeight = useAppSelector((state) => state.navigation.windowHeight)
+    const headerHeight = useAppSelector((state) => state.navigation.headerHeight)
     const homeHeight = useAppSelector((state) => state.navigation.homeHeight)
-    const aboutHeight = useAppSelector((state) => state.navigation.homeHeight)
+    const aboutHeight = useAppSelector((state) => state.navigation.aboutHeight)
+    const collectionsHeight = useAppSelector((state) => state.navigation.collectionsHeight)
     
+    console.log(windowHeight, headerHeight, homeHeight, aboutHeight, collectionsHeight ) */
 
     const dispatch = useAppDispatch()
 
@@ -98,43 +100,6 @@ export const Collections: React.FunctionComponent<Props> = ({ }) => {
         hidden: { x: "0px" },
         visible: { x: "260px" },
     }
-
-    const textVariants = {
-        hidden: { opacity: 0, y: "-75px", /* x: -50 */ },
-        visible: { opacity: 1, y: "0px", /* x: 0 */ },
-    }
-
-    /* const [visibility, setVisibility] = React.useState<VisibilityCalculations>(
-        {
-            direction: 'down',
-            height: 0,
-            width: 0,
-            topPassed: false,
-            bottomPassed: false,
-            pixelsPassed: 0,
-            percentagePassed: 0,
-            topVisible: false,
-            bottomVisible: false,
-            fits: false,
-            passing: false,
-            onScreen: false,
-            offScreen: false,
-        }) */
-
-    /* const contextRef = React.createRef<HTMLElement>() */
-
-    const handleUpdate = ((nothing: null, data: VisibilityEventData) => {
-        /* setVisibility(data.calculations) */
-        dispatch(navigationSlice.actions.setCollectionsHeight(data.calculations.height))
-        dispatch(navigationSlice.actions.setCollectionsPixelsPassed(data.calculations.pixelsPassed))
-        dispatch(navigationSlice.actions.setCollectionsBottomPassed(data.calculations.bottomPassed))
-    })
-
-    /* const visibility = () => {
-        if (aboutPixelsPassed >= 100 || aboutBottomPassed === true) {
-            return true
-        } else return false
-    } */
 
     const x = useMotionValue(0);
     const xInput = [0, 500];
@@ -144,80 +109,77 @@ export const Collections: React.FunctionComponent<Props> = ({ }) => {
     const opacity = useTransform(x, xInput, opacityRange)
     const y = useTransform(x, xInput, yRange)
 
-    const [scroll, setScroll] = React.useState(0)
-
-    const { scrollY } = useViewportScroll()
-
-    scrollY.onChange(setScroll)
-
+    const collectionsPixelsPassed = useAppSelector(selectCollectionsPixelsPassed)
 
     React.useEffect(() => {
-        x.set(scroll + window.innerHeight - 150 /* i.e. header height */ - homeHeight - aboutHeight -100 /* i.e. offset */ )
-    }, [scroll])
+        x.set(collectionsPixelsPassed - 100 /* i.e. offset */)
+    }, [collectionsPixelsPassed])
+
+    const collectionsRef = React.createRef<HTMLDivElement>()
+
+    React.useEffect(() => {
+        if (collectionsRef.current)
+            dispatch(navigationSlice.actions.setCollectionsHeight(collectionsRef.current?.getBoundingClientRect().height))
+    }, [])
 
 
 
     return (
-        
-            <Visibility offset={[0, 0]} onUpdate={handleUpdate}>
-                <motion.div
+        <motion.div
+            ref={collectionsRef}
+            animate={showSidebar ? "visible" : "hidden"}
+            variants={panelVariants}
+            transition={{ duration: 0.5 }}
+            style={{marginBottom: "3rem"}}
+        >
+            <motion.div
+                style={{ opacity, y }}
+            >
+                <Container>
+                    <Grid stackable style={{ /* backgroundColor: "#334a60" */ backgroundColor: "white", marginTop: 0, marginBottom: 0 }}>
+                        <CollectionsGridRow>
+                            <CollectionsHeadingTextDiv>
+                                Our Collections:
+                            </CollectionsHeadingTextDiv>
+                        </CollectionsGridRow>
+                        <CollectionsGridRow >
 
-                    animate={showSidebar ? "visible" : "hidden"}
-                    variants={panelVariants}
-                    transition={{ duration: 0.5 }}
-                >
-                    <motion.div
-                        style={{ opacity, y }}
-                    >
-                        <Container>
-                            <Grid stackable style={{ /* backgroundColor: "#334a60" */ backgroundColor: "white", marginTop: 0, marginBottom: 0 }}>
-                                <CollectionsGridRow>
-                                    <CollectionsHeadingTextDiv>
-                                        Our Collections:
-                                    </CollectionsHeadingTextDiv>
-                                </CollectionsGridRow>
-                                <CollectionsGridRow >
+                            <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
+                                <CollectionstCardDiv /* style={{marginRight: "20px"}} */>
+                                    <CollectionstCardImage src={Furniture}></CollectionstCardImage>
+                                    <CollectionsCardSubHeading>Furniture</CollectionsCardSubHeading>
+                                </CollectionstCardDiv>
 
-                                    <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
-                                        <CollectionstCardDiv /* style={{marginRight: "20px"}} */>
-                                            <CollectionstCardImage src={Furniture}></CollectionstCardImage>
-                                            <CollectionsCardSubHeading>Furniture</CollectionsCardSubHeading>
-                                        </CollectionstCardDiv>
+                            </Grid.Column>
+                            <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
+                                <CollectionstCardDiv /* style={{marginLeft: "20px"}} */>
+                                    <CollectionstCardImage src={Art}></CollectionstCardImage>
+                                    <CollectionsCardSubHeading>Art</CollectionsCardSubHeading>
+                                </CollectionstCardDiv>
+                            </Grid.Column>
 
-                                    </Grid.Column>
-                                    <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
-                                        <CollectionstCardDiv /* style={{marginLeft: "20px"}} */>
-                                            <CollectionstCardImage src={Art}></CollectionstCardImage>
-                                            <CollectionsCardSubHeading>Art</CollectionsCardSubHeading>
-                                        </CollectionstCardDiv>
-                                    </Grid.Column>
+                        </CollectionsGridRow>
+                        <CollectionsGridRow >
 
-                                </CollectionsGridRow>
-                                <CollectionsGridRow >
+                            <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
+                                <CollectionstCardDiv /* style={{marginRight: "20px"}} */>
+                                    <CollectionstCardImage src={Lighting}></CollectionstCardImage>
+                                    <CollectionsCardSubHeading>Lighting</CollectionsCardSubHeading>
+                                </CollectionstCardDiv>
+                            </Grid.Column>
+                            <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
+                                <CollectionstCardDiv /* style={{marginLeft: "20px"}} */>
+                                    <CollectionstCardImage src={Collectibles}></CollectionstCardImage>
+                                    <CollectionsCardSubHeading>Collectibles</CollectionsCardSubHeading>
+                                </CollectionstCardDiv>
+                            </Grid.Column>
 
-                                    <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
-                                        <CollectionstCardDiv /* style={{marginRight: "20px"}} */>
-                                            <CollectionstCardImage src={Lighting}></CollectionstCardImage>
-                                            <CollectionsCardSubHeading>Lighting</CollectionsCardSubHeading>
-                                        </CollectionstCardDiv>
-                                    </Grid.Column>
-                                    <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
-                                        <CollectionstCardDiv /* style={{marginLeft: "20px"}} */>
-                                            <CollectionstCardImage src={Collectibles}></CollectionstCardImage>
-                                            <CollectionsCardSubHeading>Collectibles</CollectionsCardSubHeading>
-                                        </CollectionstCardDiv>
-                                    </Grid.Column>
+                        </CollectionsGridRow>
+                    </Grid>
 
-                                </CollectionsGridRow>
-                            </Grid>
-
-                        </Container>
-                    </motion.div>
-                </motion.div>
-            </Visibility>
-        
-
-
+                </Container>
+            </motion.div>
+        </motion.div>
     );
 };
 
