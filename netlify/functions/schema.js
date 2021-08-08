@@ -17,6 +17,14 @@ type Item {
   images: [String]
  }
 
+ type Email {
+  from: String
+  to: String
+  subject: String
+  text: String
+ }
+
+
 type Query {
   
     itemList: [Item],
@@ -54,6 +62,13 @@ updateItem (
   images: [String],
 
 ): Item!
+
+sendMessage(
+  name: String,
+  from: String,
+  subject: String,
+  text: String
+): String
 
 }
 

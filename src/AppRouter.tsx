@@ -36,6 +36,7 @@ export default function AppRouter() {
                     {/* {isAuthenticated? <Redirect to="/main" /> : <Redirect to="/login" /> } */}
                     <Redirect to="/main" />
                 </Route>
+                
 
             </Switch>
 

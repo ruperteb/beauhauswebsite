@@ -34,6 +34,20 @@ export type Query = {
 }
 
 export type Mutation = {
+  createItem: Item,
+  deleteItem: Item,
+  updateItem: Item,
+  sendMessage: String
+};
+
+export type MutationSendMessageArgs = {
+  name: String,
+  from: String,
+  subject: String,
+  text: String
+};
+
+/* export type Mutation = {
  createItem (
 
   name: string,
@@ -64,5 +78,12 @@ updateItem (
 
 ): Item,
 
-}
+sendMail(
+  name: String,
+  from: String,
+  subject: String,
+  text: String
+): String
+
+} */
   
