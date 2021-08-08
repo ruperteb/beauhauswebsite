@@ -57,7 +57,7 @@ border: 1px solid rgba(34,36,38,.15);
 transition: transform 200ms ease, -webkit-transform 200ms ease;
 cursor: pointer;
 &:hover {
-    transform: scale(0.95);
+    transform: scale(0.97);
 }
 `
 
@@ -112,7 +112,7 @@ export const Collections: React.FunctionComponent<Props> = ({ }) => {
     const collectionsPixelsPassed = useAppSelector(selectCollectionsPixelsPassed)
 
     React.useEffect(() => {
-        x.set(collectionsPixelsPassed - 100 /* i.e. offset */)
+        x.set(collectionsPixelsPassed - 175 /* i.e. offset */)
     }, [collectionsPixelsPassed])
 
     const collectionsRef = React.createRef<HTMLDivElement>()

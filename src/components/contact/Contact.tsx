@@ -203,10 +203,12 @@ const FormError = styled.div`
 position: absolute;
     right: 1rem;
     top: -0.5rem;
-    border: 1px solid red;
+    border: 1px solid #ff000070;
     color: red;
-    /* border-radius: 5px; */
+    border-radius: 4px;
     padding: 0.2rem;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
     background-color: #f3dfdf;
     &:before {
     content: "";
@@ -215,7 +217,7 @@ position: absolute;
   position: absolute;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-top: 10px solid red;
+  border-top: 10px solid #ff000070;
   border-bottom: 10px solid transparent;
   right: 50%;
   bottom: -20.25px;
@@ -514,16 +516,16 @@ export const Contact: React.FunctionComponent<Props> = ({ }) => {
                             }}
                             validationSchema={Yup.object({
                                 name: Yup.string()
-                                    .max(15, "Must be 15 characters or less")
+                                    .max(25, "Must be 25 characters or less")
                                     .required("Required"),
                                 email: Yup.string()
                                     .email("Invalid email address")
                                     .required("Required"),
                                 subject: Yup.string()
-                                    .max(20, "Must be 20 characters or less")
+                                    .max(30, "Must be 30 characters or less")
                                     .required("Required"),
                                 message: Yup.string()
-                                    .max(200, "Must be 200 characters or less")
+                                    .max(400, "Must be 400 characters or less")
                                     .required("Required"),
 
                             })}
