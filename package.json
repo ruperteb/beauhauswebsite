@@ -5,6 +5,8 @@
   "dependencies": {
     "@apollo/client": "^3.3.21",
     "@auth0/auth0-react": "^1.6.0",
+    "@cloudinary/base": "^1.0.0-beta.4",
+    "@cloudinary/react": "^1.0.0-beta.8",
     "@react-hook/resize-observer": "^1.2.2",
     "@reduxjs/toolkit": "^1.6.1",
     "@testing-library/jest-dom": "^5.14.1",
@@ -27,6 +29,7 @@
     "nodemailer": "^6.6.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-flip-move": "^3.0.4",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",

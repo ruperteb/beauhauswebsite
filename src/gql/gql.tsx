@@ -29,6 +29,7 @@ export const GET_ITEMS = gql`
     manufactureDate
     price
     images
+    type
   }
 }
     `

@@ -15,6 +15,7 @@ type Item {
   manufactureDate: Int
   price: Float
   images: [String]
+  type: String
  }
 
  type Email {

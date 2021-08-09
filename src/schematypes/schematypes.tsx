@@ -24,6 +24,7 @@ export type Item = {
   manufactureDate: number
   price: number
   images: [string]
+  type: string
  }
 
 export type Query = {

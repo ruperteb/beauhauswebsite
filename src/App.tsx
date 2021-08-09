@@ -19,6 +19,7 @@ import Home from './components/home/Home';
 import About from './components/about/About';
 import Contact from './components/contact/Contact';
 import Collections from './components/collections/Collections';
+import CollectionsPanel from './components/collectionspanel/CollectionsPanel';
 
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -97,6 +98,7 @@ React.useEffect(() => {
         <About></About>
         <Collections></Collections>
         <Contact></Contact>
+        <CollectionsPanel></CollectionsPanel>
 
     </div>
   );
