@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { createRef } from "react"
 
+import { Button, Segment, Container, Grid, Image, Icon, Visibility, VisibilityEventData, VisibilityCalculations, Ref, GridColumn } from 'semantic-ui-react'
+
 import { Query, Item } from "../../schematypes/schematypes"
 import { useQuery } from '@apollo/client';
 
@@ -36,16 +38,16 @@ export const AntiquesList: React.FunctionComponent<Props> = ({ /* propertyData, 
   /* var originalProperties = originalPropertyData!.properties! */
 
   const filterFunction = (antique: Item) => {
-   /*  if (filterData?.filterVariables!.suburb!.length !== 0) { if (!filterData?.filterVariables!.suburb?.includes(property.suburb!)) return false }
-    if (filterData?.filterVariables!.region!.length !== 0) { if (!filterData?.filterVariables!.region?.includes(property.region!)) return false }
-    if (filterData?.filterVariables!.province!.length !== 0) { if (!filterData?.filterVariables!.province?.includes(property.province!)) return false }
-    if (filterData?.filterVariables!.buildingType!.length !== 0) { if (!filterData?.filterVariables!.buildingType?.includes(property.buildingType!)) return false }
-    if (filterData?.filterVariables!.landlord!.length !== 0) { if (!filterData?.filterVariables!.landlord?.includes(property.contact?.landlordName?.landlordName!)) return false }
-    if (filterData?.filterVariables!.vacantGLAMin! !== 0 || filterData?.filterVariables!.vacantGLAMax! !== 0) { if (filterData?.filterVariables!.vacantGLAMin! >= getVacantGLA(property)) return false }
-    if (filterData?.filterVariables!.vacantGLAMax! !== 0) { if (filterData?.filterVariables!.vacantGLAMax! <= getVacantGLA(property)) return false }
-    if (!checkDatesEqual(filterData?.filterVariables!.earliestOccMin, startDate)) { if (!checkDatesGreaterThanOrEqual(getEarliestOccDate(property), filterData?.filterVariables!.earliestOccMin)) return false }
-    if (!checkDatesEqual(filterData?.filterVariables!.earliestOccMax, startDate)) { if (!checkDatesLessThanOrEqual(getEarliestOccDate(property), filterData?.filterVariables!.earliestOccMax)) return false }
-    return true */
+    /*  if (filterData?.filterVariables!.suburb!.length !== 0) { if (!filterData?.filterVariables!.suburb?.includes(property.suburb!)) return false }
+     if (filterData?.filterVariables!.region!.length !== 0) { if (!filterData?.filterVariables!.region?.includes(property.region!)) return false }
+     if (filterData?.filterVariables!.province!.length !== 0) { if (!filterData?.filterVariables!.province?.includes(property.province!)) return false }
+     if (filterData?.filterVariables!.buildingType!.length !== 0) { if (!filterData?.filterVariables!.buildingType?.includes(property.buildingType!)) return false }
+     if (filterData?.filterVariables!.landlord!.length !== 0) { if (!filterData?.filterVariables!.landlord?.includes(property.contact?.landlordName?.landlordName!)) return false }
+     if (filterData?.filterVariables!.vacantGLAMin! !== 0 || filterData?.filterVariables!.vacantGLAMax! !== 0) { if (filterData?.filterVariables!.vacantGLAMin! >= getVacantGLA(property)) return false }
+     if (filterData?.filterVariables!.vacantGLAMax! !== 0) { if (filterData?.filterVariables!.vacantGLAMax! <= getVacantGLA(property)) return false }
+     if (!checkDatesEqual(filterData?.filterVariables!.earliestOccMin, startDate)) { if (!checkDatesGreaterThanOrEqual(getEarliestOccDate(property), filterData?.filterVariables!.earliestOccMin)) return false }
+     if (!checkDatesEqual(filterData?.filterVariables!.earliestOccMax, startDate)) { if (!checkDatesLessThanOrEqual(getEarliestOccDate(property), filterData?.filterVariables!.earliestOccMax)) return false }
+     return true */
     if (typeFilter !== "") { if (!typeFilter?.includes(antique.type)) return false }
     return true
   }
@@ -67,36 +69,43 @@ export const AntiquesList: React.FunctionComponent<Props> = ({ /* propertyData, 
   }) */
 
   const flipMoveStyles = {
-    /* display: "flex",
+    display: "flex",
     flexFlow: "row wrap",
-    width: "100%" */
+    width: "100%"
 
 
     /*  width: "35%" */
   }
 
   return (
-    <div style={{ marginTop: 180, zIndex: 0 }}>
-      <FlipMove enterAnimation={"elevator"} /* onFinish={forceCheck} */ style={flipMoveStyles}>
-        {antiquesList?.map(antique => {
-          return (
+    <Container /* style={{width: "90%"}} */>
+      
 
-           
+          <FlipMove enterAnimation={"elevator"} /* onFinish={forceCheck} */ style={flipMoveStyles}>
+            {antiquesList?.map(antique => {
+              return (
 
-              <AnimatedListItem key={antique?._id} ref={createRef()}>
-
-                <AntiquesListItem key={antique?._id} antique={antique}> </AntiquesListItem>
-
-              </AnimatedListItem>
 
             
+                  <AnimatedListItem key={antique?._id} ref={createRef()}>
 
-          )
-        })}
+                    <AntiquesListItem key={antique?._id} antique={antique}> </AntiquesListItem>
 
-      </FlipMove>
+                  </AnimatedListItem>
+               
 
-    </div>
+
+              )
+            })}
+
+          </FlipMove>
+
+        
+    </Container >
+
+
+    /* <div style={{ marginTop: 180, zIndex: 0 }}>
+  </div> */
 
   );
 };

@@ -44,6 +44,7 @@ type Mutation {
   period: String,
   manufactureDate: Int,
   price: Float,
+  type: String
   images: [String],
 
  ): Item!
@@ -60,6 +61,7 @@ updateItem (
   period: String,
   manufactureDate: Int,
   price: Float,
+  type: String
   images: [String],
 
 ): Item!

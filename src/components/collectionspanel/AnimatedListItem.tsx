@@ -6,7 +6,10 @@ type Props = {
 };
 
 const animatedPropertyListItemStyles: CSSProperties = {
- 
+ width: "fit-content",
+ marginLeft: "auto",
+ marginRight: "auto",
+ padding: "1rem"
 }
 
 const AnimatedListItem = forwardRef<HTMLDivElement,Props>(( props, ref) => (

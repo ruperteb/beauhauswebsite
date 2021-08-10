@@ -36,6 +36,7 @@ async function createItem(parent, args, context, info) {
     period: args.period,
     manufactureDate: args.manufactureDate,
     price: args.price,
+    type: args.type,
     images: args.images,
   }
 
@@ -86,6 +87,7 @@ async function updateItem(parent, args, context, info) {
     period: args.period,
     manufactureDate: args.manufactureDate,
     price: args.price,
+    type: args.type,
     images: args.images,
   }
 
