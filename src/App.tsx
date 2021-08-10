@@ -12,6 +12,14 @@ import {
   gql
 } from "@apollo/client";
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom";
+
 import SidebarWrapper from './components/sidebarwrapper/SidebarWrapper';
 import Sidebar from './components/sidebar/Sidebar';
 import Header from './components/mainheader/MainHeader';
@@ -43,7 +51,7 @@ import {
   Image,
   Menu,
   Segment,
-  
+
 } from 'semantic-ui-react'
 
 function App() {
@@ -60,46 +68,45 @@ function App() {
 
   const dispatch = useAppDispatch()
 
+  const currentPageURL = useAppSelector((state) => state.navigation.currentPageURL)
+
   const { scrollY: scrollYFramer } = useViewportScroll();
   const scrollY = useAppSelector((state) => state.navigation.scrollY)
 
   React.useEffect(() => {
 
     scrollYFramer.onChange((latestY) =>
-        dispatch(navigationSlice.actions.setScrollY(latestY))
+      dispatch(navigationSlice.actions.setScrollY(latestY))
     )
 
     if (scrollY <= 50) {
       dispatch(navigationSlice.actions.setScrollTop(true))
     } else dispatch(navigationSlice.actions.setScrollTop(false))
 
-}, [scrollYFramer, scrollY])
+  }, [scrollYFramer, scrollY])
 
-React.useEffect(() => {
+  React.useEffect(() => {
 
-  if (window.innerHeight)
+    if (window.innerHeight)
 
       dispatch(navigationSlice.actions.setWindowHeight(window.innerHeight))
 
-}, [])
+  }, [])
 
-
-  /* const currentPage = useAppSelector((state) => state.navigation.currentPage)
-  const currentPageURL = useAppSelector((state) => state.navigation.currentPageURL)
-  const scrollY = useAppSelector((state) => state.navigation.scrollY) */
 
   return (
     <div className="App">
+      <Router>
+        <Redirect to={{ pathname: `/${currentPageURL}`, }} />
 
-     
-      <Header></Header>
+        <Header></Header>
         <Home></Home>
         <Sidebar></Sidebar>
         <About></About>
         <Collections></Collections>
         <Contact></Contact>
         <CollectionsPanel></CollectionsPanel>
-
+      </Router>
     </div>
   );
 }

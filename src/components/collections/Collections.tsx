@@ -7,6 +7,7 @@ import { motion, useMotionValue, useTransform, useViewportScroll } from "framer-
 
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
 import { navigationSlice, selectCollectionsPixelsPassed, selectAboutPixelsPassed } from '../../redux/slices/navigationSlice';
+import { collectionsSlice } from '../../redux/slices/collectionsSlice';
 
 import Furniture from "../../assets/Antiques_furniture.jpg"
 import Art from "../../assets/Antiques_art.jpg"
@@ -122,7 +123,13 @@ export const Collections: React.FunctionComponent<Props> = ({ }) => {
             dispatch(navigationSlice.actions.setCollectionsHeight(collectionsRef.current?.getBoundingClientRect().height))
     }, [])
 
+    const handleCardClick = (type:string) => {
+        dispatch(collectionsSlice.actions.setTypeFilter(type))
+        dispatch(navigationSlice.actions.setCollectionsPanelVisibility(true))
 
+    }
+
+    
 
     return (
         <motion.div
@@ -145,14 +152,14 @@ export const Collections: React.FunctionComponent<Props> = ({ }) => {
                         <CollectionsGridRow >
 
                             <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
-                                <CollectionstCardDiv /* style={{marginRight: "20px"}} */>
+                                <CollectionstCardDiv onClick={()=>handleCardClick("furniture")}>
                                     <CollectionstCardImage src={Furniture}></CollectionstCardImage>
                                     <CollectionsCardSubHeading>Furniture</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>
 
                             </Grid.Column>
                             <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
-                                <CollectionstCardDiv /* style={{marginLeft: "20px"}} */>
+                                <CollectionstCardDiv onClick={()=>handleCardClick("art")}>
                                     <CollectionstCardImage src={Art}></CollectionstCardImage>
                                     <CollectionsCardSubHeading>Art</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>
@@ -162,13 +169,13 @@ export const Collections: React.FunctionComponent<Props> = ({ }) => {
                         <CollectionsGridRow >
 
                             <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
-                                <CollectionstCardDiv /* style={{marginRight: "20px"}} */>
+                                <CollectionstCardDiv onClick={()=>handleCardClick("lighting")}>
                                     <CollectionstCardImage src={Lighting}></CollectionstCardImage>
                                     <CollectionsCardSubHeading>Lighting</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>
                             </Grid.Column>
                             <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
-                                <CollectionstCardDiv /* style={{marginLeft: "20px"}} */>
+                                <CollectionstCardDiv onClick={()=>handleCardClick("collectibles")}>
                                     <CollectionstCardImage src={Collectibles}></CollectionstCardImage>
                                     <CollectionsCardSubHeading>Collectibles</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>

@@ -350,11 +350,11 @@ export const Contact: React.FunctionComponent<Props> = ({ }) => {
     const handleSubjectChange = (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => setFormInput({ ...formInput, subject: data.value })
     const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => setFormInput({ ...formInput, text: data.value })
 
-    console.log(formInput)
+ 
 
     const [formState, setFormState] = React.useState<boolean | undefined>(undefined)
 
-    console.log(formState)
+    
 
     const [sendMessage, { data, loading, error }] = useMutation<Mutation, MutationSendMessageArgs>(
         SEND_MESSAGE,

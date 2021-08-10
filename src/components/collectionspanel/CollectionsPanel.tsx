@@ -23,20 +23,27 @@ import { useAppSelector, useAppDispatch } from '../../redux/hooks'
 import styled from 'styled-components'
 
 import AntiquesList from "./AntiquesList"
+import CollectionsPanelNavigation from './CollectionsPanelNavigation';
 
-const StyledSidebarDiv = styled(motion.div)`
-    background-color: #334a60;
+interface CardProps {
+    headerHeight: number,
+
+}
+
+const StyledCollectionsPanelDiv = styled(motion.div) <CardProps>`
+    background-color: white;
     display: flex;
     position: fixed;
-    top: 0;
-    left:-260px;
+    bottom: ${props => `calc(-100vh + ${props.headerHeight}px)`};
+    left:0;
     flex-wrap: wrap;
-    flex-direction: column;
-    width: 260px;
-    height: 100vh;
+    flex-direction: row;
+    /* width: 100vw; */
+    height: ${props => `calc(100vh - ${props.headerHeight}px)`};
     border: 1px solid rgba(34,36,38,.15);
-    z-index: 2000;
+    z-index: 1500;
     box-shadow: 1px 1px 3px 2px #0000003d;
+    overflow: scroll;
   `
 const StyledMenuItem = styled(motion.div)`
     background-color: #334a60;
@@ -78,52 +85,29 @@ interface Props {
 
 export const CollectionsPanel: React.FunctionComponent<Props> = ({ }) => {
 
-    const showSidebar = useAppSelector((state) => state.navigation.showSidebar)
+    const showCollectionsPanel = useAppSelector((state) => state.navigation.showCollectionsPanel)
 
-    const [selectedItem, setSelectedItem] = React.useState<string | undefined>("home")
+    const headerHeight = useAppSelector((state) => state.navigation.headerHeight -25)
 
-    const handleItemClick = (selection: string) => {
-        setSelectedItem(selection)
 
-    }
+
 
     const panelVariants = {
-        hidden: { x: "0px" },
-        visible: { x: "260px" },
+        hidden: { y: "0px" },
+        visible: { y: `calc(-100vh + ${headerHeight}px)` },
     }
 
-    const menuTextVariants = {
-        selected: { color: "#ffffff" },
-        unselected: { color: "#ccaa66" },
 
-    }
-
-    const lineVariants = {
-        home: { y: "0px" },
-        about: { y: "58px" },
-        collections: { y: "116px" },
-        contact: { y: "174px" },
-    }
-
-    const getLineVariant = () => {
-        switch (selectedItem) {
-            case "home":
-                return lineVariants.home
-            case "about":
-                return lineVariants.about
-            case "collections":
-                return lineVariants.collections
-            case "contact":
-                return lineVariants.contact
-            default:
-                return lineVariants.home
-        }
-    }
 
     return (
-
-        <AntiquesList></AntiquesList>
-
+        <StyledCollectionsPanelDiv
+            headerHeight={headerHeight}
+            animate={showCollectionsPanel ? "visible" : "hidden"}
+            variants={panelVariants}
+            transition={{ duration: 0.3 }}>
+            <CollectionsPanelNavigation></CollectionsPanelNavigation>
+            <AntiquesList></AntiquesList>
+        </StyledCollectionsPanelDiv>
     );
 };
 

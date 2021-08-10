@@ -7,6 +7,7 @@ export interface NavigationState {
 
     windowHeight: number;
     showSidebar: boolean;
+    showCollectionsPanel: boolean;
     scrollTop: boolean;
 
     currentPage: number;
@@ -41,6 +42,7 @@ const initialState: NavigationState = {
 
     windowHeight: 0,
     showSidebar: false,
+    showCollectionsPanel: false,
     scrollTop: true,
 
     currentPage: 0,
@@ -87,6 +89,9 @@ export const navigationSlice = createSlice({
         },
         setSidebarVisibility: (state, action: PayloadAction<boolean>) => {
             state.showSidebar = action.payload; 
+        },
+        setCollectionsPanelVisibility: (state, action: PayloadAction<boolean>) => {
+            state.showCollectionsPanel = action.payload; 
         },
         setScrollTop: (state, action: PayloadAction<boolean>) => {
             state.scrollTop = action.payload; 
@@ -170,7 +175,7 @@ export const navigationSlice = createSlice({
     }, */
 });
 
-export const {setWindowHeight, setSidebarVisibility, setScrollTop, setCurrentPage, setCurrentPageURL, setScrollY, setHeaderHeight, setHomeHeight, setAboutHeight, setCollectionsHeight, setContactHeight, /* setHomePixelsPassed, */ /* setAboutPixelsPassed, setCollectionsPixelsPassed, */ /* setHomeBottomPassed, setAboutBottomPassed, setCollectionsBottomPassed, */ setScrollYMobile, setHeaderHeightMobile, setHomeHeightMobile, setAboutHeightMobile, setCollectionsHeightMobile, setContactHeightMobile  } = navigationSlice.actions;
+export const {setWindowHeight, setSidebarVisibility, setCollectionsPanelVisibility, setScrollTop, setCurrentPage, setCurrentPageURL, setScrollY, setHeaderHeight, setHomeHeight, setAboutHeight, setCollectionsHeight, setContactHeight, /* setHomePixelsPassed, */ /* setAboutPixelsPassed, setCollectionsPixelsPassed, */ /* setHomeBottomPassed, setAboutBottomPassed, setCollectionsBottomPassed, */ setScrollYMobile, setHeaderHeightMobile, setHomeHeightMobile, setAboutHeightMobile, setCollectionsHeightMobile, setContactHeightMobile  } = navigationSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
@@ -179,6 +184,8 @@ export const {setWindowHeight, setSidebarVisibility, setScrollTop, setCurrentPag
 export const selectWindowHeight = (state: RootState) => state.navigation.windowHeight;
 
 export const selectShowSidebar = (state: RootState) => state.navigation.showSidebar;
+
+export const selectShowCollectionsPanel = (state: RootState) => state.navigation.showCollectionsPanel;
 
 export const selectScrollTop = (state: RootState) => state.navigation.scrollTop;
 

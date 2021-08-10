@@ -48,7 +48,7 @@ export const AntiquesList: React.FunctionComponent<Props> = ({ /* propertyData, 
      if (!checkDatesEqual(filterData?.filterVariables!.earliestOccMin, startDate)) { if (!checkDatesGreaterThanOrEqual(getEarliestOccDate(property), filterData?.filterVariables!.earliestOccMin)) return false }
      if (!checkDatesEqual(filterData?.filterVariables!.earliestOccMax, startDate)) { if (!checkDatesLessThanOrEqual(getEarliestOccDate(property), filterData?.filterVariables!.earliestOccMax)) return false }
      return true */
-    if (typeFilter !== "") { if (!typeFilter?.includes(antique.type)) return false }
+    if (typeFilter !== "" && typeFilter !== "all" ) { if (!typeFilter?.includes(antique.type)) return false }
     return true
   }
 
@@ -82,7 +82,7 @@ export const AntiquesList: React.FunctionComponent<Props> = ({ /* propertyData, 
       
 
           <FlipMove enterAnimation={"elevator"} /* onFinish={forceCheck} */ style={flipMoveStyles}>
-            {antiquesList?.map(antique => {
+            {filteredAntiques?.map(antique => {
               return (
 
 
