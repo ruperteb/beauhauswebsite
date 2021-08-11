@@ -27,7 +27,7 @@ const HeaderDiv = styled(motion.div)`
     /* display: block; */
     top: 0;
     left: 0px;
-    width: 100%;
+    width: 100vw;
     z-index: 1000;
     background-color: white;
     /* transform: unset; */

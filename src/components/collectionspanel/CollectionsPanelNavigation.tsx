@@ -28,6 +28,12 @@ const FlexGridColumn = styled(Grid.Column)`
     display: flex !important;
     `
 
+const NavLinkDivContainer = styled.div`
+    display: flex;
+    /* margin: auto; */
+    width: 100%;
+`
+
 const NavLinkDiv = styled.div`
     display: flex;
     flex-direction: column;
@@ -63,6 +69,21 @@ const NavLink = styled(Link)`
 const NavLinkUnderline = styled(motion.div)`
     height: 2px;
     margin-bottom: auto;
+`
+
+const StyledBackIcon = styled(Icon)`
+   &&&&&& {
+    color: #fff!important; 
+    background-color: #00b5ad!important;
+    transition: all 0.3s ease;
+    cursor: pointer;
+   } 
+   &&&&&&:hover {
+    color: #00b5ad!important; 
+    background-color: #fff!important;
+    transform: scale(1.2);
+    
+   }
 `
 
 
@@ -156,53 +177,53 @@ export const CollectionsPanelNavigation: React.FC<Props> = ({ /* exampleProp, */
     const navLinkHoverStyles: CSSProperties = {
         color: "#ffffff",
         textShadow: "1px 1px 1px #423333ad",
-        
+
     }
 
     const handleBackClick = () => {
+        
         dispatch(navigationSlice.actions.setCollectionsPanelVisibility(false))
+        document.body.style.overflowY = "visible"
     }
 
 
 
     return (
-        <Container  style={{ backgroundColor: "#bfd5cb", height: "fit-content" }}>
-            <Grid style={{margin: 0}}>
+        <Container fluid style={{ backgroundColor: "#bfd5cb", height: "fit-content", boxShadow: "-1px 1px 3px 1px #00000057" }}>
+            <Grid style={{ margin: 0 }}>
                 <Grid.Row>
-                    <FlexGridColumn width={3}>
-                    <Icon size='large' circular inverted color='teal' name='reply' onClick={handleBackClick} />
+                    <FlexGridColumn width={2}>
+                       
                     </FlexGridColumn>
                     <FlexGridColumn width={2}>
-                        <NavLinkDiv onMouseEnter={() => setNavLinkHover1(true)} onMouseLeave={() => setNavLinkHover1(false)}>
-                            <NavLink style={typeFilter === "furniture" ? navLinkHoverStyles : {}} to={`/collections/#furniture`} onClick={() => navLinkClick("furniture")}>Furniture</NavLink>
-                            <NavLinkUnderline layout transition={{ duration: 0.4, ease: "easeInOut" }} animate={navLinkToggle1 === true || navLinkHover1 === true ? { opacity: 1, width: "100%", backgroundColor: "#4daca76b" } : { opacity: 0, width: "0%", backgroundColor: "#e2d8d8d5" }}></NavLinkUnderline>
-                        </NavLinkDiv>
+                        <StyledBackIcon size='large' circular inverted color='teal' name='reply' onClick={handleBackClick} />
+                    </FlexGridColumn>
+                    <FlexGridColumn width={8}>
+                        <NavLinkDivContainer>
+                            <NavLinkDiv onMouseEnter={() => setNavLinkHover1(true)} onMouseLeave={() => setNavLinkHover1(false)}>
+                                <NavLink style={typeFilter === "furniture" ? navLinkHoverStyles : {}} to={`/collections/#furniture`} onClick={() => navLinkClick("furniture")}>Furniture</NavLink>
+                                <NavLinkUnderline layout transition={{ duration: 0.4, ease: "easeInOut" }} animate={navLinkToggle1 === true || navLinkHover1 === true ? { opacity: 1, width: "100%", backgroundColor: "#4daca76b" } : { opacity: 0, width: "0%", backgroundColor: "#e2d8d8d5" }}></NavLinkUnderline>
+                            </NavLinkDiv>
+                            <NavLinkDiv onMouseEnter={() => setNavLinkHover2(true)} onMouseLeave={() => setNavLinkHover2(false)}>
+                                <NavLink style={typeFilter === "art" ? navLinkHoverStyles : {}} to={`/collections/#art`} onClick={() => navLinkClick("art")}>Art</NavLink>
+                                <NavLinkUnderline transition={{ duration: 0.4, ease: "easeInOut" }} animate={navLinkToggle2 === true || navLinkHover2 === true ? { opacity: 1, width: "100%", backgroundColor: "#4daca76b" } : { opacity: 0, width: "0%", backgroundColor: "#e2d8d8d5" }}></NavLinkUnderline>
+                            </NavLinkDiv>
+                            <NavLinkDiv onMouseEnter={() => setNavLinkHover3(true)} onMouseLeave={() => setNavLinkHover3(false)}>
+                                <NavLink style={typeFilter === "lighting" ? navLinkHoverStyles : {}} to={`/collections/#lighting`} onClick={() => navLinkClick("lighting")}>Lighting</NavLink>
+                                <NavLinkUnderline transition={{ duration: 0.4, ease: "easeInOut" }} animate={navLinkToggle3 === true || navLinkHover3 === true ? { opacity: 1, width: "100%", backgroundColor: "#4daca76b" } : { opacity: 0, width: "0%", backgroundColor: "#e2d8d8d5" }}></NavLinkUnderline>
+                            </NavLinkDiv>
+                            <NavLinkDiv onMouseEnter={() => setNavLinkHover4(true)} onMouseLeave={() => setNavLinkHover4(false)}>
+                                <NavLink style={typeFilter === "collectibles" ? navLinkHoverStyles : {}} to={`/collections/#collectibles`} onClick={() => navLinkClick("collectibles")}>Collectibles</NavLink>
+                                <NavLinkUnderline transition={{ duration: 0.4, ease: "easeInOut" }} animate={navLinkToggle4 === true || navLinkHover4 === true ? { opacity: 1, width: "100%", backgroundColor: "#4daca76b" } : { opacity: 0, width: "0%", backgroundColor: "#e2d8d8d5" }}></NavLinkUnderline>
+                            </NavLinkDiv>
+                            <NavLinkDiv onMouseEnter={() => setNavLinkHover5(true)} onMouseLeave={() => setNavLinkHover5(false)}>
+                                <NavLink style={typeFilter === "all" ? navLinkHoverStyles : {}} to={`/collections/#all`} onClick={() => navLinkClick("all")}>All</NavLink>
+                                <NavLinkUnderline transition={{ duration: 0.4, ease: "easeInOut" }} animate={navLinkToggle5 === true || navLinkHover5 === true ? { opacity: 1, width: "100%", backgroundColor: "#4daca76b" } : { opacity: 0, width: "0%", backgroundColor: "#e2d8d8d5" }}></NavLinkUnderline>
+                            </NavLinkDiv>
+                        </NavLinkDivContainer>
 
                     </FlexGridColumn>
-                    <FlexGridColumn width={2}>
-                        <NavLinkDiv onMouseEnter={() => setNavLinkHover2(true)} onMouseLeave={() => setNavLinkHover2(false)}>
-                            <NavLink style={typeFilter === "art" ? navLinkHoverStyles : {}} to={`/collections/#art`} onClick={() => navLinkClick("art")}>Art</NavLink>
-                            <NavLinkUnderline transition={{ duration: 0.4, ease: "easeInOut" }} animate={navLinkToggle2 === true || navLinkHover2 === true ? { opacity: 1, width: "100%", backgroundColor: "#4daca76b" } : { opacity: 0, width: "0%", backgroundColor: "#e2d8d8d5" }}></NavLinkUnderline>
-                        </NavLinkDiv>
-                    </FlexGridColumn>
-                    <FlexGridColumn width={2}>
-                        <NavLinkDiv onMouseEnter={() => setNavLinkHover3(true)} onMouseLeave={() => setNavLinkHover3(false)}>
-                            <NavLink style={typeFilter === "lighting" ? navLinkHoverStyles : {}} to={`/collections/#lighting`} onClick={() => navLinkClick("lighting")}>Lighting</NavLink>
-                            <NavLinkUnderline transition={{ duration: 0.4, ease: "easeInOut" }} animate={navLinkToggle3 === true || navLinkHover3 === true ? { opacity: 1, width: "100%", backgroundColor: "#4daca76b" } : { opacity: 0, width: "0%", backgroundColor: "#e2d8d8d5" }}></NavLinkUnderline>
-                        </NavLinkDiv>
-                    </FlexGridColumn>
-                    <FlexGridColumn width={3}>
-                        <NavLinkDiv onMouseEnter={() => setNavLinkHover4(true)} onMouseLeave={() => setNavLinkHover4(false)}>
-                            <NavLink style={typeFilter === "collectibles" ? navLinkHoverStyles : {}} to={`/collections/#collectibles`} onClick={() => navLinkClick("collectibles")}>Collectibles</NavLink>
-                            <NavLinkUnderline transition={{ duration: 0.4, ease: "easeInOut" }} animate={navLinkToggle4 === true || navLinkHover4 === true ? { opacity: 1, width: "100%", backgroundColor: "#4daca76b" } : { opacity: 0, width: "0%", backgroundColor: "#e2d8d8d5" }}></NavLinkUnderline>
-                        </NavLinkDiv>
-                    </FlexGridColumn>
-                    <FlexGridColumn width={2}>
-                        <NavLinkDiv onMouseEnter={() => setNavLinkHover5(true)} onMouseLeave={() => setNavLinkHover5(false)}>
-                            <NavLink style={typeFilter === "all" ? navLinkHoverStyles : {}} to={`/collections/#all`} onClick={() => navLinkClick("all")}>All</NavLink>
-                            <NavLinkUnderline transition={{ duration: 0.4, ease: "easeInOut" }} animate={navLinkToggle5 === true || navLinkHover5 === true ? { opacity: 1, width: "100%", backgroundColor: "#4daca76b" } : { opacity: 0, width: "0%", backgroundColor: "#e2d8d8d5" }}></NavLinkUnderline>
-                        </NavLinkDiv>
-                    </FlexGridColumn>
+
                     <FlexGridColumn width={2}>
 
                     </FlexGridColumn>

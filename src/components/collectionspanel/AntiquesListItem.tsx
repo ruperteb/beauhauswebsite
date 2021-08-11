@@ -9,6 +9,9 @@ import { format, quality } from "@cloudinary/base/actions/delivery";
 import { auto } from "@cloudinary/base/qualifiers/format";
 import { auto as qAuto } from "@cloudinary/base/qualifiers/quality";
 
+import { useAppSelector, useAppDispatch } from '../../redux/hooks'
+import { collectionsSlice } from '../../redux/slices/collectionsSlice';
+
 import { Button } from 'semantic-ui-react'
 
 import styled from 'styled-components'
@@ -174,6 +177,8 @@ interface Props {
 
 export const AntiquesListItem: React.FunctionComponent<Props> = ({ antique }) => {
 
+  const dispatch = useAppDispatch()
+
   const cld = new Cloudinary({
     cloud: {
       cloudName: process.env.REACT_APP_CLOUD_NAME
@@ -185,6 +190,11 @@ export const AntiquesListItem: React.FunctionComponent<Props> = ({ antique }) =>
   myImage.resize(fill().width(365).height(261)).delivery(format(auto()))
     .delivery(quality(qAuto()));
 
+    const handleClick = () => {
+      dispatch(collectionsSlice.actions.setSelectedAntique(antique))
+      dispatch(collectionsSlice.actions.setShowAntiqueModal(true))
+    }
+
 
   return (
     <Card>
@@ -194,7 +204,7 @@ export const AntiquesListItem: React.FunctionComponent<Props> = ({ antique }) =>
         <AdvancedImage style={imageStyles} cldImg={myImage} plugins={[lazyload('10px 20px 10px 30px', 0.25)]} />
         
       </ImageContainer>
-      <ImageButton>View</ImageButton>
+      <ImageButton onClick={()=> handleClick() }>View</ImageButton>
 
       <CardHeading>{antique.name}</CardHeading>
       <CardSubHeading>£{antique.price}.00</CardSubHeading>

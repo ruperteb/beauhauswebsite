@@ -86,6 +86,7 @@ text-shadow: 1px 1px 1px #eadede;
 export const Collections: React.FunctionComponent<Props> = ({ }) => {
 
     const showSidebar = useAppSelector((state) => state.navigation.showSidebar)
+    const showCollectionsPanel = useAppSelector((state) => state.navigation.showCollectionsPanel)
 
     /* const windowHeight = useAppSelector((state) => state.navigation.windowHeight)
     const headerHeight = useAppSelector((state) => state.navigation.headerHeight)
@@ -100,7 +101,10 @@ export const Collections: React.FunctionComponent<Props> = ({ }) => {
     const panelVariants = {
         hidden: { x: "0px" },
         visible: { x: "260px" },
+        collectionsVisible: { x: "-100vw" },
     }
+
+
 
     const x = useMotionValue(0);
     const xInput = [0, 500];
@@ -123,21 +127,29 @@ export const Collections: React.FunctionComponent<Props> = ({ }) => {
             dispatch(navigationSlice.actions.setCollectionsHeight(collectionsRef.current?.getBoundingClientRect().height))
     }, [])
 
-    const handleCardClick = (type:string) => {
+    const handleCardClick = (type: string) => {
         dispatch(collectionsSlice.actions.setTypeFilter(type))
         dispatch(navigationSlice.actions.setCollectionsPanelVisibility(true))
+        document.body.style.overflowY = "hidden"
 
     }
 
-    
+    const checkAnimationVariant = () => {
+        if (showCollectionsPanel === true) {
+            return "collectionsVisible"
+        } else if (showSidebar === true) {
+            return "visible"
+        } else return "hidden"
+
+    }
 
     return (
         <motion.div
             ref={collectionsRef}
-            animate={showSidebar ? "visible" : "hidden"}
+            animate={checkAnimationVariant()}
             variants={panelVariants}
             transition={{ duration: 0.5 }}
-            style={{marginBottom: "3rem"}}
+            style={{ marginBottom: "3rem" }}
         >
             <motion.div
                 style={{ opacity, y }}
@@ -152,14 +164,14 @@ export const Collections: React.FunctionComponent<Props> = ({ }) => {
                         <CollectionsGridRow >
 
                             <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
-                                <CollectionstCardDiv onClick={()=>handleCardClick("furniture")}>
+                                <CollectionstCardDiv onClick={() => handleCardClick("furniture")}>
                                     <CollectionstCardImage src={Furniture}></CollectionstCardImage>
                                     <CollectionsCardSubHeading>Furniture</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>
 
                             </Grid.Column>
                             <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
-                                <CollectionstCardDiv onClick={()=>handleCardClick("art")}>
+                                <CollectionstCardDiv onClick={() => handleCardClick("art")}>
                                     <CollectionstCardImage src={Art}></CollectionstCardImage>
                                     <CollectionsCardSubHeading>Art</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>
@@ -169,13 +181,13 @@ export const Collections: React.FunctionComponent<Props> = ({ }) => {
                         <CollectionsGridRow >
 
                             <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
-                                <CollectionstCardDiv onClick={()=>handleCardClick("lighting")}>
+                                <CollectionstCardDiv onClick={() => handleCardClick("lighting")}>
                                     <CollectionstCardImage src={Lighting}></CollectionstCardImage>
                                     <CollectionsCardSubHeading>Lighting</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>
                             </Grid.Column>
                             <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
-                                <CollectionstCardDiv onClick={()=>handleCardClick("collectibles")}>
+                                <CollectionstCardDiv onClick={() => handleCardClick("collectibles")}>
                                     <CollectionstCardImage src={Collectibles}></CollectionstCardImage>
                                     <CollectionsCardSubHeading>Collectibles</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>

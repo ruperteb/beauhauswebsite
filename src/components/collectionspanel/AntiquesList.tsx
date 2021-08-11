@@ -71,14 +71,15 @@ export const AntiquesList: React.FunctionComponent<Props> = ({ /* propertyData, 
   const flipMoveStyles = {
     display: "flex",
     flexFlow: "row wrap",
-    width: "100%"
+    width: "100%",
+    marginTop: "2rem",
 
 
     /*  width: "35%" */
   }
 
   return (
-    <Container /* style={{width: "90%"}} */>
+    <Container style={{padding: 0, position: "relative", marginTop: 0, height: "100vh", width: "80vw"}}>
       
 
           <FlipMove enterAnimation={"elevator"} /* onFinish={forceCheck} */ style={flipMoveStyles}>
