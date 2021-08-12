@@ -24,7 +24,7 @@ export const GET_ITEMS = gql`
     description
     height
     width
-    depth
+    length
     period
     manufactureDate
     price
@@ -46,11 +46,12 @@ export const GET_SINGLE_ITEM = gql`
     description
     height
     width
-    depth
+    length
     period
     manufactureDate
     price
     images
+    type
 }
   }
 `;

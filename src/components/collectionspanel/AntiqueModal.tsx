@@ -8,6 +8,14 @@ import { collectionsSlice } from '../../redux/slices/collectionsSlice';
 import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
 
+import { Cloudinary } from "@cloudinary/base";
+import { fill } from "@cloudinary/base/actions/resize";
+import { format, quality } from "@cloudinary/base/actions/delivery";
+import { auto } from "@cloudinary/base/qualifiers/format";
+import { auto as qAuto } from "@cloudinary/base/qualifiers/quality";
+import AntiquesList from './AntiquesList';
+import { original } from '@reduxjs/toolkit';
+
 
 
 interface Props {
@@ -94,6 +102,35 @@ box-shadow: 0px 0px 2px 2px #0000001f !important;
   }
 `
 
+const StyledModal = styled(Modal)`
+&&&&&&& {
+    left: auto !important;
+    height: 90%;
+}
+`
+
+const StyledModalContent = styled(Modal.Content)`
+&&&&&&& {
+    /* width: 775px; */
+    height: fit-content;
+    max-height: fit-content;
+}
+`
+
+const GalleryContainer = styled.div`
+    width: 70%;
+    height: 100%;
+`
+
+const DescriptionContainer = styled(Modal.Description)`
+    width: 30%;
+    height: 100%;
+`
+
+const DescriptionText = styled.p`
+    margin-left: 1rem;  
+`
+
 
 export const AntiqueModal: React.FunctionComponent<Props> = ({ }) => {
 
@@ -101,8 +138,36 @@ export const AntiqueModal: React.FunctionComponent<Props> = ({ }) => {
     const selectedAntique = useAppSelector((state) => state.collections.selectedAntique)
     const dispatch = useAppDispatch()
 
+    const cld = new Cloudinary({
+        cloud: {
+            cloudName: process.env.REACT_APP_CLOUD_NAME
+        }
+    });
 
-    const images = [
+    /* const myImage = cld.image(antique.images[0]); */
+
+    /* myImage.resize(fill().width(365).height(261)).delivery(format(auto()))
+        .delivery(quality(qAuto())); */
+
+    interface Image {
+        original: string,
+        thumbnail: string,
+    }
+
+    /* var images: Image[] = [] */
+
+    var images = selectedAntique?.images.map((image) => {
+        return {
+            original: cld.image(image).resize(fill().width(600).height(400)).delivery(format(auto()))
+                .delivery(quality(qAuto())).toURL(),
+            thumbnail: cld.image(image).resize(fill().width(300).height(200)).delivery(format(auto()))
+                .delivery(quality(qAuto())).toURL(),
+
+        }
+    })
+
+
+    /* const images = [
         {
             original: 'https://picsum.photos/id/1018/1000/600/',
             thumbnail: 'https://picsum.photos/id/1018/250/150/',
@@ -115,14 +180,15 @@ export const AntiqueModal: React.FunctionComponent<Props> = ({ }) => {
             original: 'https://picsum.photos/id/1019/1000/600/',
             thumbnail: 'https://picsum.photos/id/1019/250/150/',
         },
-    ];
+    ]; */
 
 
 
     return (
-        <Modal
-        style={{left:"auto"}}
-            size={"fullscreen"}
+        <StyledModal
+            style={{ left: "auto !!important" }}
+            dimmer={"inverted"}
+            size={"large"}
             centered
             open={showAntiqueModal}
             onClose={() => dispatch(collectionsSlice.actions.setShowAntiqueModal(false))}
@@ -130,23 +196,28 @@ export const AntiqueModal: React.FunctionComponent<Props> = ({ }) => {
         /* trigger={<Button>Scrolling Content Modal</Button>} */
         >
             <Modal.Header>{selectedAntique?.name}</Modal.Header>
-            <Modal.Content image scrolling>
-
-                <ImageGallery items={images} />
-
-                <Modal.Description>
-
+            <StyledModalContent image scrolling>
+                <GalleryContainer>
+                    <ImageGallery items={images!} />
+                </GalleryContainer>
 
 
+                <DescriptionContainer>
+                    <DescriptionText>{selectedAntique?.description}</DescriptionText>
+                    <DescriptionText>{selectedAntique?.height}</DescriptionText>
+                    <DescriptionText>{selectedAntique?.description}</DescriptionText>
+                    <DescriptionText>{selectedAntique?.description}</DescriptionText>
 
-                </Modal.Description>
-            </Modal.Content>
-            <Modal.Actions>
+
+
+                </DescriptionContainer>
+            </StyledModalContent>
+            {/* <Modal.Actions>
                 <Button onClick={() => dispatch(collectionsSlice.actions.setShowAntiqueModal(false))} primary>
                     Proceed <Icon name='chevron right' />
                 </Button>
-            </Modal.Actions>
-        </Modal>
+            </Modal.Actions> */}
+        </StyledModal>
 
 
     );

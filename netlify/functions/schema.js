@@ -10,7 +10,7 @@ type Item {
   description: String
   height: Float
   width: Float
-  depth: Float
+  length: Float
   period: String
   manufactureDate: Int
   price: Float
@@ -40,7 +40,7 @@ type Mutation {
   description: String,
   height: Float,
   width: Float,
-  depth: Float,
+  length: Float
   period: String,
   manufactureDate: Int,
   price: Float,
@@ -57,7 +57,7 @@ updateItem (
   description: String,
   height: Float,
   width: Float,
-  depth: Float,
+  length: Float
   period: String,
   manufactureDate: Int,
   price: Float,

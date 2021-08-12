@@ -19,7 +19,7 @@ export type Item = {
   description: string
   height: number
   width: number
-  depth: number
+  length: number
   period: string
   manufactureDate: number
   price: number
