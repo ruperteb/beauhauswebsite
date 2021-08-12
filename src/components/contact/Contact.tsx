@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { Button, Segment, Container, Grid, Image, Icon, Visibility, VisibilityEventData, /* Form, */ TextArea, Input, Message, Popup, InputOnChangeData } from 'semantic-ui-react'
+import { Button, Grid, Icon, Popup } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
@@ -13,9 +13,6 @@ import { Mutation, MutationSendMessageArgs } from "../../schematypes/schematypes
 
 import { Formik, Form, useField, useFormikContext, FieldHookConfig } from "formik";
 import * as Yup from "yup";
-
-
-import Antiques from "../../assets/Antiques_home.jpg"
 
 import useResizeObserver from "@react-hook/resize-observer";
 // @ts-ignore
@@ -53,19 +50,19 @@ flex-direction: column;
 `
 const ContactDetailsHeading = styled.h1`
 display: flex;
-color: white;
+color: black;
 margin-bottom: 0.5rem;
 margin-left: 1rem;
 margin-right: auto;
 font-family: "Montserrat", sans-serif;
 font-size: 1.3rem;
 font-weight: 500;
-text-shadow: 1px 1px 1px black;
+/* text-shadow: 1px 1px 1px black; */
 
 `
 const ContactDetailsSubHeading = styled.div`
 display: flex;
-color: white;
+color:#4183c4;
 margin-bottom: 0.5rem;
 margin-left: 1rem;
 margin-right: auto;
@@ -81,10 +78,11 @@ margin-left: auto;
 margin-right: auto;
 margin-top: 2em !important;
 margin-bottom: 1em !important;
-font-family: "cinzel";
+font-family: 'Bodoni Moda', serif;
+text-transform: uppercase;
 font-size: 36px;
-color: #ccaa66;
-text-shadow: 1px 1px 1px black;
+color: #084b6d;
+/* text-shadow: 1px 1px 1px black; */
 /* color: #084b6d; */
 /* text-shadow: 1px 1px 1px #eadede; */
 
@@ -130,6 +128,44 @@ box-shadow: 0px 0px 2px 2px #0000001f !important; */
   }
 `
 
+const ContactButton2 = styled(Button)`
+margin-left: auto !important;
+margin-right: auto !important;
+margin-top: 0px;
+margin-bottom: auto !important;
+&&&& {
+padding: 1em !important;
+padding-left: 2em !important;
+padding-right: 2em !important;
+}
+
+font-family: sans-serif;
+font-size: 16px;
+/* color: white  !important; */
+color: #084b6d  !important;
+display:flex;
+width: fit-content;
+border-style: solid  !important;
+border-width: 2px  !important;
+/* border-color: #a29064  !important; */
+border-color: #084b6d  !important;
+background-color: transparent  !important;
+-webkit-transition: color 200ms ease, background-color 200ms ease  !important;
+transition: color 200ms ease, background-color 200ms ease  !important;
+border-radius: 0 !important;
+box-shadow: 0px 0px 2px 2px #0000001f !important;
+&:hover {
+color: white !important;
+/* color: white !important;
+background-color: #a29064 !important;
+border-color: #a29064 !important;
+box-shadow: -1px 1px 1px 2px #0000001f !important; */
+background-color: #084b6d !important;
+border-color: #084b6d !important;
+box-shadow: 0px 0px 2px 2px #0000001f !important;
+  }
+`
+
 const FormInputContainer = styled.div`
 width: 100%;
 display: flex;
@@ -148,14 +184,14 @@ flex-wrap: wrap;
 const FormLabel = styled.label`
  &&&& {
 display: flex;
-color: white;
+color: black;
 margin-bottom: 0.5rem;
 margin-left: 1rem;
 margin-right: auto;
 font-family: "Montserrat", sans-serif;
 font-size: 1.3rem;
 font-weight: 500;
-text-shadow: 1px 1px 1px black;
+/* text-shadow: 1px 1px 1px black; */
 }
 `
 
@@ -164,7 +200,7 @@ const FormInput = styled.input`
     width: 100%;
     padding: 0.65rem 0.5rem;
   font-size: 1rem;
-  border: 2px solid grey;
+  border: 1px solid grey;
   /* background-color: var(--gray-100); */
   color: black;
   border-radius: 5px;
@@ -175,7 +211,7 @@ const FormInput = styled.input`
 &&&&:focus {
     /* border-color: #78bbe9; */
     outline: none;
-  border: 2px solid #78bbe9;
+  border: 1px solid #78bbe9;
 }
 `
 
@@ -183,7 +219,7 @@ const FormTextArea = styled.textarea`
 &&&& {
     padding: 0.65rem 0.5rem;
   font-size: 1rem;
-  border: 2px solid grey;
+  border: 1px solid grey;
   /* background-color: var(--gray-100); */
   color: black;
   border-radius: 5px;
@@ -195,7 +231,7 @@ const FormTextArea = styled.textarea`
 }
 &&&&:focus {
     outline: none;
-    border: 2px solid #78bbe9;
+    border: 1px solid #78bbe9;
 }
 `
 
@@ -264,11 +300,13 @@ height: 500px;
 export const Contact: React.FunctionComponent<Props> = ({ }) => {
 
     const showSidebar = useAppSelector((state) => state.navigation.showSidebar)
+    const showCollectionsPanel = useAppSelector((state) => state.navigation.showCollectionsPanel)
     const dispatch = useAppDispatch()
 
     const panelVariants = {
         hidden: { x: "0px" },
-        visible: { x: "260px" },
+        visible: { x: "263px" },
+        collectionsVisible: { x: "-100vw" },
     }
 
 
@@ -318,9 +356,11 @@ export const Contact: React.FunctionComponent<Props> = ({ }) => {
     React.useEffect(() => {
         if (contactPixelsPassed >= 300) {
             setContactInView(true)
+            dispatch(navigationSlice.actions.setCurrentPageURL("#contact"))
         } else setContactInView(false)
 
     }, [contactPixelsPassed])
+
 
     React.useEffect(() => {
         if (marker.current)
@@ -345,11 +385,11 @@ export const Contact: React.FunctionComponent<Props> = ({ }) => {
         text: "",
     })
 
-    const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => setFormInput({ ...formInput, name: data.value })
+/*     const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => setFormInput({ ...formInput, name: data.value })
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => setFormInput({ ...formInput, from: data.value })
     const handleSubjectChange = (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => setFormInput({ ...formInput, subject: data.value })
     const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => setFormInput({ ...formInput, text: data.value })
-
+ */
  
 
     const [formState, setFormState] = React.useState<boolean | undefined>(undefined)
@@ -368,7 +408,7 @@ export const Contact: React.FunctionComponent<Props> = ({ }) => {
         }
     );
 
-    const handleSubmit = () => {
+    /* const handleSubmit = () => {
 
         sendMessage({
             variables: {
@@ -379,13 +419,13 @@ export const Contact: React.FunctionComponent<Props> = ({ }) => {
             }
 
         })
-    }
+    } */
 
     const buttonRef = React.useRef(null)
-    const nameRef = React.useRef(null)
+    /* const nameRef = React.useRef(null)
     const emailRef = React.useRef(null)
     const subjectRef = React.useRef(null)
-    const messageRef = React.useRef(null)
+    const messageRef = React.useRef(null) */
 
     const buttonStyle = {
         borderRadius: 0,
@@ -431,6 +471,15 @@ export const Contact: React.FunctionComponent<Props> = ({ }) => {
         );
     };
 
+    const checkAnimationVariant = () => {
+        if (showCollectionsPanel === true) {
+            return "collectionsVisible"
+        } else if (showSidebar === true) {
+            return "visible"
+        } else return "hidden"
+
+    }
+
     return (
 
         <motion.div
@@ -438,9 +487,9 @@ export const Contact: React.FunctionComponent<Props> = ({ }) => {
             animate={showSidebar ? "visible" : "hidden"}
             variants={panelVariants}
             transition={{ duration: 0.5 }}
-            style={{ boxShadow: "-2px -2px 3px 2px #0000003d" }}
+            style={{ boxShadow: "-1px -1px 3px 1px #00000040" }}
         >
-            <Grid stackable style={{ marginTop: 0, marginBottom: 0, /* backgroundColor: "#334a60" */ backgroundColor: "#334a60" }}>
+            <Grid stackable style={{ marginTop: 0, marginBottom: 0, marginLeft: 0, /* backgroundColor: "#334a60" */ /* backgroundColor: "#b8c8bd" */ backgroundColor: "#bfd5cb" }}>
 
                 <ContactGridRow>
                     <ContactHeadingTextDiv>
@@ -522,7 +571,7 @@ export const Contact: React.FunctionComponent<Props> = ({ }) => {
                                     .email("Invalid email address")
                                     .required("Required"),
                                 subject: Yup.string()
-                                    .max(30, "Must be 30 characters or less")
+                                    .max(50, "Must be 50 characters or less")
                                     .required("Required"),
                                 message: Yup.string()
                                     .max(400, "Must be 400 characters or less")
@@ -544,7 +593,7 @@ export const Contact: React.FunctionComponent<Props> = ({ }) => {
 
                             }}
                         >
-                            <Form style={{ backgroundColor: "#334a60", padding: "1rem", width: "80%", marginLeft: "1rem", marginRight: "auto" }}>
+                            <Form style={{ /* backgroundColor: "#b8c8bd" */ backgroundColor: "#bfd5cb", padding: "1rem", width: "80%", marginLeft: "1rem", marginRight: "auto" }}>
                                 <StyledFormGroup>
 
                                     <TextInput
@@ -578,9 +627,9 @@ export const Contact: React.FunctionComponent<Props> = ({ }) => {
                                     placeholder="Message"
                                 />
                                 <div ref={buttonRef}>
-                                    <ContactButton type="submit" /* onClick={handleSubmit} */ >
+                                    <ContactButton2 type="submit" /* onClick={handleSubmit} */ >
                                         Submit
-                                    </ContactButton>
+                                    </ContactButton2>
                                 </div>
                                 <Popup
                                     eventsEnabled={true}

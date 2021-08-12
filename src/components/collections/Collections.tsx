@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Segment, Container, Grid, Image, Icon, Visibility, VisibilityEventData, VisibilityCalculations, Ref, GridColumn } from 'semantic-ui-react'
+import {Container, Grid, Image } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 import { motion, useMotionValue, useTransform, useViewportScroll } from "framer-motion";
@@ -18,13 +18,7 @@ interface Props {
 
 }
 
-const HomeImage = styled(Image)`
-    /* height: 150px; */
-    margin-left: auto;
-    margin-right: auto;
-   /*  position: relative;
-    z-index: -1; */
-  `
+
 const CollectionsGridRow = styled(Grid.Row)`
 padding-bottom: 0px !important;
 padding-top: 0px !important;
@@ -100,7 +94,7 @@ export const Collections: React.FunctionComponent<Props> = ({ }) => {
 
     const panelVariants = {
         hidden: { x: "0px" },
-        visible: { x: "260px" },
+        visible: { x: "263px" },
         collectionsVisible: { x: "-100vw" },
     }
 
@@ -119,6 +113,11 @@ export const Collections: React.FunctionComponent<Props> = ({ }) => {
     React.useEffect(() => {
         x.set(collectionsPixelsPassed - 175 /* i.e. offset */)
     }, [collectionsPixelsPassed])
+
+    React.useEffect(()=> {
+        if(collectionsPixelsPassed >=400)
+        dispatch(navigationSlice.actions.setCurrentPageURL("#collections"))
+    },[collectionsPixelsPassed])
 
     const collectionsRef = React.createRef<HTMLDivElement>()
 
@@ -155,7 +154,7 @@ export const Collections: React.FunctionComponent<Props> = ({ }) => {
                 style={{ opacity, y }}
             >
                 <Container>
-                    <Grid stackable style={{ /* backgroundColor: "#334a60" */ backgroundColor: "white", marginTop: 0, marginBottom: 0 }}>
+                    <Grid stackable style={{ /* backgroundColor: "#334a60" */marginLeft: 0, backgroundColor: "white", marginTop: 0, marginBottom: 0 }}>
                         <CollectionsGridRow>
                             <CollectionsHeadingTextDiv>
                                 Our Collections:

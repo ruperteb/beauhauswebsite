@@ -20,7 +20,6 @@ import {
   Redirect
 } from "react-router-dom";
 
-import SidebarWrapper from './components/sidebarwrapper/SidebarWrapper';
 import Sidebar from './components/sidebar/Sidebar';
 import Header from './components/mainheader/MainHeader';
 import Home from './components/home/Home';
@@ -41,18 +40,6 @@ import {
 import { useAppSelector, useAppDispatch } from './redux/hooks'
 import { navigationSlice } from "../src/redux/slices/navigationSlice";
 
-import {
-  Button,
-  Checkbox,
-  Container,
-  Grid,
-  /* Header, */
-  Icon,
-  Image,
-  Menu,
-  Segment,
-
-} from 'semantic-ui-react'
 
 function App() {
 
@@ -62,7 +49,6 @@ function App() {
     error: itemError
   } = useQuery<Query>(GET_ITEMS);
 
-  console.log(itemData)
 
   const { logout, user } = useAuth0()
 

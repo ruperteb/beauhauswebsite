@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { createRef } from "react"
 
-import { Button, Segment, Container, Grid, Image, Icon, Visibility, VisibilityEventData, VisibilityCalculations, Ref, GridColumn } from 'semantic-ui-react'
+import {Container} from 'semantic-ui-react'
 
 import { Query, Item } from "../../schematypes/schematypes"
 import { useQuery } from '@apollo/client';
 
-import { GET_ITEMS, GET_SINGLE_ITEM } from "../../gql/gql"
+import { GET_ITEMS} from "../../gql/gql"
 
-import { useAppSelector, useAppDispatch } from '../../redux/hooks'
+import { useAppSelector} from '../../redux/hooks'
 
 import AntiquesListItem from "./AntiquesListItem"
 
@@ -30,9 +30,6 @@ export const AntiquesList: React.FunctionComponent<Props> = ({ /* propertyData, 
   } = useQuery<Query>(GET_ITEMS);
 
   const typeFilter = useAppSelector((state) => state.collections.typeFilter)
-
-  console.log(itemData)
-
 
   var antiquesList = itemData?.itemList
   /* var originalProperties = originalPropertyData!.properties! */

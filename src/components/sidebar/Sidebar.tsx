@@ -1,15 +1,4 @@
 import * as React from 'react';
-import {
-    Button,
-    Checkbox,
-    Grid,
-    Header,
-    Icon,
-    Image,
-    Menu,
-    Segment,
-    MenuItemProps
-} from 'semantic-ui-react'
 
 import {
     motion,
@@ -19,11 +8,12 @@ import {
 } from "framer-motion";
 
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
+import { navigationSlice } from '../../redux/slices/navigationSlice';
 
 import styled from 'styled-components'
 
 const StyledSidebarDiv = styled(motion.div)`
-    background-color: #334a60;
+    background-color: white;
     display: flex;
     position: fixed;
     top: 0;
@@ -32,12 +22,12 @@ const StyledSidebarDiv = styled(motion.div)`
     flex-direction: column;
     width: 260px;
     height: 100vh;
-    border: 1px solid rgba(34,36,38,.15);
+    /* border: 1px solid rgba(34,36,38,.15); */
     z-index: 2000;
     box-shadow: 1px 1px 3px 2px #0000003d;
   `
 const StyledMenuItem = styled(motion.div)`
-    background-color: #334a60;
+    /* background-color: #1e5c9738; */
     width: 250px;
     height: 58px;
     padding-top: 0.928571em;
@@ -56,13 +46,13 @@ const StyledMenuItem = styled(motion.div)`
 const StyledMenuHeading = styled(motion.h1)`
     font-family: "cinzel";
     font-size: 25px;
-    color: #afaba9;
+    color: #084b6d;
   `
 
 const StyledLineDiv = styled(motion.div)`
     height: 50px;
     width: 3px;
-    background-color: white;
+    background-color: #195777;
     position: absolute;
     left: 5px;
     top: 100px;
@@ -77,11 +67,41 @@ interface Props {
 export const Sidebar: React.FunctionComponent<Props> = ({ }) => {
 
     const showSidebar = useAppSelector((state) => state.navigation.showSidebar)
+    const homeHeight = useAppSelector((state) => state.navigation.homeHeight)
+    const aboutHeight = useAppSelector((state) => state.navigation.aboutHeight)
+    const collectionsHeight = useAppSelector((state) => state.navigation.collectionsHeight)
+
+    const currentPageURL = useAppSelector((state) => state.navigation.currentPageURL)
+
+    const dispatch = useAppDispatch()
+
+
+
+
+
+
 
     const [selectedItem, setSelectedItem] = React.useState<string | undefined>("home")
 
     const handleItemClick = (selection: string) => {
         setSelectedItem(selection)
+        /* dispatch(navigationSlice.actions.setCurrentPageURL(selection)) */
+        switch (selection) {
+            case "home":
+                window.scrollTo({ behavior: 'smooth', top: 0 })
+                break;
+            case "about":
+                window.scrollTo({ behavior: 'smooth', top: homeHeight + 25 })
+                break;
+            case "collections":
+                window.scrollTo({ behavior: 'smooth', top: homeHeight + aboutHeight + 25 })
+                break;
+            case "contact":
+                window.scrollTo({ behavior: 'smooth', top: homeHeight + aboutHeight + collectionsHeight + 100 })
+                break;
+            default:
+                window.scrollTo({ behavior: 'smooth', top: 0 })
+        }
 
     }
 
@@ -92,7 +112,7 @@ export const Sidebar: React.FunctionComponent<Props> = ({ }) => {
 
     const menuTextVariants = {
         selected: { color: "#ffffff" },
-        unselected: { color: "#ccaa66" },
+        unselected: { color: "#084b6d" },
 
     }
 
@@ -123,35 +143,38 @@ export const Sidebar: React.FunctionComponent<Props> = ({ }) => {
             animate={showSidebar ? "visible" : "hidden"}
             variants={panelVariants}
             transition={{ duration: 0.5 }}>
-        
-            <div style={{ width: "250px", height: "100px" }}></div>
-            <StyledMenuItem onClick={() => handleItemClick("home")}>
-                <StyledMenuHeading animate={selectedItem === "home" ? "selected" : "unselected"} variants={menuTextVariants} transition={{ duration: 0.6 }}>Home</StyledMenuHeading>
-                {/* <Icon name='home' /> */}
+            <div style={{ backgroundColor: "#1e5c9738", height: "100%", width: "100%" }}>
+                <div style={{ width: "250px", height: "100px", /* backgroundColor: "#1e5c9738" */ }}></div>
+                <StyledMenuItem onClick={() => handleItemClick("home")}>
+                    <StyledMenuHeading animate={selectedItem === "home" ? "selected" : "unselected"} variants={menuTextVariants} transition={{ duration: 0.6 }}>Home</StyledMenuHeading>
+                    {/* <Icon name='home' /> */}
 
 
-            </StyledMenuItem>
-            <StyledMenuItem onClick={() => handleItemClick("about")}>
-                {/* <Icon name='gamepad' /> */}
-                <StyledMenuHeading animate={selectedItem === "about" ? "selected" : "unselected"} variants={menuTextVariants} transition={{ duration: 0.6 }}>About</StyledMenuHeading>
+                </StyledMenuItem>
+                <StyledMenuItem onClick={() => handleItemClick("about")}>
+                    {/* <Icon name='gamepad' /> */}
+                    <StyledMenuHeading animate={selectedItem === "about" ? "selected" : "unselected"} variants={menuTextVariants} transition={{ duration: 0.6 }}>About</StyledMenuHeading>
 
-            </StyledMenuItem>
-            <StyledMenuItem onClick={() => handleItemClick("collections")}>
-                {/* <Icon name='camera' /> */}
-                <StyledMenuHeading animate={selectedItem === "collections" ? "selected" : "unselected"} variants={menuTextVariants} transition={{ duration: 0.6 }}>Collections</StyledMenuHeading>
+                </StyledMenuItem>
+                <StyledMenuItem onClick={() => handleItemClick("collections")}>
+                    {/* <Icon name='camera' /> */}
+                    <StyledMenuHeading animate={selectedItem === "collections" ? "selected" : "unselected"} variants={menuTextVariants} transition={{ duration: 0.6 }}>Collections</StyledMenuHeading>
 
-            </StyledMenuItem>
-            <StyledMenuItem onClick={() => handleItemClick("contact")}>
-                {/* <Icon name='camera' /> */}
-                <StyledMenuHeading animate={selectedItem === "contact" ? "selected" : "unselected"} variants={menuTextVariants} transition={{ duration: 0.6 }}>Contact</StyledMenuHeading>
+                </StyledMenuItem>
+                <StyledMenuItem onClick={() => handleItemClick("contact")}>
+                    {/* <Icon name='camera' /> */}
+                    <StyledMenuHeading animate={selectedItem === "contact" ? "selected" : "unselected"} variants={menuTextVariants} transition={{ duration: 0.6 }}>Contact</StyledMenuHeading>
 
-            </StyledMenuItem>
-            <StyledLineDiv
-                layout
-                animate={getLineVariant()}
-                /* variants={lineVariants} */
-                transition={{ duration: 0.5 }}
-            ></StyledLineDiv>
+                </StyledMenuItem>
+                <StyledLineDiv
+                    layout
+                    animate={getLineVariant()}
+                    /* variants={lineVariants} */
+                    transition={{ duration: 0.5 }}
+                ></StyledLineDiv>
+
+            </div>
+
 
         </StyledSidebarDiv>
 

@@ -12,6 +12,7 @@ export interface CollectionsState {
 
     selectedAntique: Item | null;
     showAntiqueModal: boolean;
+    showAntiqueEnquiryModal: boolean;
 
  
 }
@@ -24,6 +25,7 @@ const initialState: CollectionsState = {
 
     selectedAntique: null ,
     showAntiqueModal: false,
+    showAntiqueEnquiryModal: false,
  
 };
 
@@ -47,12 +49,15 @@ export const collectionsSlice = createSlice({
         setShowAntiqueModal: (state, action: PayloadAction<boolean>) => {
             state.showAntiqueModal = action.payload;
         },
+        setShowAntiqueEnquiryModal: (state, action: PayloadAction<boolean>) => {
+            state.showAntiqueEnquiryModal = action.payload;
+        },
 
     },
    
 });
 
-export const {setTypeFilter, setPriceLowFilter, setPriceHighFilter, setSelectedAntique, setShowAntiqueModal } = collectionsSlice.actions;
+export const {setTypeFilter, setPriceLowFilter, setPriceHighFilter, setSelectedAntique, setShowAntiqueModal, setShowAntiqueEnquiryModal } = collectionsSlice.actions;
 
 export const selectTypeFilter = (state: RootState) => state.collections.typeFilter;
 
@@ -63,6 +68,8 @@ export const selectPriceHighFilter = (state: RootState) => state.collections.pri
 export const selectSelectedAntique = (state: RootState) => state.collections.selectedAntique;
 
 export const selectShowAntiqueModal = (state: RootState) => state.collections.showAntiqueModal;
+
+export const selectShowAntiqueEnquiryModal = (state: RootState) => state.collections.showAntiqueEnquiryModal;
 
 
 export default collectionsSlice.reducer;

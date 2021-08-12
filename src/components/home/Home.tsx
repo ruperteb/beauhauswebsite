@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 import * as React from 'react';
-import { Button, Segment, Container, Grid, Image, Icon, Visibility, VisibilityEventData } from 'semantic-ui-react'
+import { Button, Grid, Image, Icon} from 'semantic-ui-react'
 import styled from 'styled-components'
 
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
-import { navigationSlice } from '../../redux/slices/navigationSlice';
+import { navigationSlice, selectHomePixelsPassed } from '../../redux/slices/navigationSlice';
 
 import Antiques from "../../assets/Antiques_home.jpg"
 
@@ -98,7 +98,13 @@ box-shadow: 0px 0px 2px 2px #0000001f !important;
 export const Home: React.FunctionComponent<Props> = ({ }) => {
 
     const showSidebar = useAppSelector((state) => state.navigation.showSidebar)
+    const homePixelsPassed = useAppSelector(selectHomePixelsPassed)
     const dispatch = useAppDispatch()
+
+    React.useEffect(()=> {
+        if(homePixelsPassed >=400)
+        dispatch(navigationSlice.actions.setCurrentPageURL("#home"))
+    },[homePixelsPassed])
 
     const panelVariants = {
         hidden: { x: "0px" },
@@ -121,9 +127,9 @@ export const Home: React.FunctionComponent<Props> = ({ }) => {
                 variants={panelVariants}
                 transition={{ duration: 0.5 }}
             >
-                <Grid stackable style={{ marginTop: "125px", marginBottom: 0, /* backgroundColor: "#334a60" */ backgroundColor: "#b8c8bd" }}>
+                <Grid stackable style={{ marginTop: "125px", marginLeft: 0, marginBottom: 0, /* backgroundColor: "#334a60" */ /* backgroundColor: "#b8c8bd" */ backgroundColor: "#bfd5cb" }}>
                     <HomeGridRow >
-                        <Grid.Column width={10}>
+                        <Grid.Column width={10} style={{paddingLeft: 0}}>
                             <HomeImage src={Antiques}></HomeImage>
                         </Grid.Column>
                         <Grid.Column style={{ display: "flex" }} width={6}>

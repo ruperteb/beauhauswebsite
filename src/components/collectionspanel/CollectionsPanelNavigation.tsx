@@ -17,7 +17,7 @@ import {
     useTransform
 } from "framer-motion";
 
-import { Button, Segment, Container, Grid, Image, Icon, Visibility, VisibilityEventData, VisibilityCalculations, Ref, GridColumn } from 'semantic-ui-react'
+import {Container, Grid, Icon} from 'semantic-ui-react'
 import styled from 'styled-components'
 
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
@@ -95,7 +95,7 @@ export const CollectionsPanelNavigation: React.FC<Props> = ({ /* exampleProp, */
 
     const typeFilter = useAppSelector((state) => state.collections.typeFilter)
     /* const currentPageURL = useAppSelector((state) => state.navigation.currentPageURL) */
-    const scrollY = useAppSelector((state) => state.navigation.scrollY)
+    
 
     const dispatch = useAppDispatch()
 
@@ -154,24 +154,6 @@ export const CollectionsPanelNavigation: React.FC<Props> = ({ /* exampleProp, */
         dispatch(collectionsSlice.actions.setTypeFilter(type))
         dispatch(navigationSlice.actions.setCurrentPageURL(`collections/#${type}`))
 
-        /* switch (type) {
-            case 0:
-                window.scrollTo({ behavior: 'smooth', top: 0 })
-                break;
-            case 1:
-                window.scrollTo({ behavior: 'smooth', top: aboutScrollDistance - 200 })
-                break;
-            case 2:
-                window.scrollTo({ behavior: 'smooth', top: significantScrollDistance - 250 })
-
-
-                break;
-            case 3:
-                window.scrollTo({ behavior: 'smooth', top: contactScrollDistance })
-                break;
-            default:
-                window.scrollTo({ behavior: 'smooth', top: 0 })
-        } */
     }
 
     const navLinkHoverStyles: CSSProperties = {

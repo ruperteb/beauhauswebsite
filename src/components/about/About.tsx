@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import * as React from 'react';
-import { Button, Segment, Container, Grid, Image, Icon, Visibility, VisibilityEventData, VisibilityCalculations, Ref } from 'semantic-ui-react'
+import { Grid, Image } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
@@ -56,7 +56,8 @@ color: #084b6d;
 
 const BlankDiv = styled(motion.div)`
 /* background-color: #334a60; */
-background-color: #b8c8bd;
+/* background-color: #b8c8bd; */
+background-color: #bfd5cb;
 width: 100%;
 height: 100%;
 position: absolute;
@@ -68,6 +69,7 @@ position: absolute;
 export const About: React.FunctionComponent<Props> = ({ }) => {
 
     const showSidebar = useAppSelector((state) => state.navigation.showSidebar)
+    const showCollectionsPanel = useAppSelector((state) => state.navigation.showCollectionsPanel)
     const aboutPixelsPassed = useAppSelector(selectAboutPixelsPassed)
 
     const dispatch = useAppDispatch()
@@ -75,6 +77,7 @@ export const About: React.FunctionComponent<Props> = ({ }) => {
     const panelVariants = {
         hidden: { x: "0px" },
         visible: { x: "260px" },
+        collectionsVisible: { x: "-100vw" },
     }
 
     const blankDivVariants = {
@@ -93,20 +96,34 @@ export const About: React.FunctionComponent<Props> = ({ }) => {
         } else return false
     }
 
+    React.useEffect(()=> {
+        if(aboutPixelsPassed >=400)
+        dispatch(navigationSlice.actions.setCurrentPageURL("#about"))
+    },[aboutPixelsPassed])
+
     const aboutRef = React.useRef<HTMLDivElement>(null)
 
       useResizeObserver(aboutRef, (entry) => {
             dispatch(navigationSlice.actions.setAboutHeight(entry.contentRect.height))
     });
 
+    const checkAnimationVariant = () => {
+        if (showCollectionsPanel === true) {
+            return "collectionsVisible"
+        } else if (showSidebar === true) {
+            return "visible"
+        } else return "hidden"
+
+    }
+
     return (
             <motion.div
                 ref={aboutRef}
-                animate={showSidebar ? "visible" : "hidden"}
+                animate={checkAnimationVariant()}
                 variants={panelVariants}
                 transition={{ duration: 0.5 }}
             >
-                <Grid stackable style={{ /* backgroundColor: "#334a60" */ backgroundColor: "#b8c8bd", marginTop: 0, marginBottom: 0 }}>
+                <Grid stackable style={{ /* backgroundColor: "#334a60" */ /* backgroundColor: "#b8c8bd" */marginLeft: 0, backgroundColor: "#bfd5cb", marginTop: 0, marginBottom: 0 }}>
                     <AboutGridRow >
                         <Grid.Column style={{ display: "flex" }} width={6}>
                             <AboutTextDiv>

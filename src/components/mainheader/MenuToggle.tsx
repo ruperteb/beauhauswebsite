@@ -67,7 +67,7 @@ export const MenuToggle: React.FunctionComponent<Props> = ({  }) => {
             animate={showSidebar ? "open" : "closed"}
         /* custom={height} */
         /* ref={containerRef} */
-        style={{display: "flex", margin: "auto", marginBottom: "1.5rem"}}
+        style={{display: "flex", margin: "auto"/* , marginBottom: "1.5rem" */}}
         >
             <StyledButton onClick={() => onMenuSelect()}>
                 <svg width="23" height="23" viewBox="0 0 23 23" style={{margin: "auto"}}>
