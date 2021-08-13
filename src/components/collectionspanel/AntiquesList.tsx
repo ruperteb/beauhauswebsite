@@ -30,6 +30,7 @@ export const AntiquesList: React.FunctionComponent<Props> = ({ /* propertyData, 
   } = useQuery<Query>(GET_ITEMS);
 
   const typeFilter = useAppSelector((state) => state.collections.typeFilter)
+  const search = useAppSelector((state) => state.collections.search)
 
   var antiquesList = itemData?.itemList
   /* var originalProperties = originalPropertyData!.properties! */
@@ -50,6 +51,10 @@ export const AntiquesList: React.FunctionComponent<Props> = ({ /* propertyData, 
   }
 
   const filteredAntiques = antiquesList?.filter(filterFunction);
+
+  const searchSortedProperties = filteredAntiques?.filter(antique => {
+    return antique?.name.toLowerCase().includes(search!.toLowerCase())
+  })
 
   /* const searchSortedProperties = filteredProperties?.filter(property => {
     if (property !== null && property !== undefined) {
@@ -80,7 +85,7 @@ export const AntiquesList: React.FunctionComponent<Props> = ({ /* propertyData, 
       
 
           <FlipMove enterAnimation={"elevator"} /* onFinish={forceCheck} */ style={flipMoveStyles}>
-            {filteredAntiques?.map(antique => {
+            {searchSortedProperties?.map(antique => {
               return (
 
 

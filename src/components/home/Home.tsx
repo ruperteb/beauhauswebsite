@@ -1,14 +1,20 @@
 import { motion } from 'framer-motion';
 import * as React from 'react';
-import { Button, Grid, Image, Icon} from 'semantic-ui-react'
+import { Button, Grid, Image, Icon } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
 import { navigationSlice, selectHomePixelsPassed } from '../../redux/slices/navigationSlice';
 
-import Antiques from "../../assets/Antiques_home.jpg"
 
 import useResizeObserver from "@react-hook/resize-observer";
+
+import { AdvancedImage, lazyload } from '@cloudinary/react';
+import { Cloudinary } from "@cloudinary/base";
+import { fill } from "@cloudinary/base/actions/resize";
+import { format, quality } from "@cloudinary/base/actions/delivery";
+import { auto } from "@cloudinary/base/qualifiers/format";
+import { auto as qAuto } from "@cloudinary/base/qualifiers/quality";
 
 interface Props {
 
@@ -36,10 +42,10 @@ margin-left: 10%;
 margin-right: 10%;
 margin-top: auto !important;
 margin-bottom: 60px;
-font-family: "cinzel";
+font-family: ${props => props.theme.primaryTextFont};
 font-size: 36px;
 /* color: #ccaa66; */
-color: #084b6d;
+color: ${props => props.theme.primaryTextColor};
 /* text-shadow: 1px 1px 1px black; */
 text-shadow: 1px 1px 1px #eadede;
 
@@ -50,10 +56,10 @@ margin-left: 20%;
 margin-right: 20%;
 margin-top: 0px;
 margin-bottom: 60px;
-font-family: sans-serif;
+font-family: ${props => props.theme.secondaryTextFont};
 font-size: 16px;
 /* color: white; */
-color: #084b6d;
+color: ${props => props.theme.primaryTextColor};
 `
 
 const HomeButton = styled(Button)`
@@ -69,29 +75,33 @@ padding-right: 2em !important;
 
 font-family: sans-serif;
 font-size: 16px;
-/* color: white  !important; */
-color: #084b6d  !important;
+color: ${props => props.theme.primaryButtonTextColor}  !important;
 display:flex;
 width: fit-content;
 border-style: solid  !important;
-border-width: 2px  !important;
-/* border-color: #a29064  !important; */
-border-color: #084b6d  !important;
-background-color: transparent  !important;
+border-width: ${props => props.theme.buttonBorderWidth}  !important;
+border-color: ${props => props.theme.buttonBorderColor}  !important;
+background-color: ${props => props.theme.primaryButtonBackgroundColor}  !important;
 -webkit-transition: color 200ms ease, background-color 200ms ease  !important;
 transition: color 200ms ease, background-color 200ms ease  !important;
 border-radius: 0 !important;
-box-shadow: 0px 0px 2px 2px #0000001f !important;
+box-shadow: ${props => props.theme.buttonBoxShadow} !important;
 &:hover {
-color: white !important;
-/* color: white !important;
-background-color: #a29064 !important;
-border-color: #a29064 !important;
-box-shadow: -1px 1px 1px 2px #0000001f !important; */
-background-color: #084b6d !important;
-border-color: #084b6d !important;
-box-shadow: 0px 0px 2px 2px #0000001f !important;
+color: ${props => props.theme.secondaryButtonTextColor} !important;
+background-color: ${props => props.theme.secondaryButtonBackgroundColor} !important;
+border-color: ${props => props.theme.buttonBorderColor} !important;
+box-shadow: ${props => props.theme.buttonBoxShadow} !important;
   }
+`
+
+const StyledGrid = styled(Grid)`
+    &&&&& {
+    margin-top: 125px;
+    margin-left: 0;
+    margin-bottom: 0;
+    /* backgroundColor: "#334a60" */ /* backgroundColor: "#b8c8bd" */ 
+    background-color: ${props => props.theme.primaryColor};
+}
 `
 
 
@@ -101,10 +111,10 @@ export const Home: React.FunctionComponent<Props> = ({ }) => {
     const homePixelsPassed = useAppSelector(selectHomePixelsPassed)
     const dispatch = useAppDispatch()
 
-    React.useEffect(()=> {
-        if(homePixelsPassed >=400)
-        dispatch(navigationSlice.actions.setCurrentPageURL("#home"))
-    },[homePixelsPassed])
+    React.useEffect(() => {
+        if (homePixelsPassed >= 400)
+            dispatch(navigationSlice.actions.setCurrentPageURL("#home"))
+    }, [homePixelsPassed])
 
     const panelVariants = {
         hidden: { x: "0px" },
@@ -114,45 +124,75 @@ export const Home: React.FunctionComponent<Props> = ({ }) => {
 
     const homeRef = React.useRef<HTMLDivElement>(null)
 
-      useResizeObserver(homeRef, (entry) => {
+    useResizeObserver(homeRef, (entry) => {
         dispatch(navigationSlice.actions.setHomeHeight(entry.contentRect.height))
     });
 
-     
-    return (
-        
-            <motion.div
-                ref={homeRef}
-                animate={showSidebar ? "visible" : "hidden"}
-                variants={panelVariants}
-                transition={{ duration: 0.5 }}
-            >
-                <Grid stackable style={{ marginTop: "125px", marginLeft: 0, marginBottom: 0, /* backgroundColor: "#334a60" */ /* backgroundColor: "#b8c8bd" */ backgroundColor: "#bfd5cb" }}>
-                    <HomeGridRow >
-                        <Grid.Column width={10} style={{paddingLeft: 0}}>
-                            <HomeImage src={Antiques}></HomeImage>
-                        </Grid.Column>
-                        <Grid.Column style={{ display: "flex" }} width={6}>
-                            <HomeTextDiv>
-                                <HomeHeadingTextDiv>
-                                    Purveyors of antique furniture, art and vintage collectibles.
-                                </HomeHeadingTextDiv>
-                                <HomeSubHeadingTextDiv>
-                                    Our curated selection of items covers a range of styles, periods and areas of interest:
-                                </HomeSubHeadingTextDiv>
-                                <HomeButton animated>
-                                    <Button.Content visible style={{ marginRight: 0, fontSize: "1.2rem" /* textShadow: "1px 1px 1px black" */ }}>Collections</Button.Content>
-                                    <Button.Content hidden>
-                                        <Icon name='arrow right' style={{ textShadow: "1px 1px 1px black" }} />
-                                    </Button.Content>
-                                </HomeButton>
-                            </HomeTextDiv>
 
-                        </Grid.Column>
-                    </HomeGridRow>
-                </Grid>
-            </motion.div>
-       
+    const cld = new Cloudinary({
+        cloud: {
+            cloudName: process.env.REACT_APP_CLOUD_NAME
+        }
+    });
+
+
+
+    // cld.image returns a CloudinaryImage with the configuration set.
+    const homeImage = cld.image("Antiques_home_srmuhc");
+
+    var imageHeight = window.innerHeight - 125
+
+    homeImage.resize(fill()/* .width(675) */.height(imageHeight)).delivery(format(auto()))
+        .delivery(quality(qAuto()));
+
+    const homeHeight = useAppSelector((state) => state.navigation.homeHeight)
+    const aboutHeight = useAppSelector((state) => state.navigation.aboutHeight)
+
+
+    const handleLinkClick = (selection: string) => {
+
+        window.scrollTo({ behavior: 'smooth', top: homeHeight + aboutHeight + 25 })
+
+    }
+
+
+
+    return (
+
+        <motion.div
+            style={{ width: "100vw" }}
+            ref={homeRef}
+            animate={showSidebar ? "visible" : "hidden"}
+            variants={panelVariants}
+            transition={{ duration: 0.5 }}
+        >
+            <StyledGrid stackable>
+                <HomeGridRow >
+                    <Grid.Column width={10} style={{ paddingLeft: 0 }}>
+                        {/* <HomeImage src={Antiques}></HomeImage> */}
+                        <AdvancedImage style={{ display: "flex" }} cldImg={homeImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
+                    </Grid.Column>
+                    <Grid.Column style={{ display: "flex" }} width={6}>
+                        <HomeTextDiv>
+                            <HomeHeadingTextDiv>
+                                Purveyors of antique furniture, art and vintage collectibles.
+                            </HomeHeadingTextDiv>
+                            <HomeSubHeadingTextDiv>
+                                Our curated selection of items covers a range of styles, periods and areas of interest:
+                            </HomeSubHeadingTextDiv>
+                            <HomeButton onClick={handleLinkClick} animated>
+                                <Button.Content visible style={{ marginRight: 0, fontSize: "1.2rem" /* textShadow: "1px 1px 1px black" */ }}>Collections</Button.Content>
+                                <Button.Content hidden>
+                                    <Icon name='arrow right' style={{ textShadow: "1px 1px 1px black" }} />
+                                </Button.Content>
+                            </HomeButton>
+                        </HomeTextDiv>
+
+                    </Grid.Column>
+                </HomeGridRow>
+            </StyledGrid>
+        </motion.div>
+
 
 
     );

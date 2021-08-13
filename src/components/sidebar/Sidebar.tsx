@@ -26,6 +26,13 @@ const StyledSidebarDiv = styled(motion.div)`
     z-index: 2000;
     box-shadow: 1px 1px 3px 2px #0000003d;
   `
+const StyledSidebarInnerDiv = styled.div`
+    background-color: ${props => props.theme.secondaryColor};
+    height: 100%;
+    width: 100%;
+    height: 100vh;
+`
+
 const StyledMenuItem = styled(motion.div)`
     /* background-color: #1e5c9738; */
     width: 250px;
@@ -44,9 +51,10 @@ const StyledMenuItem = styled(motion.div)`
 `
 
 const StyledMenuHeading = styled(motion.h1)`
-    font-family: "cinzel";
+    font-family: ${props => props.theme.primaryTextFont};
     font-size: 25px;
-    color: #084b6d;
+    color: ${props => props.theme.primaryTextColor};
+    letter-spacing: 2px;
   `
 
 const StyledLineDiv = styled(motion.div)`
@@ -143,7 +151,7 @@ export const Sidebar: React.FunctionComponent<Props> = ({ }) => {
             animate={showSidebar ? "visible" : "hidden"}
             variants={panelVariants}
             transition={{ duration: 0.5 }}>
-            <div style={{ backgroundColor: "#1e5c9738", height: "100%", width: "100%" }}>
+            <StyledSidebarInnerDiv>
                 <div style={{ width: "250px", height: "100px", /* backgroundColor: "#1e5c9738" */ }}></div>
                 <StyledMenuItem onClick={() => handleItemClick("home")}>
                     <StyledMenuHeading animate={selectedItem === "home" ? "selected" : "unselected"} variants={menuTextVariants} transition={{ duration: 0.6 }}>Home</StyledMenuHeading>
@@ -173,7 +181,7 @@ export const Sidebar: React.FunctionComponent<Props> = ({ }) => {
                     transition={{ duration: 0.5 }}
                 ></StyledLineDiv>
 
-            </div>
+            </StyledSidebarInnerDiv>
 
 
         </StyledSidebarDiv>

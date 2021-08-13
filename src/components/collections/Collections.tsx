@@ -9,10 +9,12 @@ import { useAppSelector, useAppDispatch } from '../../redux/hooks'
 import { navigationSlice, selectCollectionsPixelsPassed, selectAboutPixelsPassed } from '../../redux/slices/navigationSlice';
 import { collectionsSlice } from '../../redux/slices/collectionsSlice';
 
-import Furniture from "../../assets/Antiques_furniture.jpg"
-import Art from "../../assets/Antiques_art.jpg"
-import Lighting from "../../assets/Antiques_lighting.jpg"
-import Collectibles from "../../assets/Antiques_collectibles.jpg"
+import { AdvancedImage, lazyload } from '@cloudinary/react';
+import { Cloudinary } from "@cloudinary/base";
+import { fill } from "@cloudinary/base/actions/resize";
+import {format, quality} from "@cloudinary/base/actions/delivery";
+import {auto} from "@cloudinary/base/qualifiers/format";
+import {auto as qAuto} from "@cloudinary/base/qualifiers/quality";
 
 interface Props {
 
@@ -29,11 +31,11 @@ margin-left: auto;
 margin-right: auto;
 margin-top: 2em !important;
 margin-bottom: 1em !important;
-font-family: "cinzel";
+font-family: ${props => props.theme.primaryTextFont};
 font-size: 36px;
 /* color: #ccaa66;
 text-shadow: 1px 1px 1px black; */
-color: #084b6d;
+color: ${props => props.theme.primaryTextColor};
 text-shadow: 1px 1px 1px #eadede;
 `
 
@@ -67,12 +69,22 @@ margin-left: auto;
 margin-right: auto;
 margin-top: 2rem;
 margin-bottom: 1rem;
-font-family: "cinzel";
+font-family: ${props => props.theme.primaryTextFont};
 font-size: 36px;
 /* color: #ccaa66;
 text-shadow: 1px 1px 1px black; */
-color: #084b6d;
+color: ${props => props.theme.primaryTextColor};
 text-shadow: 1px 1px 1px #eadede;
+`
+
+const StyledGrid = styled(Grid)`
+    &&&&& {
+    margin-top: 0;
+    margin-left: 0;
+    margin-bottom: 0;
+    /* backgroundColor: "#334a60" */ /* backgroundColor: "#b8c8bd" */ 
+    background-color: ${props => props.theme.tertiaryColor};
+}
 `
 
 
@@ -142,6 +154,32 @@ export const Collections: React.FunctionComponent<Props> = ({ }) => {
 
     }
 
+    const cld = new Cloudinary({
+        cloud: {
+            cloudName: process.env.REACT_APP_CLOUD_NAME
+        }
+    });
+
+
+    const furnitureImage = cld.image("Antiques_furniture_okpb1m");
+    const artImage = cld.image("Antiques_art_cqy3cl");
+    const lightingImage = cld.image("Antiques_lighting_dwpoja");
+    const collectiblesImage = cld.image("Antiques_collectibles_skr3yx");
+
+    var imageHeight = "300px"
+
+    furnitureImage.resize(fill().width(450).height(300)).delivery(format(auto()))
+    .delivery(quality(qAuto()));
+
+    artImage.resize(fill().width(450).height(300)).delivery(format(auto()))
+    .delivery(quality(qAuto()));
+
+    lightingImage.resize(fill().width(450).height(300)).delivery(format(auto()))
+    .delivery(quality(qAuto()));
+
+    collectiblesImage.resize(fill().width(450).height(300)).delivery(format(auto()))
+    .delivery(quality(qAuto()));
+
     return (
         <motion.div
             ref={collectionsRef}
@@ -154,24 +192,24 @@ export const Collections: React.FunctionComponent<Props> = ({ }) => {
                 style={{ opacity, y }}
             >
                 <Container>
-                    <Grid stackable style={{ /* backgroundColor: "#334a60" */marginLeft: 0, backgroundColor: "white", marginTop: 0, marginBottom: 0 }}>
+                    <StyledGrid stackable>
                         <CollectionsGridRow>
                             <CollectionsHeadingTextDiv>
-                                Our Collections:
+                                Our Collections
                             </CollectionsHeadingTextDiv>
                         </CollectionsGridRow>
-                        <CollectionsGridRow >
+                        <CollectionsGridRow  >
 
                             <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
                                 <CollectionstCardDiv onClick={() => handleCardClick("furniture")}>
-                                    <CollectionstCardImage src={Furniture}></CollectionstCardImage>
+                                <AdvancedImage style={{display: "flex", height: imageHeight}} cldImg={furnitureImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
                                     <CollectionsCardSubHeading>Furniture</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>
 
                             </Grid.Column>
                             <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
                                 <CollectionstCardDiv onClick={() => handleCardClick("art")}>
-                                    <CollectionstCardImage src={Art}></CollectionstCardImage>
+                                <AdvancedImage style={{display: "flex", height: imageHeight}} cldImg={artImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
                                     <CollectionsCardSubHeading>Art</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>
                             </Grid.Column>
@@ -181,19 +219,19 @@ export const Collections: React.FunctionComponent<Props> = ({ }) => {
 
                             <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
                                 <CollectionstCardDiv onClick={() => handleCardClick("lighting")}>
-                                    <CollectionstCardImage src={Lighting}></CollectionstCardImage>
+                                <AdvancedImage style={{display: "flex", height: imageHeight}} cldImg={lightingImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
                                     <CollectionsCardSubHeading>Lighting</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>
                             </Grid.Column>
                             <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
                                 <CollectionstCardDiv onClick={() => handleCardClick("collectibles")}>
-                                    <CollectionstCardImage src={Collectibles}></CollectionstCardImage>
+                                <AdvancedImage style={{display: "flex", height: imageHeight }} cldImg={collectiblesImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
                                     <CollectionsCardSubHeading>Collectibles</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>
                             </Grid.Column>
 
                         </CollectionsGridRow>
-                    </Grid>
+                    </StyledGrid>
 
                 </Container>
             </motion.div>

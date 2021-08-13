@@ -7,6 +7,7 @@ import { Item } from "../../schematypes/schematypes"
 export interface CollectionsState {
 
     typeFilter: string;
+    search: string | undefined;
     priceLowFilter: number;
     priceHighFilter: number;
 
@@ -20,6 +21,7 @@ export interface CollectionsState {
 const initialState: CollectionsState = {
 
     typeFilter: "",
+    search: "",
     priceLowFilter: 0,
     priceHighFilter: 0,
 
@@ -36,6 +38,9 @@ export const collectionsSlice = createSlice({
     reducers: {
         setTypeFilter: (state, action: PayloadAction<string>) => {
             state.typeFilter = action.payload;
+        },
+        setSearch: (state, action: PayloadAction<string|undefined>) => {
+            state.search = action.payload;
         },
         setPriceLowFilter: (state, action: PayloadAction<number>) => {
             state.priceLowFilter = action.payload; 
@@ -57,9 +62,11 @@ export const collectionsSlice = createSlice({
    
 });
 
-export const {setTypeFilter, setPriceLowFilter, setPriceHighFilter, setSelectedAntique, setShowAntiqueModal, setShowAntiqueEnquiryModal } = collectionsSlice.actions;
+export const {setTypeFilter, setSearch, setPriceLowFilter, setPriceHighFilter, setSelectedAntique, setShowAntiqueModal, setShowAntiqueEnquiryModal } = collectionsSlice.actions;
 
 export const selectTypeFilter = (state: RootState) => state.collections.typeFilter;
+
+export const selectSearch = (state: RootState) => state.collections.search;
 
 export const selectPriceLowFilter = (state: RootState) => state.collections.priceLowFilter;
 

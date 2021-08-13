@@ -17,7 +17,10 @@ import {
     useTransform
 } from "framer-motion";
 
-import {Container, Grid, Icon} from 'semantic-ui-react'
+import { Container, Grid, Icon, Search, SearchProps } from 'semantic-ui-react'
+
+import _ from 'lodash'
+
 import styled from 'styled-components'
 
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
@@ -47,9 +50,9 @@ const NavLinkDiv = styled.div`
     line-height: 20;
 `
 const NavLink = styled(Link)`
-    font-family: Abel, sans-serif;
+    font-family: ${props => props.theme.primaryTextFont};
     text-decoration: none;
-    font-weight: 100;
+    /* font-weight: 100; */
     text-transform: uppercase;
     font-size: 14px;
     letter-spacing: 2px;
@@ -73,17 +76,34 @@ const NavLinkUnderline = styled(motion.div)`
 
 const StyledBackIcon = styled(Icon)`
    &&&&&& {
-    color: #fff!important; 
-    background-color: #00b5ad!important;
+    color: black !important; 
+    background-color: transparent !important;
     transition: all 0.3s ease;
     cursor: pointer;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin: auto;
    } 
    &&&&&&:hover {
-    color: #00b5ad!important; 
-    background-color: #fff!important;
+    color: white !important; 
+    /* background-color: #fff!important; */
     transform: scale(1.2);
     
    }
+`
+
+const StyledContainer = styled(Container)`
+    &&&&& {
+        background-color: ${props => props.theme.primaryColor};
+        height: fit-content; 
+        box-shadow: -1px 1px 3px 1px #00000057;
+}
+`
+
+const StyledGrid = styled(Grid)`
+    &&&&& {
+    margin: 0; 
+}
 `
 
 
@@ -95,7 +115,7 @@ export const CollectionsPanelNavigation: React.FC<Props> = ({ /* exampleProp, */
 
     const typeFilter = useAppSelector((state) => state.collections.typeFilter)
     /* const currentPageURL = useAppSelector((state) => state.navigation.currentPageURL) */
-    
+
 
     const dispatch = useAppDispatch()
 
@@ -163,24 +183,33 @@ export const CollectionsPanelNavigation: React.FC<Props> = ({ /* exampleProp, */
     }
 
     const handleBackClick = () => {
-        
+
         dispatch(navigationSlice.actions.setCollectionsPanelVisibility(false))
         document.body.style.overflowY = "visible"
+    }
+
+    const [search, setSearch] = React.useState<string | undefined>()
+
+    const handleSearchChange = (event: React.MouseEvent<HTMLElement, MouseEvent>, data: SearchProps) => {
+        setSearch(data.value)
+        dispatch(collectionsSlice.actions.setSearch(data.value))
+
+
     }
 
 
 
     return (
-        <Container fluid style={{ backgroundColor: "#bfd5cb", height: "fit-content", boxShadow: "-1px 1px 3px 1px #00000057" }}>
-            <Grid style={{ margin: 0 }}>
+        <StyledContainer fluid >
+            <StyledGrid style={{ margin: 0 }}>
                 <Grid.Row>
-                    <FlexGridColumn width={2}>
-                       
+                    <FlexGridColumn width={1}>
+
                     </FlexGridColumn>
                     <FlexGridColumn width={2}>
-                        <StyledBackIcon size='large' circular inverted color='teal' name='reply' onClick={handleBackClick} />
+                        <StyledBackIcon size='large' name='chevron left' onClick={handleBackClick} />
                     </FlexGridColumn>
-                    <FlexGridColumn width={8}>
+                    <FlexGridColumn width={9}>
                         <NavLinkDivContainer>
                             <NavLinkDiv onMouseEnter={() => setNavLinkHover1(true)} onMouseLeave={() => setNavLinkHover1(false)}>
                                 <NavLink style={typeFilter === "furniture" ? navLinkHoverStyles : {}} to={`/collections/#furniture`} onClick={() => navLinkClick("furniture")}>Furniture</NavLink>
@@ -207,12 +236,23 @@ export const CollectionsPanelNavigation: React.FC<Props> = ({ /* exampleProp, */
                     </FlexGridColumn>
 
                     <FlexGridColumn width={2}>
-
+                        <Search
+                            style={{ margin: "auto" }}
+                            showNoResults={false}
+                            input={{ icon: 'search', iconPosition: 'left' }}
+                            /* loading={isLoading}
+                            onResultSelect={this.handleResultSelect} */
+                            onSearchChange={_.debounce(handleSearchChange, 500, {
+                                leading: true,
+                            })}
+                            /* results={results} */
+                            value={search}
+                        />
                     </FlexGridColumn>
                 </Grid.Row>
-            </Grid>
+            </StyledGrid>
 
-        </Container>
+        </StyledContainer>
     );
 };
 

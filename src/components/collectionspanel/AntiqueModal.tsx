@@ -266,7 +266,7 @@ position: absolute;
   border-top: 10px solid #f3dfdf;
   border-bottom: 10px solid transparent;
   right: 50%;
-  bottom: -18px;
+  bottom: -18.75px;
     }
 `
 
@@ -447,6 +447,12 @@ export const AntiqueModal: React.FunctionComponent<Props> = ({ }) => {
         );
     };
 
+    const checkAllDimensions =() => {
+        if (selectedAntique?.length && selectedAntique.width && selectedAntique.height) {
+            return true
+        } else return false
+    }
+
     return (
         <StyledModal
             style={{ left: "auto !!important" }}
@@ -473,10 +479,10 @@ export const AntiqueModal: React.FunctionComponent<Props> = ({ }) => {
                 <DescriptionContainer>
                     <DescriptionText style={{ margin: "1rem" }}>{selectedAntique?.description}</DescriptionText>
                     <DimensionsContainer >
-                        <DescriptionTextDimensionsSubHeading>Dimensions:</DescriptionTextDimensionsSubHeading>
-                        <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Length:   ${selectedAntique?.length}cm`}</DescriptionText>
-                        <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Width:   ${selectedAntique?.width}cm`}</DescriptionText>
-                        <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Height:   ${selectedAntique?.height}cm`}</DescriptionText>
+                        {checkAllDimensions() ? <DescriptionTextDimensionsSubHeading>Dimensions:</DescriptionTextDimensionsSubHeading>: <div></div>}
+                        {selectedAntique?.length !== null ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Length:   ${selectedAntique?.length}cm`}</DescriptionText>: <div></div>}
+                        {selectedAntique?.length !== null ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Width:   ${selectedAntique?.width}cm`}</DescriptionText>: <div></div>}
+                        {selectedAntique?.length !== null ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Height:   ${selectedAntique?.height}cm`}</DescriptionText>: <div></div>}
                     </DimensionsContainer>
                     <DescriptionTextPriceSubHeading>{`Price:  £${selectedAntique?.price}.00`}</DescriptionTextPriceSubHeading>
                     <EnquiryButton onClick={() => dispatch(collectionsSlice.actions.setShowAntiqueEnquiryModal(true))}>Enquire</EnquiryButton>
@@ -490,7 +496,7 @@ export const AntiqueModal: React.FunctionComponent<Props> = ({ }) => {
                 size='small'
             >
                 <StyledModalHeader>
-                    <StyledModalHeaderText style={{fontSize: "1.1rem"}}>
+                    <StyledModalHeaderText style={{fontSize: "1.3rem"}}>
                         {`Enquiry: ${selectedAntique?.name}`}
                     </StyledModalHeaderText>
                     <StyledModalHeaderIcon link name='close' onClick={() => dispatch(collectionsSlice.actions.setShowAntiqueEnquiryModal(false))} />

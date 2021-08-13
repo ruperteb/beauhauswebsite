@@ -50,11 +50,11 @@ flex-direction: column;
 `
 const ContactDetailsHeading = styled.h1`
 display: flex;
-color: black;
+color: ${props => props.theme.secondaryTextColor};
 margin-bottom: 0.5rem;
 margin-left: 1rem;
 margin-right: auto;
-font-family: "Montserrat", sans-serif;
+font-family: ${props => props.theme.tertiaryTextFont};
 font-size: 1.3rem;
 font-weight: 500;
 /* text-shadow: 1px 1px 1px black; */
@@ -66,7 +66,7 @@ color:#4183c4;
 margin-bottom: 0.5rem;
 margin-left: 1rem;
 margin-right: auto;
-font-family: "Montserrat", sans-serif;
+font-family: ${props => props.theme.tertiaryTextFont};
 /* font-size: 1.3rem; */
 font-weight: 500;
 text-align: left;
@@ -78,10 +78,10 @@ margin-left: auto;
 margin-right: auto;
 margin-top: 2em !important;
 margin-bottom: 1em !important;
-font-family: 'Bodoni Moda', serif;
+font-family: ${props => props.theme.primaryTextFont};
 text-transform: uppercase;
 font-size: 36px;
-color: #084b6d;
+color: ${props => props.theme.primaryTextColor};
 /* text-shadow: 1px 1px 1px black; */
 /* color: #084b6d; */
 /* text-shadow: 1px 1px 1px #eadede; */
@@ -141,28 +141,22 @@ padding-right: 2em !important;
 
 font-family: sans-serif;
 font-size: 16px;
-/* color: white  !important; */
-color: #084b6d  !important;
+color: ${props => props.theme.primaryButtonTextColor}  !important;
 display:flex;
 width: fit-content;
 border-style: solid  !important;
-border-width: 2px  !important;
-/* border-color: #a29064  !important; */
-border-color: #084b6d  !important;
-background-color: transparent  !important;
+border-width: ${props => props.theme.buttonBorderWidth}  !important;
+border-color: ${props => props.theme.buttonBorderColor}  !important;
+background-color: ${props => props.theme.primaryButtonBackgroundColor}  !important;
 -webkit-transition: color 200ms ease, background-color 200ms ease  !important;
 transition: color 200ms ease, background-color 200ms ease  !important;
 border-radius: 0 !important;
-box-shadow: 0px 0px 2px 2px #0000001f !important;
+box-shadow: ${props => props.theme.buttonBoxShadow} !important;
 &:hover {
-color: white !important;
-/* color: white !important;
-background-color: #a29064 !important;
-border-color: #a29064 !important;
-box-shadow: -1px 1px 1px 2px #0000001f !important; */
-background-color: #084b6d !important;
-border-color: #084b6d !important;
-box-shadow: 0px 0px 2px 2px #0000001f !important;
+color: ${props => props.theme.secondaryButtonTextColor} !important;
+background-color: ${props => props.theme.secondaryButtonBackgroundColor} !important;
+border-color: ${props => props.theme.buttonBorderColor} !important;
+box-shadow: ${props => props.theme.buttonBoxShadow} !important;
   }
 `
 
@@ -188,7 +182,7 @@ color: black;
 margin-bottom: 0.5rem;
 margin-left: 1rem;
 margin-right: auto;
-font-family: "Montserrat", sans-serif;
+font-family: ${props => props.theme.tertiaryTextFont};
 font-size: 1.3rem;
 font-weight: 500;
 /* text-shadow: 1px 1px 1px black; */
@@ -268,7 +262,7 @@ position: absolute;
   border-top: 10px solid #f3dfdf;
   border-bottom: 10px solid transparent;
   right: 50%;
-  bottom: -18px;
+  bottom: -18.75px;
     }
 `
 
@@ -294,6 +288,16 @@ box-shadow: rgb(0 0 0 / 24%) 1px 1px 3px 2px;
 
 const MapMarker = styled(motion.img)`
 height: 500px;
+`
+
+const StyledGrid = styled(Grid)`
+    &&&&& {
+    margin-top: 0;
+    margin-left: 0;
+    margin-bottom: 0;
+    /* backgroundColor: "#334a60" */ /* backgroundColor: "#b8c8bd" */ 
+    background-color: ${props => props.theme.primaryColor};
+}
 `
 
 
@@ -346,7 +350,8 @@ export const Contact: React.FunctionComponent<Props> = ({ }) => {
                 center: [-1.5862674555619845, 52.28327425698424],
 
                 zoom: 15,
-                style: 'mapbox://styles/mapbox/navigation-night-v1',
+                /* style: 'mapbox://styles/mapbox/navigation-night-v1', */
+                style: 'mapbox://styles/mapbox/dark-v10',
             })
         }
     }, [])
@@ -484,12 +489,12 @@ export const Contact: React.FunctionComponent<Props> = ({ }) => {
 
         <motion.div
             ref={contactRef}
-            animate={showSidebar ? "visible" : "hidden"}
+            animate={checkAnimationVariant()}
             variants={panelVariants}
             transition={{ duration: 0.5 }}
             style={{ boxShadow: "-1px -1px 3px 1px #00000040" }}
         >
-            <Grid stackable style={{ marginTop: 0, marginBottom: 0, marginLeft: 0, /* backgroundColor: "#334a60" */ /* backgroundColor: "#b8c8bd" */ backgroundColor: "#bfd5cb" }}>
+            <StyledGrid stackable>
 
                 <ContactGridRow>
                     <ContactHeadingTextDiv>
@@ -593,7 +598,7 @@ export const Contact: React.FunctionComponent<Props> = ({ }) => {
 
                             }}
                         >
-                            <Form style={{ /* backgroundColor: "#b8c8bd" */ backgroundColor: "#bfd5cb", padding: "1rem", width: "80%", marginLeft: "1rem", marginRight: "auto" }}>
+                            <Form style={{ /* backgroundColor: "#b8c8bd" */ backgroundColor: "#bfd5cb", padding: "1rem", width: "80%", marginLeft: "3rem", marginRight: "auto" }}>
                                 <StyledFormGroup>
 
                                     <TextInput
@@ -647,7 +652,7 @@ export const Contact: React.FunctionComponent<Props> = ({ }) => {
 
                     </Grid.Column>
                 </ContactGridRow>
-            </Grid>
+            </StyledGrid>
 
         </motion.div>
 

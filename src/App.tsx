@@ -39,6 +39,7 @@ import {
 
 import { useAppSelector, useAppDispatch } from './redux/hooks'
 import { navigationSlice } from "../src/redux/slices/navigationSlice";
+import { ThemeProvider } from 'styled-components';
 
 
 function App() {
@@ -80,11 +81,34 @@ function App() {
   }, [])
 
 
+  const theme = {
+    primaryColor: "#bfd5cb",
+    secondaryColor: "#1e5c9738",
+    tertiaryColor: "white",
+
+    primaryTextColor: "#084b6d",
+    secondaryTextColor: "black",
+    tertiaryTextColor: "white",
+
+    primaryTextFont: "'Bodoni Moda', serif",
+    secondaryTextFont: "'Mulish', sans-serif",
+    tertiaryTextFont: "'Montserrat', sans-serif",
+
+    primaryButtonTextColor: "#084b6d",
+    secondaryButtonTextColor: "white",
+    primaryButtonBackgroundColor: "transparent",
+    secondaryButtonBackgroundColor: "#084b6d",
+    buttonBoxShadow: "-1px 1px 5px 1px #0000001f",
+    buttonBorderWidth: "1px",
+    buttonBorderColor: "#084b6d",
+
+  };
+
   return (
     <div className="App">
       <Router>
         <Redirect to={{ pathname: `/${currentPageURL}`, }} />
-
+        <ThemeProvider theme={theme}>
         <Header></Header>
         <Home></Home>
         <Sidebar></Sidebar>
@@ -92,6 +116,7 @@ function App() {
         <Collections></Collections>
         <Contact></Contact>
         <CollectionsPanel></CollectionsPanel>
+        </ThemeProvider>
       </Router>
     </div>
   );
