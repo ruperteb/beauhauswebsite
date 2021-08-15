@@ -43,7 +43,7 @@ const CollectionstCardDiv = styled(motion.div)`
 display: flex;
 flex-direction: column;
 padding: 2rem;
-background-color: rgb(184 200 189 / 35%);
+background-color: #cedbe85c;
 border-radius: 30px;
 margin-left: 1rem;
 margin-right: 1rem;

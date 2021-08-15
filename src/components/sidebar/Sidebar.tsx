@@ -83,28 +83,42 @@ export const Sidebar: React.FunctionComponent<Props> = ({ }) => {
 
     const dispatch = useAppDispatch()
 
-
-
-
-
-
-
     const [selectedItem, setSelectedItem] = React.useState<string | undefined>("home")
+
+    React.useEffect(() => {
+        switch (selectedItem) {
+            case "#home":
+                window.scrollTo({ behavior: 'smooth', top: 0 })
+                break;
+            case "#about":
+                window.scrollTo({ behavior: 'smooth', top: homeHeight + 25 })
+                break;
+            case "#collections":
+                window.scrollTo({ behavior: 'smooth', top: homeHeight + aboutHeight + 25 })
+                break;
+            case "#contact":
+                window.scrollTo({ behavior: 'smooth', top: homeHeight + aboutHeight + collectionsHeight + 100 })
+                break;
+            default:
+                window.scrollTo({ behavior: 'smooth', top: 0 })
+        }
+    
+    },[selectedItem])
 
     const handleItemClick = (selection: string) => {
         setSelectedItem(selection)
-        /* dispatch(navigationSlice.actions.setCurrentPageURL(selection)) */
+        dispatch(navigationSlice.actions.setCurrentPageURL(selection))
         switch (selection) {
-            case "home":
+            case "#home":
                 window.scrollTo({ behavior: 'smooth', top: 0 })
                 break;
-            case "about":
+            case "#about":
                 window.scrollTo({ behavior: 'smooth', top: homeHeight + 25 })
                 break;
-            case "collections":
+            case "#collections":
                 window.scrollTo({ behavior: 'smooth', top: homeHeight + aboutHeight + 25 })
                 break;
-            case "contact":
+            case "#contact":
                 window.scrollTo({ behavior: 'smooth', top: homeHeight + aboutHeight + collectionsHeight + 100 })
                 break;
             default:
@@ -132,14 +146,14 @@ export const Sidebar: React.FunctionComponent<Props> = ({ }) => {
     }
 
     const getLineVariant = () => {
-        switch (selectedItem) {
-            case "home":
+        switch (currentPageURL) {
+            case "#home":
                 return lineVariants.home
-            case "about":
+            case "#about":
                 return lineVariants.about
-            case "collections":
+            case "#collections":
                 return lineVariants.collections
-            case "contact":
+            case "#contact":
                 return lineVariants.contact
             default:
                 return lineVariants.home
@@ -153,25 +167,25 @@ export const Sidebar: React.FunctionComponent<Props> = ({ }) => {
             transition={{ duration: 0.5 }}>
             <StyledSidebarInnerDiv>
                 <div style={{ width: "250px", height: "100px", /* backgroundColor: "#1e5c9738" */ }}></div>
-                <StyledMenuItem onClick={() => handleItemClick("home")}>
-                    <StyledMenuHeading animate={selectedItem === "home" ? "selected" : "unselected"} variants={menuTextVariants} transition={{ duration: 0.6 }}>Home</StyledMenuHeading>
+                <StyledMenuItem onClick={() => handleItemClick("#home")}>
+                    <StyledMenuHeading animate={currentPageURL === "#home" ? "selected" : "unselected"} variants={menuTextVariants} transition={{ duration: 0.6 }}>Home</StyledMenuHeading>
                     {/* <Icon name='home' /> */}
 
 
                 </StyledMenuItem>
-                <StyledMenuItem onClick={() => handleItemClick("about")}>
+                <StyledMenuItem onClick={() => handleItemClick("#about")}>
                     {/* <Icon name='gamepad' /> */}
-                    <StyledMenuHeading animate={selectedItem === "about" ? "selected" : "unselected"} variants={menuTextVariants} transition={{ duration: 0.6 }}>About</StyledMenuHeading>
+                    <StyledMenuHeading animate={currentPageURL === "#about" ? "selected" : "unselected"} variants={menuTextVariants} transition={{ duration: 0.6 }}>About</StyledMenuHeading>
 
                 </StyledMenuItem>
-                <StyledMenuItem onClick={() => handleItemClick("collections")}>
+                <StyledMenuItem onClick={() => handleItemClick("#collections")}>
                     {/* <Icon name='camera' /> */}
-                    <StyledMenuHeading animate={selectedItem === "collections" ? "selected" : "unselected"} variants={menuTextVariants} transition={{ duration: 0.6 }}>Collections</StyledMenuHeading>
+                    <StyledMenuHeading animate={currentPageURL === "#collections" ? "selected" : "unselected"} variants={menuTextVariants} transition={{ duration: 0.6 }}>Collections</StyledMenuHeading>
 
                 </StyledMenuItem>
-                <StyledMenuItem onClick={() => handleItemClick("contact")}>
+                <StyledMenuItem onClick={() => handleItemClick("#contact")}>
                     {/* <Icon name='camera' /> */}
-                    <StyledMenuHeading animate={selectedItem === "contact" ? "selected" : "unselected"} variants={menuTextVariants} transition={{ duration: 0.6 }}>Contact</StyledMenuHeading>
+                    <StyledMenuHeading animate={currentPageURL === "#contact" ? "selected" : "unselected"} variants={menuTextVariants} transition={{ duration: 0.6 }}>Contact</StyledMenuHeading>
 
                 </StyledMenuItem>
                 <StyledLineDiv
