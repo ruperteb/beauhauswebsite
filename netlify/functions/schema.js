@@ -16,6 +16,7 @@ type Item {
   price: Float
   images: [String]
   type: String
+  active: Boolean
  }
 
  type Email {
@@ -44,8 +45,9 @@ type Mutation {
   period: String,
   manufactureDate: Int,
   price: Float,
-  type: String
+  type: String,
   images: [String],
+  active: Boolean,
 
  ): Item!
 
@@ -63,6 +65,7 @@ updateItem (
   price: Float,
   type: String
   images: [String],
+  active: Boolean,
 
 ): Item!
 

@@ -38,6 +38,7 @@ async function createItem(parent, args, context, info) {
     price: args.price,
     type: args.type,
     images: args.images,
+    active: args.active,
   }
 
   const { client, query: q } = context;
@@ -89,6 +90,7 @@ async function updateItem(parent, args, context, info) {
     price: args.price,
     type: args.type,
     images: args.images,
+    active: args.active,
   }
 
   const { client, query: q } = context;

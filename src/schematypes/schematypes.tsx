@@ -25,6 +25,7 @@ export type Item = {
   price: number
   images: [string]
   type: string
+  active: boolean
  }
 
 export type Query = {

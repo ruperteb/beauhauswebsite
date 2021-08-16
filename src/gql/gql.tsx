@@ -30,6 +30,7 @@ export const GET_ITEMS = gql`
     price
     images
     type
+    active
   }
 }
     `
@@ -52,6 +53,7 @@ export const GET_SINGLE_ITEM = gql`
     price
     images
     type
+    active
 }
   }
 `;

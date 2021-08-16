@@ -1,7 +1,30 @@
 import * as React from 'react';
-import { Button } from 'semantic-ui-react'
 
-import { useAuth0 } from "@auth0/auth0-react";
+import {
+    motion
+} from "framer-motion";
+
+import { useAppSelector, useAppDispatch } from '../../redux/hooks'
+
+import styled from 'styled-components'
+
+import AntiquesList from "./DashboardAntiquesList"
+import CollectionsPanelNavigation from './DashboardlNavigation';
+import AntiqueModal from './DashboardAntiqueModal';
+
+
+
+const DashboardDiv = styled(motion.div)`
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100vw;
+    box-shadow: 1px 1px 3px 2px #0000003d;
+    overflow-y: scroll;
+  `
+
+
 
 interface Props {
 
@@ -9,15 +32,12 @@ interface Props {
 
 export const Dashboard: React.FunctionComponent<Props> = ({ }) => {
 
-    const { logout, user, loginWithRedirect, isAuthenticated } = useAuth0()
-
-   console.log(isAuthenticated)
-
     return (
-        <div className="App">
-            {user?.name} Logged In?
-            <Button onClick={() => logout({ returnTo: window.location.origin })}></Button>
-        </div>
+        <DashboardDiv>
+            <CollectionsPanelNavigation></CollectionsPanelNavigation>
+            <AntiquesList></AntiquesList>
+            <AntiqueModal></AntiqueModal>
+        </DashboardDiv>
     );
 };
 
