@@ -8,9 +8,11 @@ import { useAppSelector, useAppDispatch } from '../../redux/hooks'
 
 import styled from 'styled-components'
 
-import AntiquesList from "./DashboardAntiquesList"
-import CollectionsPanelNavigation from './DashboardlNavigation';
-import AntiqueModal from './DashboardAntiqueModal';
+import DashboardAntiquesList from "./DashboardAntiquesList"
+import DashboardNavigation from './DashboardlNavigation';
+import DashboardAntiqueModal from './DashboardAntiqueModal';
+import DashboardHeader from './DashboardHeader';
+import DashboardNewAntiqueModal from './DashboardNewAntiqueModal';
 
 
 
@@ -34,9 +36,11 @@ export const Dashboard: React.FunctionComponent<Props> = ({ }) => {
 
     return (
         <DashboardDiv>
-            <CollectionsPanelNavigation></CollectionsPanelNavigation>
-            <AntiquesList></AntiquesList>
-            <AntiqueModal></AntiqueModal>
+            <DashboardHeader></DashboardHeader>
+            <DashboardNavigation></DashboardNavigation>
+            <DashboardAntiquesList></DashboardAntiquesList>
+            <DashboardAntiqueModal></DashboardAntiqueModal>
+            <DashboardNewAntiqueModal></DashboardNewAntiqueModal>
         </DashboardDiv>
     );
 };

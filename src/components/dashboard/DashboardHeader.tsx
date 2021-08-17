@@ -29,6 +29,7 @@ const HeaderDiv = styled(motion.div)`
     width: 100vw;
     z-index: 1000;
     background-color: white;
+   /*  height: 100px; */
     /* transform: unset; */
   `
 
@@ -85,14 +86,14 @@ export const DashboardHeader: React.FunctionComponent<Props> = ({ }) => {
 
                     </FlexGridColumn>
                     <Grid.Column width={8}>
-                        <motion.div /* style={{ height, display: "flex" }} */>
+                        <motion.div style={{height: "100px", display: "flex" }}>
                             <HeaderLogoText>Beauhaus Dashboard</HeaderLogoText>
                             {/* <HeaderImage height={`${height}px`} src={Logo}></HeaderImage> */}
                         </motion.div>
 
                     </Grid.Column>
                     <Grid.Column width={4}>
-                    <Button onClick={() => logout({ returnTo: window.location.origin })}></Button>
+                    <Button onClick={() => logout({ returnTo: window.location.origin })}>Log out</Button>
                     </Grid.Column>
                 </Grid.Row>
 

@@ -17,7 +17,7 @@ import {
     useTransform
 } from "framer-motion";
 
-import { Container, Grid, Icon, Search, SearchProps } from 'semantic-ui-react'
+import { Container, Grid, Icon, Search, SearchProps, Button, ButtonProps } from 'semantic-ui-react'
 
 import _ from 'lodash'
 
@@ -97,6 +97,7 @@ const StyledContainer = styled(Container)`
         background-color: ${props => props.theme.primaryColor};
         height: fit-content; 
         box-shadow: -1px 1px 3px 1px #00000057;
+        margin-top: 100px;
 }
 `
 
@@ -175,6 +176,12 @@ export const DashboardNavigation: React.FC<Props> = ({ /* exampleProp, */ }) => 
 
     }
 
+    const addButtonClick = () => {
+
+        dispatch(dashboardSlice.actions.setShowNewAntiqueModal(true))
+
+    }
+
     const navLinkHoverStyles: CSSProperties = {
         color: "#ffffff",
         textShadow: "1px 1px 1px #423333ad",
@@ -197,12 +204,10 @@ export const DashboardNavigation: React.FC<Props> = ({ /* exampleProp, */ }) => 
         <StyledContainer fluid >
             <StyledGrid style={{ margin: 0 }}>
                 <Grid.Row>
-                    <FlexGridColumn width={1}>
+                    <FlexGridColumn width={2}>
 
                     </FlexGridColumn>
-                    <FlexGridColumn width={2}>
-                        
-                    </FlexGridColumn>
+                    
                     <FlexGridColumn width={9}>
                         <NavLinkDivContainer>
                             <NavLinkDiv onMouseEnter={() => setNavLinkHover1(true)} onMouseLeave={() => setNavLinkHover1(false)}>
@@ -227,6 +232,10 @@ export const DashboardNavigation: React.FC<Props> = ({ /* exampleProp, */ }) => 
                             </NavLinkDiv>
                         </NavLinkDivContainer>
 
+                    </FlexGridColumn>
+
+                    <FlexGridColumn width={2}>
+                        <Button onClick={()=> addButtonClick()}>Add Item</Button>
                     </FlexGridColumn>
 
                     <FlexGridColumn width={2}>

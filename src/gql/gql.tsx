@@ -58,6 +58,122 @@ export const GET_SINGLE_ITEM = gql`
   }
 `;
 
+export const CREATE_ITEM = gql`
+  mutation CreateItem (
+    $name: String,
+    $description: String,
+    $height: Float,
+    $width: Float,
+    $length: Float,
+    $period: String,
+    $manufactureDate: Int,
+    $price: Float,
+    $type: String,
+    $active: Boolean,
+  
+      ) {
+
+    createItem (
+    name: $name,
+    description: $description,
+    height: $height,
+    width: $width,
+    length: $length,
+    period: $period,
+    manufactureDate: $manufactureDate,
+    price: $price,
+    type: $type,
+    active: $active,
+) {
+    _id
+    name
+    description
+    height
+    width
+    length
+    period
+    manufactureDate
+    price
+    images
+    type
+    active
+}
+  }
+`;
+
+export const UPDATE_ITEM = gql`
+  mutation UpdateItem (
+    $_id: String,
+    $name: String,
+    $description: String,
+    $height: Float,
+    $width: Float,
+    $length: Float,
+    $period: String,
+    $manufactureDate: Int,
+    $price: Float,
+    $type: String,
+    $active: Boolean,
+  
+      ) {
+
+    updateItem (
+    _id: $_id,
+    name: $name,
+    description: $description,
+    height: $height,
+    width: $width,
+    length: $length,
+    period: $period,
+    manufactureDate: $manufactureDate,
+    price: $price,
+    type: $type,
+    active: $active,
+) {
+    _id
+    name
+    description
+    height
+    width
+    length
+    period
+    manufactureDate
+    price
+    images
+    type
+    active
+}
+  }
+`;
+
+export const UPDATE_IMAGES = gql`
+  mutation UpdateItem (
+    $_id: String,
+    $images: [String]
+  
+      ) {
+
+    updateItem (
+    _id: $_id,
+    images:  $images
+    
+) {
+    _id
+    name
+    description
+    height
+    width
+    length
+    period
+    manufactureDate
+    price
+    images
+    type
+    active
+}
+  }
+`;
+
 /* export const GET_MULTI_PROPERTY = gql`
   query MultiProperty (
   $propertyIdList: [Int],
@@ -129,7 +245,7 @@ export const GET_SINGLE_ITEM = gql`
 
 export const GET_NAV_STATE = gql`
   query GetNavigationState {
-    navigationState @client { 
+    navigationState @client {
         showNewPropertyModal
         showUpdatePropertyModal
         showNewPremisesModal
@@ -153,7 +269,7 @@ export const GET_NAV_STATE = gql`
 
 export const GET_SELECTED_PROPERTIES = gql`
 query GetSelectedProperties {
-  selectedPropertyList @client { 
+  selectedPropertyList @client {
     propertyId
     propertyName
     address
@@ -210,7 +326,7 @@ query GetSelectedProperties {
 export const NEW_PROPERTY = gql`
   mutation PostProperty (
 
- 
+
 
   $propertyName: String!,
   $address: String,
@@ -231,7 +347,7 @@ export const NEW_PROPERTY = gql`
 
     postProperty (
 
-  
+
 
   propertyName: $propertyName,
   address: $address,
@@ -359,7 +475,7 @@ export const UPDATE_COORDINATES = gql`
   $contactId: Int,
   $propertyId: Int!,
   $coordinates: String,
-  
+
       ) {
 
     updateProperty (
@@ -379,7 +495,7 @@ export const UPDATE_IMAGES = gql`
   $aerial: String,
   $images: [String],
   $contactId: Int!,
-  
+
       ) {
 
     updateProperty (
@@ -473,7 +589,7 @@ export const DELETE_PROPERTY = gql`
 `;
 
 export const GET_DISTINCT_SUBURBS = gql`
-    
+
     query{
   distinctSuburbs {
     suburb
@@ -483,7 +599,7 @@ export const GET_DISTINCT_SUBURBS = gql`
     `
 
 export const GET_DISTINCT_REGIONS = gql`
-    
+
 query{
 distinctRegions {
 region
@@ -505,9 +621,9 @@ export const DELETE_PREMISES = gql`
 `;
 
 export const GET_PREMISES = gql`
-    
+
     query{
-  
+
     premisesList{
       premisesId
       floor
@@ -616,7 +732,7 @@ export const NEW_PREMISES = gql`
 
 
 ) {
- 
+
   premisesId
   floor
   area
@@ -696,7 +812,7 @@ export const UPDATE_PREMISES = gql`
 
 
 ) {
-  
+
   premisesId
   floor
   area
@@ -706,7 +822,7 @@ export const UPDATE_PREMISES = gql`
 
 export const GET_PDF_VARIABLES = gql`
   query GetPDFVariables {
-    pdfVariables @client { 
+    pdfVariables @client {
         enquiryName
         customTitle
         agent{
@@ -726,7 +842,7 @@ export const GET_PDF_VARIABLES = gql`
   `
 
 export const GET_LANDLORDS = gql`
-    
+
 query{
 
 landlords{
@@ -754,15 +870,15 @@ export const NEW_LANDLORD = gql`
   mutation PostLandlord (
 
   $landlordName: String,
-  
+
       ) {
 
     postLandlord (
 
   landlordName: $landlordName,
-  
+
 ) {
- 
+
   landlordId
   landlordName
 }
@@ -773,15 +889,15 @@ export const UPDATE_LANDLORD = gql`
   mutation UpdateLandlord (
   $landlordId: Int!,
   $landlordName: String,
-  
+
       ) {
 
     updateLandlord (
   landlordId: $landlordId,
   landlordName: $landlordName,
-  
+
 ) {
- 
+
   landlordId
   landlordName
 }
@@ -796,7 +912,7 @@ export const NEW_LANDLORD_CONTACT = gql`
   $email: String,
   $mobileNo: String,
   $officeNo: String,
-  
+
       ) {
 
     postLandlordContact (
@@ -805,11 +921,11 @@ export const NEW_LANDLORD_CONTACT = gql`
   email: $email,
   mobileNo: $mobileNo,
   officeNo: $officeNo,
-  
+
 ) {
- 
+
   contactId
-  name 
+  name
   email
   mobileNo
   officeNo
@@ -824,7 +940,7 @@ export const UPDATE_LANDLORD_CONTACT = gql`
   $email: String,
   $mobileNo: String,
   $officeNo: String,
-  
+
       ) {
 
     updateLandlordContact (
@@ -833,11 +949,11 @@ export const UPDATE_LANDLORD_CONTACT = gql`
   email: $email,
   mobileNo: $mobileNo,
   officeNo: $officeNo,
-  
+
 ) {
- 
+
   contactId
-  name 
+  name
   email
   mobileNo
   officeNo
@@ -870,7 +986,7 @@ export const DELETE_LANDLORD_CONTACT = gql`
 `;
 
 export const GET_PROPERTY_LISTS = gql`
-    
+
 query{
 
 propertyLists{
@@ -937,12 +1053,12 @@ propertyLists{
 
 export const NEW_PROPERTY_LIST = gql`
   mutation PostPropertyList (
- 
+
   $enquiryName: String,
   $customTitle: String,
   $enquiryDate: DateTime,
   $propertyIdList: [Int],
-  
+
       ) {
 
     postPropertyList (
@@ -969,7 +1085,7 @@ export const UPDATE_PROPERTY_LIST = gql`
   $customTitle: String,
   $enquiryDate: DateTime,
   $propertyIdList: [Int],
-  
+
       ) {
 
     updatePropertyList (
@@ -1004,7 +1120,7 @@ export const DELETE_PROPERTY_LIST = gql`
 
 export const GET_FILTER_VARIABLES = gql`
   query GetFilterVariables {
-    filterVariables @client { 
+    filterVariables @client {
     suburb,
     region,
     province,

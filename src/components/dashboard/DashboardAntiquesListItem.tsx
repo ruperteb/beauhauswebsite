@@ -10,7 +10,7 @@ import { auto } from "@cloudinary/base/qualifiers/format";
 import { auto as qAuto } from "@cloudinary/base/qualifiers/quality";
 
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
-import { collectionsSlice } from '../../redux/slices/collectionsSlice';
+import { dashboardSlice } from '../../redux/slices/dashboardSlice';
 
 import { Button } from 'semantic-ui-react'
 
@@ -175,7 +175,7 @@ interface Props {
   key: any
 }
 
-export const AntiquesListItem: React.FunctionComponent<Props> = ({ antique }) => {
+export const DashboardAntiquesListItem: React.FunctionComponent<Props> = ({ antique }) => {
 
   const dispatch = useAppDispatch()
 
@@ -185,15 +185,39 @@ export const AntiquesListItem: React.FunctionComponent<Props> = ({ antique }) =>
     }
   });
 
-  const myImage = cld.image(antique.images[0]);
+  const getItemTypeImage = () => {
+
+    switch (antique.type) {
+      case "furniture":
+        return "Antiques_furniture_okpb1m"
+        break;
+      case "art":
+        return "Antiques_art_cqy3cl"
+        break;
+      case "lighting":
+        return "Antiques_lighting_dwpoja"
+        break;
+      case "collectibles":
+        return "Antiques_collectibles_skr3yx"
+        break;
+      default:
+        return "Antiques_furniture_okpb1m"
+    }
+  }
+
+  var myImage = cld.image(getItemTypeImage());
+
+  if (antique.images) {
+    myImage = cld.image(antique.images[0]);
+  }
 
   myImage.resize(fill().width(365).height(261)).delivery(format(auto()))
     .delivery(quality(qAuto()));
 
-    const handleClick = () => {
-      dispatch(collectionsSlice.actions.setSelectedAntique(antique))
-      dispatch(collectionsSlice.actions.setShowAntiqueModal(true))
-    }
+  const handleClick = () => {
+    dispatch(dashboardSlice.actions.setSelectedAntique(antique))
+    dispatch(dashboardSlice.actions.setShowAntiqueModal(true))
+  }
 
 
   return (
@@ -202,9 +226,9 @@ export const AntiquesListItem: React.FunctionComponent<Props> = ({ antique }) =>
 
       <ImageContainer>
         <AdvancedImage style={imageStyles} cldImg={myImage} plugins={[lazyload('10px 20px 10px 30px', 0.25)]} />
-        
+
       </ImageContainer>
-      <ImageButton onClick={()=> handleClick() }>View</ImageButton>
+      <ImageButton onClick={() => handleClick()}>View</ImageButton>
 
       <CardHeading>{antique.name}</CardHeading>
       <CardSubHeading>£{antique.price}.00</CardSubHeading>
@@ -215,4 +239,4 @@ export const AntiquesListItem: React.FunctionComponent<Props> = ({ antique }) =>
   );
 };
 
-export default AntiquesListItem
+export default DashboardAntiquesListItem

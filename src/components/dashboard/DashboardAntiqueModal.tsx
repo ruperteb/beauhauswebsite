@@ -4,7 +4,7 @@ import { Button, Icon, Modal, Popup } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
-import { collectionsSlice } from '../../redux/slices/collectionsSlice';
+import { dashboardSlice } from '../../redux/slices/dashboardSlice';
 import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
 
@@ -14,9 +14,11 @@ import { format, quality } from "@cloudinary/base/actions/delivery";
 import { auto } from "@cloudinary/base/qualifiers/format";
 import { auto as qAuto } from "@cloudinary/base/qualifiers/quality";
 
+import DashboardUpdateAntiqueModal from './DashboardUpdateAntiqueModal';
+
 import { useMutation } from '@apollo/client';
-import { SEND_MESSAGE } from "../../gql/gql"
-import { Mutation, MutationSendMessageArgs } from "../../schematypes/schematypes"
+import { UPDATE_IMAGES, GET_ITEMS } from "../../gql/gql"
+import { Mutation, MutationUpdateImagesArgs, Query } from "../../schematypes/schematypes"
 
 import { Formik, Form, useField, useFormikContext, FieldHookConfig } from "formik";
 import * as Yup from "yup";
@@ -114,6 +116,7 @@ const StyledModalContent = styled(Modal.Content)`
     max-height: fit-content;
     display: flex;
     margin: auto;
+    min-height: 80%;
 }
 `
 
@@ -312,11 +315,11 @@ box-shadow: 0px 0px 2px 2px #0000001f !important;
 
 
 
-export const AntiqueModal: React.FunctionComponent<Props> = ({ }) => {
+export const DashboardAntiqueModal: React.FunctionComponent<Props> = ({ }) => {
 
-    const showAntiqueModal = useAppSelector((state) => state.collections.showAntiqueModal)
+    const showAntiqueModal = useAppSelector((state) => state.dashboard.showAntiqueModal)
     const showAntiqueEnquiryModal = useAppSelector((state) => state.collections.showAntiqueEnquiryModal)
-    const selectedAntique = useAppSelector((state) => state.collections.selectedAntique)
+    const selectedAntique = useAppSelector((state) => state.dashboard.selectedAntique)
     const dispatch = useAppDispatch()
 
     const cld = new Cloudinary({
@@ -331,126 +334,98 @@ export const AntiqueModal: React.FunctionComponent<Props> = ({ }) => {
         thumbnail: string,
     }
 
+    var images: Image[] | undefined = []
 
-    var images = selectedAntique?.images.map((image) => {
-        return {
-            original: cld.image(image).resize(fill().width(600).height(400)).delivery(format(auto()))
-                .delivery(quality(qAuto())).toURL(),
-            thumbnail: cld.image(image).resize(fill().width(300).height(200)).delivery(format(auto()))
-                .delivery(quality(qAuto())).toURL(),
+    if (selectedAntique?.images) {
 
-        }
-    })
+        images = selectedAntique?.images.map((image) => {
 
+            return {
+                original: cld.image(image).resize(fill().width(600).height(400)).delivery(format(auto()))
+                    .delivery(quality(qAuto())).toURL(),
+                thumbnail: cld.image(image).resize(fill().width(300).height(200)).delivery(format(auto()))
+                    .delivery(quality(qAuto())).toURL(),
 
-    /* const images = [
-        {
-            original: 'https://picsum.photos/id/1018/1000/600/',
-            thumbnail: 'https://picsum.photos/id/1018/250/150/',
-        },
-        {
-            original: 'https://picsum.photos/id/1015/1000/600/',
-            thumbnail: 'https://picsum.photos/id/1015/250/150/',
-        },
-        {
-            original: 'https://picsum.photos/id/1019/1000/600/',
-            thumbnail: 'https://picsum.photos/id/1019/250/150/',
-        },
-    ]; */
-
-    type FormInput = {
-        name: String
-        from: String
-        subject: String
-        text: String
-    }
-
-    const [formInput, setFormInput] = React.useState<FormInput>({
-        name: "",
-        from: "",
-        subject: "",
-        text: "",
-    })
-
-    const [formState, setFormState] = React.useState<boolean | undefined>(undefined)
-
-
-
-    const [sendMessage, { data, loading, error }] = useMutation<Mutation, MutationSendMessageArgs>(
-        SEND_MESSAGE,
-        {
-            onCompleted: (result) => {
-                if (result) {
-                    setFormState(true)
-                }
-            },
-            onError: () => setFormState(false)
-        }
-    );
-
-    const handleSubmit = () => {
-
-        sendMessage({
-            variables: {
-                name: formInput.name,
-                from: formInput.from,
-                subject: formInput.subject,
-                text: formInput.text,
             }
-
         })
+
     }
 
-    const buttonRef = React.useRef(null)
-
-    const buttonStyle = {
-        borderRadius: 0,
-        /* opacity: 0.7, */
-        padding: '2em',
-        boxShadow: "0 0 0 1px #a3c293 inset, 0 0 0 0 transparent",
-        backgroundColor: "#fcfff5",
-        color: "#2c662d",
-    }
-
-    interface OtherProps {
-        label: string
-    }
-
-    const TextInput = (props: OtherProps & FieldHookConfig<string>) => {
-
-        const [field, meta] = useField(props);
-        return (
-            <FormInputContainer style={props.name === "name" || props.name === "email" ? { width: "50%" } : {}}>
-                <FormLabel htmlFor={props.id || props.name}>{props.label}</FormLabel>
-                <FormInput className="text-input" /* placeholder={props.placeholder} */ {...field} />
-                {meta.touched && meta.error ? (
-
-                    <FormError className="error">{meta.error}</FormError>
 
 
-                ) : null}
-            </FormInputContainer>
-        );
-    };
 
-    const MessageInput = (props: OtherProps & FieldHookConfig<string>) => {
-
-        const [field, meta] = useField(props);
-        return (
-            <FormInputContainer>
-                <FormLabel htmlFor={props.id || props.name}>{props.label}</FormLabel>
-                <FormTextArea  /* placeholder={props.placeholder} */ {...field} />
-                {meta.touched && meta.error ? (
-                    <FormError className="error">{meta.error}</FormError>
-                ) : null}
-            </FormInputContainer>
-        );
-    };
-
-    const checkAllDimensions =() => {
+    const checkAllDimensions = () => {
         if (selectedAntique?.length && selectedAntique.width && selectedAntique.height) {
             return true
         } else return false
+    }
+
+
+
+
+
+    const cloudName = process.env.REACT_APP_CLOUD_NAME; // replace with your own cloud name
+    const uploadPreset = "lhwbdmmk"; // replace with your own upload preset
+    // @ts-ignore: Unreachable code error
+    const myWidget = window.cloudinary.createUploadWidget(
+        {
+            cloudName: cloudName,
+            uploadPreset: uploadPreset,
+
+            // Remove the comments from the code below to add 
+            // additional functionality.
+            // Note that these are only a few examples, to see 
+            // the full list of possible parameters that you 
+            // can add see:
+            //   https://cloudinary.com/documentation/upload_widget_reference
+
+            // cropping: true, //add a cropping step
+            // showAdvancedOptions: true,  //add advanced options (public_id and tag)
+            // sources: [ "local", "url"], // restrict the upload sources to URL and local files
+            // multiple: false,  //restrict upload to a single file
+            folder: selectedAntique?.name, //upload files to the specified folder
+            // tags: ["users", "profile"], //add the given tags to the uploaded files
+            // context: {alt: "user_uploaded"}, //add the given context data to the uploaded files
+            // clientAllowedFormats: ["images"], //restrict uploading to image files only
+            // maxImageFileSize: 2000000,  //restrict file size to less than 2MB
+            // maxImageWidth: 2000, //Scales the image down to a width of 2000 pixels before uploading
+            // theme: "purple", //change to a purple theme
+        },
+        (error: any, result: any) => {
+            if (!error && result && result.event === "success") {
+                console.log("Done! Here is the image info: ", result.info.public_id);
+                handleUploadImages(result.info.public_id)
+
+            }
+        }
+    );
+
+    const showUploadWidget = () => {
+        myWidget.open()
+
+    }
+
+    const [updateItem, { data, loading, error }] = useMutation<Mutation, MutationUpdateImagesArgs>(
+        UPDATE_IMAGES
+    );
+
+    console.log(selectedAntique)
+
+    const handleUploadImages = (image:string) => {
+        var tempImages:string[] = []
+        if(selectedAntique?.images) {
+            tempImages = selectedAntique?.images!.concat(image)
+        } else tempImages = tempImages.concat(image)
+
+        dispatch(dashboardSlice.actions.setSelectedAntique({...selectedAntique!, images: tempImages}))
+        
+        updateItem({
+            variables: {
+                _id: selectedAntique?._id!,
+                images: tempImages!
+            }
+
+        })
     }
 
     return (
@@ -460,15 +435,15 @@ export const AntiqueModal: React.FunctionComponent<Props> = ({ }) => {
             size={"large"}
             centered
             open={showAntiqueModal}
-            onClose={() => dispatch(collectionsSlice.actions.setShowAntiqueModal(false))}
-            onOpen={() => dispatch(collectionsSlice.actions.setShowAntiqueModal(true))}
+            onClose={() => dispatch(dashboardSlice.actions.setShowAntiqueModal(false))}
+            onOpen={() => dispatch(dashboardSlice.actions.setShowAntiqueModal(true))}
         /* trigger={<Button>Scrolling Content Modal</Button>} */
         >
             <StyledModalHeader>
                 <StyledModalHeaderText>
                     {selectedAntique?.name}
                 </StyledModalHeaderText>
-                <StyledModalHeaderIcon link name='close' onClick={() => dispatch(collectionsSlice.actions.setShowAntiqueModal(false))} />
+                <StyledModalHeaderIcon link name='close' onClick={() => dispatch(dashboardSlice.actions.setShowAntiqueModal(false))} />
             </StyledModalHeader>
             <StyledModalContent image scrolling>
                 <GalleryContainer>
@@ -479,124 +454,23 @@ export const AntiqueModal: React.FunctionComponent<Props> = ({ }) => {
                 <DescriptionContainer>
                     <DescriptionText style={{ margin: "1rem" }}>{selectedAntique?.description}</DescriptionText>
                     <DimensionsContainer >
-                        {checkAllDimensions() ? <DescriptionTextDimensionsSubHeading>Dimensions:</DescriptionTextDimensionsSubHeading>: <div></div>}
-                        {selectedAntique?.length !== null ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Length:   ${selectedAntique?.length}cm`}</DescriptionText>: <div></div>}
-                        {selectedAntique?.length !== null ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Width:   ${selectedAntique?.width}cm`}</DescriptionText>: <div></div>}
-                        {selectedAntique?.length !== null ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Height:   ${selectedAntique?.height}cm`}</DescriptionText>: <div></div>}
+                        {checkAllDimensions() ? <DescriptionTextDimensionsSubHeading>Dimensions:</DescriptionTextDimensionsSubHeading> : <div></div>}
+                        {selectedAntique?.length !== null ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Length:   ${selectedAntique?.length}cm`}</DescriptionText> : <div></div>}
+                        {selectedAntique?.length !== null ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Width:   ${selectedAntique?.width}cm`}</DescriptionText> : <div></div>}
+                        {selectedAntique?.length !== null ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Height:   ${selectedAntique?.height}cm`}</DescriptionText> : <div></div>}
                     </DimensionsContainer>
                     <DescriptionTextPriceSubHeading>{`Price:  £${selectedAntique?.price}.00`}</DescriptionTextPriceSubHeading>
-                    <EnquiryButton onClick={() => dispatch(collectionsSlice.actions.setShowAntiqueEnquiryModal(true))}>Enquire</EnquiryButton>
-
+                    <EnquiryButton onClick={() => dispatch(dashboardSlice.actions.setShowUpdateAntiqueModal(true))}>Edit</EnquiryButton>
+                    <EnquiryButton onClick={showUploadWidget}>Upload Images</EnquiryButton>
                 </DescriptionContainer>
             </StyledModalContent>
 
-            <Modal
-                onClose={() => dispatch(collectionsSlice.actions.setShowAntiqueEnquiryModal(false))}
-                open={showAntiqueEnquiryModal}
-                size='small'
-            >
-                <StyledModalHeader>
-                    <StyledModalHeaderText style={{fontSize: "1.3rem"}}>
-                        {`Enquiry: ${selectedAntique?.name}`}
-                    </StyledModalHeaderText>
-                    <StyledModalHeaderIcon link name='close' onClick={() => dispatch(collectionsSlice.actions.setShowAntiqueEnquiryModal(false))} />
-                </StyledModalHeader>
-                <Modal.Content>
-                    <Formik
-                        initialValues={{
-                            name: "",
-                            email: "",
-                            subject: `Enquiry: ${selectedAntique?.name}`,
-                            message: "",
+            <DashboardUpdateAntiqueModal></DashboardUpdateAntiqueModal>
 
-                        }}
-                        validationSchema={Yup.object({
-                            name: Yup.string()
-                                .max(25, "Must be 25 characters or less")
-                                .required("Required"),
-                            email: Yup.string()
-                                .email("Invalid email address")
-                                .required("Required"),
-                            subject: Yup.string()
-                                .max(50, "Must be 50 characters or less")
-                                .required("Required"),
-                            message: Yup.string()
-                                .max(400, "Must be 400 characters or less")
-                                .required("Required"),
-
-                        })}
-                        onSubmit={async (values, { setSubmitting }) => {
-                            /* await new Promise(r => setTimeout(r, 500)); */
-                            sendMessage({
-                                variables: {
-                                    name: values.name,
-                                    from: values.email,
-                                    subject: values.subject,
-                                    text: values.message,
-                                }
-
-                            })
-                            setSubmitting(false);
-
-                        }}
-                    >
-                        <Form style={{ /* backgroundColor: "#334a60", */ padding: "1rem", /* width: "80%", */ marginLeft: "auto", marginRight: "auto" }}>
-                            <StyledFormGroup>
-
-                                <TextInput
-                                    label="Name"
-                                    name="name"
-                                    type="text"
-                                    placeholder="Name"
-                                />
-
-
-                                <TextInput
-                                    label="Email"
-                                    name="email"
-                                    type="email"
-                                    placeholder="Email"
-                                />
-
-                            </StyledFormGroup>
-
-                            <TextInput
-                                label="Subject"
-                                name="subject"
-                                type="text"
-                                placeholder={`Enquiry: ${selectedAntique?.name}`}
-                            />
-
-                            <MessageInput
-                                label="Message"
-                                name="message"
-                                type="text"
-                                placeholder="Message"
-                            />
-                            <div ref={buttonRef} style={{ display: "flex" }}>
-                                <SubmitButton type="submit" /* onClick={handleSubmit} */ >
-                                    Submit
-                                </SubmitButton>
-                            </div>
-                            <Popup
-                                eventsEnabled={true}
-                                on='click'
-                                onClose={() => setFormState(false)}
-                                style={buttonStyle}
-                                context={buttonRef}
-                                position='top center'
-                                open={formState}>
-                                <p style={{ display: "flex", marginBottom: "0.5rem" }}><b style={{ marginLeft: "auto", marginRight: "auto" }}>{formState === true ? "Form Submitted" : "Submission Failed"}</b></p>
-                                <p>{formState === true ? "Your message has been sent" : "Please try again"}</p>
-                            </Popup>
-                        </Form>
-                    </Formik>
-                </Modal.Content>
-            </Modal>
         </StyledModal>
 
 
     );
 };
 
-export default AntiqueModal
+export default DashboardAntiqueModal

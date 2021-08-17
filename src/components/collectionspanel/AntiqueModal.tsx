@@ -331,16 +331,22 @@ export const AntiqueModal: React.FunctionComponent<Props> = ({ }) => {
         thumbnail: string,
     }
 
+    var images: Image[] | undefined = []
 
-    var images = selectedAntique?.images.map((image) => {
-        return {
-            original: cld.image(image).resize(fill().width(600).height(400)).delivery(format(auto()))
-                .delivery(quality(qAuto())).toURL(),
-            thumbnail: cld.image(image).resize(fill().width(300).height(200)).delivery(format(auto()))
-                .delivery(quality(qAuto())).toURL(),
+    if (selectedAntique?.images) {
 
-        }
-    })
+        images = selectedAntique?.images.map((image) => {
+
+            return {
+                original: cld.image(image).resize(fill().width(600).height(400)).delivery(format(auto()))
+                    .delivery(quality(qAuto())).toURL(),
+                thumbnail: cld.image(image).resize(fill().width(300).height(200)).delivery(format(auto()))
+                    .delivery(quality(qAuto())).toURL(),
+
+            }
+        })
+
+    }
 
 
     /* const images = [

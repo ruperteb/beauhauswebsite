@@ -23,15 +23,15 @@ export type Item = {
   period: string
   manufactureDate: number
   price: number
-  images: [string]
+  images: string[]
   type: string
   active: boolean
  }
 
 export type Query = {
   
-    itemList: [Item],
-    singleItem (_id: string): Item,
+    itemList: Item[],
+    /* singleItem (_id: string): Item, */
 
 }
 
@@ -47,6 +47,38 @@ export type MutationSendMessageArgs = {
   from: String,
   subject: String,
   text: String
+};
+
+export type MutationCreateItemArgs = {
+    name: String,
+    description: String,
+    height: number,
+    width: number,
+    length: number,
+    period: String,
+    manufactureDate: number,
+    price: number,
+    type: String,
+    active: Boolean,
+};
+
+export type MutationUpdateItemArgs = {
+  _id: string,
+  name: String,
+  description: String,
+  height: number,
+  width: number,
+  length: number,
+  period: String,
+  manufactureDate: number,
+  price: number,
+  type: String,
+  active: Boolean,
+};
+
+export type MutationUpdateImagesArgs = {
+  _id: string,
+  images: string[]
 };
 
 /* export type Mutation = {
