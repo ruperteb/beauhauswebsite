@@ -60,6 +60,7 @@ export type MutationCreateItemArgs = {
     price: number,
     type: String,
     active: Boolean,
+    images: string[],
 };
 
 export type MutationUpdateItemArgs = {
@@ -78,7 +79,16 @@ export type MutationUpdateItemArgs = {
 
 export type MutationUpdateImagesArgs = {
   _id: string,
-  images: string[]
+  images: string[],
+};
+
+export type MutationDeleteItemArgs = {
+  _id: string,
+};
+
+export type MutationToggleActiveArgs = {
+  _id: string,
+  active: boolean,
 };
 
 /* export type Mutation = {

@@ -70,6 +70,7 @@ export const CREATE_ITEM = gql`
     $price: Float,
     $type: String,
     $active: Boolean,
+    $images: [String],
   
       ) {
 
@@ -84,6 +85,7 @@ export const CREATE_ITEM = gql`
     price: $price,
     type: $type,
     active: $active,
+    images: $images
 ) {
     _id
     name
@@ -157,6 +159,58 @@ export const UPDATE_IMAGES = gql`
     _id: $_id,
     images:  $images
     
+) {
+    _id
+    name
+    description
+    height
+    width
+    length
+    period
+    manufactureDate
+    price
+    images
+    type
+    active
+}
+  }
+`;
+
+export const TOGGLE_ACTIVE = gql`
+  mutation UpdateItem (
+    $_id: String,
+    $active: Boolean
+  
+      ) {
+
+    updateItem (
+    _id: $_id,
+    active: $active
+    
+) {
+    _id
+    name
+    description
+    height
+    width
+    length
+    period
+    manufactureDate
+    price
+    images
+    type
+    active
+}
+  }
+`;
+
+export const DELETE_ITEM = gql`
+  mutation DeleteItem (
+    $_id: String,
+      ) {
+
+    deleteItem (
+    _id: $_id,
 ) {
     _id
     name

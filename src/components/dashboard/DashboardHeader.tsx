@@ -37,7 +37,7 @@ const HeaderLogoText = styled(motion.h1)`
     &&&&&& {
     font-family: 'Bodoni Moda', serif;
     text-transform: uppercase;
-    font-size: 4em;
+    font-size: 3em;
     font-weight: 400;
     letter-spacing: 2px;
     margin: auto;
@@ -73,7 +73,7 @@ export const DashboardHeader: React.FunctionComponent<Props> = ({ }) => {
 
     return (
         <HeaderDiv
-            
+
         >
 
             <Grid >
@@ -81,19 +81,19 @@ export const DashboardHeader: React.FunctionComponent<Props> = ({ }) => {
                     <FlexGridColumn width={4}>
                         {/* <HeaderIcon name='content' size="big" onClick={onMenuSelect}></HeaderIcon> */}
 
-                    
+
 
 
                     </FlexGridColumn>
                     <Grid.Column width={8}>
-                        <motion.div style={{height: "100px", display: "flex" }}>
+                        <motion.div style={{ height: "100px", display: "flex" }}>
                             <HeaderLogoText>Beauhaus Dashboard</HeaderLogoText>
                             {/* <HeaderImage height={`${height}px`} src={Logo}></HeaderImage> */}
                         </motion.div>
 
                     </Grid.Column>
-                    <Grid.Column width={4}>
-                    <Button onClick={() => logout({ returnTo: window.location.origin })}>Log out</Button>
+                    <Grid.Column style={{ display: "flex" }} width={4}>
+                        <Button style={{ margin: "auto" }} onClick={() => logout({ returnTo: window.location.origin })}>Log out</Button>
                     </Grid.Column>
                 </Grid.Row>
 

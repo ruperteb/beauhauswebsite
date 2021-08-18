@@ -602,19 +602,19 @@ export const DashboardUpdateAntiqueModal: React.FunctionComponent<Props> = ({ })
                             .required("Required"),
                         length: Yup.number()
                             .typeError('Number required')
-                            .positive("Positive Value required"),
+                            .min(0, "Positive Value required"),
                            
                         width: Yup.number()
                             .typeError('Number required')
-                            .positive("Positive Value required"),
+                            .min(0, "Positive Value required"),
                             
                         height: Yup.number()
                             .typeError('Number required')
-                            .positive("Positive Value required"),
+                            .min(0, "Positive Value required"),
                             
                         price: Yup.number()
                             .typeError('Number required')
-                            .positive("Positive value required")
+                            .min(0, "Positive Value required")
                             .required("Required"),
                         description: Yup.string()
                             .max(400, "Must be 400 characters or less")
@@ -625,7 +625,7 @@ export const DashboardUpdateAntiqueModal: React.FunctionComponent<Props> = ({ })
                             .max(25, "Must be 25 characters or less"),
                         date: Yup.number()
                             .typeError('Number required')
-                            .positive("Positive value required")
+                            .min(0, "Positive Value required")
                             
 
                     })}
@@ -655,11 +655,15 @@ export const DashboardUpdateAntiqueModal: React.FunctionComponent<Props> = ({ })
                                 const getExistingItems = cache.readQuery<Query>({ query: GET_ITEMS });
                                 // Add the new todo to the cache
                                 const existingItems = getExistingItems? getExistingItems.itemList : [];
-                                const newItem = data.updateItem!/* .returning[0] */;
+                                const otherItems = existingItems!.filter(t => {
+                                    if (t)
+                                      return (t._id !== selectedAntique?._id)
+                                  }); 
+                                const updatedItem = data.updateItem!/* .returning[0] */;
                                 if (existingItems)
                                     cache.writeQuery<Query>({
                                         query: GET_ITEMS,
-                                        data: { itemList: [newItem, ...existingItems] }
+                                        data: { itemList: [updatedItem, ...otherItems] }
                                     });
                             }
 
@@ -763,8 +767,8 @@ export const DashboardUpdateAntiqueModal: React.FunctionComponent<Props> = ({ })
                             context={buttonRef}
                             position='top center'
                             open={formState}>
-                            <p style={{ display: "flex", marginBottom: "0.5rem" }}><b style={{ marginLeft: "auto", marginRight: "auto" }}>{formState === true ? "Form Submitted" : "Submission Failed"}</b></p>
-                            <p>{formState === true ? "Your message has been sent" : "Please try again"}</p>
+                            <p style={{ display: "flex", marginBottom: "0.5rem" }}><b style={{ marginLeft: "auto", marginRight: "auto" }}>{formState === true ? "Item Updated" : "Submission Failed"}</b></p>
+                            {/* <p>{formState === true ? "Your message has been sent" : "Please try again"}</p> */}
                         </Popup>
                     </Form>
                 </Formik>

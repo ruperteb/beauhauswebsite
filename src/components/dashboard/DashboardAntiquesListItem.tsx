@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { CSSProperties } from "react";
-import { Query, Item } from "../../schematypes/schematypes"
+
 
 import { AdvancedImage, lazyload } from '@cloudinary/react';
 import { Cloudinary } from "@cloudinary/base";
@@ -12,7 +12,11 @@ import { auto as qAuto } from "@cloudinary/base/qualifiers/quality";
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
 import { dashboardSlice } from '../../redux/slices/dashboardSlice';
 
-import { Button } from 'semantic-ui-react'
+import { useMutation } from '@apollo/client';
+import { TOGGLE_ACTIVE, DELETE_ITEM, GET_ITEMS } from "../../gql/gql"
+import { Mutation, MutationToggleActiveArgs, MutationDeleteItemArgs, Query, Item } from "../../schematypes/schematypes"
+
+import { Button, Popup, Checkbox, Loader } from 'semantic-ui-react'
 
 import styled from 'styled-components'
 
@@ -114,21 +118,21 @@ const ImageButton = styled(Button)`
 
 &&&& {
 opacity: 0;
-top: 0;
+/* top: 0;
 left: 0;
 bottom: 0;
-right: 0;
+right: 0; */
 height: fit-content;
 margin-left: auto !important;
 margin-right: auto !important;
-margin-top: 30%;
-margin-bottom: auto !important;
+margin-top: auto;
+margin-bottom: 1rem !important;
 padding: 1em !important;
 padding-left: 2em !important;
 padding-right: 2em !important;
 align-items: center; // does vertically center the desired content
 justify-content: center; // horizontally centers single line items
-position: absolute;
+/* position: absolute; */
 }
 
 font-family: sans-serif;
@@ -170,6 +174,95 @@ const imageStyles: CSSProperties = {
   marginRight: "0.5rem", */
 }
 
+const DeleteButton = styled(Button)`
+
+&&&& {
+  opacity: 0;
+/* padding: 1em !important;
+padding-left: 2em !important;
+padding-right: 2em !important; */
+margin: auto;
+}
+
+font-family: sans-serif;
+font-size: 16px;
+/* color: white  !important; */
+color: #db3030 !important;
+display:flex;
+width: fit-content;
+border-style: solid  !important;
+border-width: 2px  !important;
+/* border-color: #a29064  !important; */
+border-color: #db3030 !important;
+background-color: #eae1e1ab !important;
+-webkit-transition: color 200ms ease, background-color 200ms ease  !important;
+transition: color 200ms ease, background-color 200ms ease  !important;
+border-radius: 0 !important;
+box-shadow: 0px 0px 2px 2px #0000001f !important;
+&:hover {
+color: white !important;
+/* color: white !important;
+background-color: #a29064 !important;
+border-color: #a29064 !important;
+box-shadow: -1px 1px 1px 2px #0000001f !important; */
+background-color: #db3030 !important;
+border-color: #db3030 !important;
+box-shadow: 0px 0px 2px 2px #0000001f !important;
+  }
+  ${Card}:hover &&&&& {
+    opacity: 1;
+  }
+`
+
+const ButtonContainer = styled.div`
+
+&&&& {
+position: absolute;
+display: flex;
+flex-wrap: wrap;
+    flex-direction: column;
+    z-index: 500;
+    margin-top: 20%;
+    right: 35%;
+}
+`
+
+const PopupContentContainer = styled.div`
+display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+
+`
+
+const CheckboxContainer = styled.div`
+
+&&&& {
+position: absolute;
+display: flex;
+flex-wrap: wrap;
+    flex-direction: row;
+    z-index: 1000;
+    margin-top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 15px;
+}
+${Card}:hover &&&&& {
+    background-color: #ffffff85;
+  }
+`
+
+const ActiveText = styled.p`
+margin: auto;
+margin-right: 1rem;
+font-size: 1.2rem;
+opacity: 0;
+${Card}:hover &&&&& {
+    
+    opacity:1;
+  }
+`
+
 interface Props {
   antique: Item
   key: any
@@ -207,7 +300,7 @@ export const DashboardAntiquesListItem: React.FunctionComponent<Props> = ({ anti
 
   var myImage = cld.image(getItemTypeImage());
 
-  if (antique.images) {
+  if (antique.images && antique.images[0] !== undefined) {
     myImage = cld.image(antique.images[0]);
   }
 
@@ -219,6 +312,90 @@ export const DashboardAntiquesListItem: React.FunctionComponent<Props> = ({ anti
     dispatch(dashboardSlice.actions.setShowAntiqueModal(true))
   }
 
+  const buttonRef = React.useRef(null)
+  const [deleteButtonOpen, setDeleteButtonOpen] = React.useState(false)
+
+  const [updateItem, { data: updateItemData, loading: updateItemLoading, error: updateItemError }] = useMutation<Mutation, MutationToggleActiveArgs>(
+    TOGGLE_ACTIVE
+  );
+
+  const [deleteItem, { data: deleteItemData, loading: deleteItemLoading, error: deleteItemError }] = useMutation<Mutation, MutationDeleteItemArgs>(
+    DELETE_ITEM
+  );
+
+  const handleDelete = (e: any, data: any) => {
+
+
+    deleteItem({
+      variables: {
+        _id: antique?._id,
+
+      },
+      update(cache, { data }) {
+
+        if (!data) {
+          return null;
+        }
+
+        const getExistingAntiques = cache.readQuery<Query>({ query: GET_ITEMS });
+        // Add the new todo to the cache
+        const existingAntiques = getExistingAntiques ? getExistingAntiques.itemList : [];
+        const newAntiques = existingAntiques!.filter(t => {
+          if (t)
+            return (t._id !== antique._id)
+        });  /* .returning[0] */;
+        if (existingAntiques)
+          cache.writeQuery<Query>({
+            query: GET_ITEMS,
+            data: { itemList: newAntiques }
+          });
+      }
+
+    })
+    /* dispatch(dashboardSlice.actions.setSelectedAntique({ ...selectedAntique!, images: imagesArray! })) */
+
+  }
+
+  const handleToggle = () => {
+    var toggleValue = false
+    if (antique.active === false) {
+      toggleValue = true
+    } else toggleValue = false
+
+    console.log(toggleValue)
+
+    updateItem({
+      variables: {
+        _id: antique?._id,
+        active: toggleValue
+
+      },
+      update(cache, { data }) {
+
+        if (!data) {
+          return null;
+        }
+
+        const getExistingAntiques = cache.readQuery<Query>({ query: GET_ITEMS });
+
+        const existingAntiques = getExistingAntiques ? getExistingAntiques.itemList : [];
+        const otherAntiques = existingAntiques!.filter(t => {
+          if (t)
+            return (t._id !== antique._id)
+        });
+
+        const updatedAntique = updateItemData?.updateItem
+        if (updatedAntique)
+          cache.writeQuery<Query>({
+            query: GET_ITEMS,
+            data: { itemList: [updatedAntique, ...otherAntiques] }
+          });
+      }
+
+    })
+
+  }
+
 
   return (
     <Card>
@@ -228,10 +405,43 @@ export const DashboardAntiquesListItem: React.FunctionComponent<Props> = ({ anti
         <AdvancedImage style={imageStyles} cldImg={myImage} plugins={[lazyload('10px 20px 10px 30px', 0.25)]} />
 
       </ImageContainer>
-      <ImageButton onClick={() => handleClick()}>View</ImageButton>
+
 
       <CardHeading>{antique.name}</CardHeading>
       <CardSubHeading>£{antique.price}.00</CardSubHeading>
+
+      <ButtonContainer ref={buttonRef}>
+        <ImageButton onClick={() => handleClick()}>View</ImageButton>
+        <DeleteButton onClick={() => setDeleteButtonOpen(true)}>Delete</DeleteButton>
+        <Popup
+          eventsEnabled={true}
+          on='click'
+          onClose={() => setDeleteButtonOpen(false)}
+          /* style={buttonStyle} */
+          context={buttonRef}
+          position='top center'
+          open={deleteButtonOpen}>
+          <PopupContentContainer style={{ display: "flex" }}>
+            <p style={{ width: "max-content" }}>Are you sure you want to delete this item?</p>
+            <Button style={{ margin: 'auto' }} onClick={handleDelete}>Delete</Button>
+            <Button style={{ margin: 'auto' }} onClick={() => setDeleteButtonOpen(false)}>Cancel</Button>
+          </PopupContentContainer>
+
+        </Popup>
+      </ButtonContainer>
+      <CheckboxContainer>
+
+        <ActiveText>Active:</ActiveText>
+        <Checkbox
+          style={{ display: "flex", margin: "auto" }}
+          toggle
+          /* label='Check this box' */
+          onChange={handleToggle}
+          checked={antique.active}
+        />
+        <Loader style={{ zIndex: 1500 }} inverted active={updateItemLoading} />
+
+      </CheckboxContainer>
 
 
     </Card>

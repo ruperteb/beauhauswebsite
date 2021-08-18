@@ -22,8 +22,8 @@ const DashboardDiv = styled(motion.div)`
     flex-wrap: wrap;
     flex-direction: row;
     width: 100vw;
-    box-shadow: 1px 1px 3px 2px #0000003d;
-    overflow-y: scroll;
+    /* box-shadow: 1px 1px 3px 2px #0000003d; */
+    /* overflow-y: scroll; */
   `
 
 

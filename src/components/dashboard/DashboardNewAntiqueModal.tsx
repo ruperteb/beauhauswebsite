@@ -15,8 +15,8 @@ import { auto } from "@cloudinary/base/qualifiers/format";
 import { auto as qAuto } from "@cloudinary/base/qualifiers/quality";
 
 import { useMutation } from '@apollo/client';
-import { CREATE_ITEM } from "../../gql/gql"
-import { Mutation, MutationCreateItemArgs } from "../../schematypes/schematypes"
+import { CREATE_ITEM, GET_ITEMS} from "../../gql/gql"
+import { Mutation, MutationCreateItemArgs, Query } from "../../schematypes/schematypes"
 
 import { Formik, Form, useField, useFormikContext, FieldHookConfig } from "formik";
 import * as Yup from "yup";
@@ -602,19 +602,19 @@ export const DashboardNewAntiqueModal: React.FunctionComponent<Props> = ({ }) =>
                             .required("Required"),
                         length: Yup.number()
                             .typeError('Number required')
-                            .positive("Positive Value required"),
+                            .min(0, "Positive Value required"),
                            
                         width: Yup.number()
                             .typeError('Number required')
-                            .positive("Positive Value required"),
+                            .min(0, "Positive Value required"),
                             
                         height: Yup.number()
                             .typeError('Number required')
-                            .positive("Positive Value required"),
+                            .min(0, "Positive Value required"),
                             
                         price: Yup.number()
                             .typeError('Number required')
-                            .positive("Positive value required")
+                            .min(0, "Positive Value required")
                             .required("Required"),
                         description: Yup.string()
                             .max(400, "Must be 400 characters or less")
@@ -625,7 +625,7 @@ export const DashboardNewAntiqueModal: React.FunctionComponent<Props> = ({ }) =>
                             .max(25, "Must be 25 characters or less"),
                         date: Yup.number()
                             .typeError('Number required')
-                            .positive("Positive value required")
+                            .min(0, "Positive Value required")
                             
 
                     })}
@@ -643,7 +643,24 @@ export const DashboardNewAntiqueModal: React.FunctionComponent<Props> = ({ }) =>
                                 period: values.period,
                                 manufactureDate: values.date,
                                 active: false,
+                                images: []
 
+                            },
+                            update(cache, { data }) {
+
+                                if (!data) {
+                                    return null;
+                                }
+                
+                                const getExistingAntiques = cache.readQuery<Query>({ query: GET_ITEMS });
+                                // Add the new todo to the cache
+                                const existingAntiques = getExistingAntiques ? getExistingAntiques.itemList : [];
+                                const newAntique = data.createItem!/* .returning[0] */;
+                                if (existingAntiques)
+                                    cache.writeQuery<Query>({
+                                        query: GET_ITEMS,
+                                        data: { itemList: [newAntique, ...existingAntiques] }
+                                    });
                             }
 
                         })
@@ -731,8 +748,8 @@ export const DashboardNewAntiqueModal: React.FunctionComponent<Props> = ({ }) =>
                             context={buttonRef}
                             position='top center'
                             open={formState}>
-                            <p style={{ display: "flex", marginBottom: "0.5rem" }}><b style={{ marginLeft: "auto", marginRight: "auto" }}>{formState === true ? "Form Submitted" : "Submission Failed"}</b></p>
-                            <p>{formState === true ? "Your message has been sent" : "Please try again"}</p>
+                            <p style={{ display: "flex", marginBottom: "0.5rem" }}><b style={{ marginLeft: "auto", marginRight: "auto" }}>{formState === true ? "Item Created" : "Submission Failed"}</b></p>
+                            {/* <p>{formState === true ? "Your message has been sent" : "Please try again"}</p> */}
                         </Popup>
                     </Form>
                 </Formik>
