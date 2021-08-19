@@ -125,12 +125,20 @@ export const DashboardNavigation: React.FC<Props> = ({ /* exampleProp, */ }) => 
     const [navLinkToggle3, setNavLinkToggle3] = React.useState(false)
     const [navLinkToggle4, setNavLinkToggle4] = React.useState(false)
     const [navLinkToggle5, setNavLinkToggle5] = React.useState(false)
+    const [navLinkToggle6, setNavLinkToggle6] = React.useState(false)
+    const [navLinkToggle7, setNavLinkToggle7] = React.useState(false)
+    const [navLinkToggle8, setNavLinkToggle8] = React.useState(false)
+    const [navLinkToggle9, setNavLinkToggle9] = React.useState(false)
 
     const [navLinkHover1, setNavLinkHover1] = React.useState(false)
     const [navLinkHover2, setNavLinkHover2] = React.useState(false)
     const [navLinkHover3, setNavLinkHover3] = React.useState(false)
     const [navLinkHover4, setNavLinkHover4] = React.useState(false)
     const [navLinkHover5, setNavLinkHover5] = React.useState(false)
+    const [navLinkHover6, setNavLinkHover6] = React.useState(false)
+    const [navLinkHover7, setNavLinkHover7] = React.useState(false)
+    const [navLinkHover8, setNavLinkHover8] = React.useState(false)
+    const [navLinkHover9, setNavLinkHover9] = React.useState(false)
 
     React.useEffect(() => {
         if (typeFilter === "furniture") {
@@ -139,6 +147,10 @@ export const DashboardNavigation: React.FC<Props> = ({ /* exampleProp, */ }) => 
             setNavLinkToggle3(false)
             setNavLinkToggle4(false)
             setNavLinkToggle5(false)
+            setNavLinkToggle6(false)
+            setNavLinkToggle7(false)
+            setNavLinkToggle8(false)
+            setNavLinkToggle9(false)
         }
         if (typeFilter === "art") {
             setNavLinkToggle1(false)
@@ -146,6 +158,10 @@ export const DashboardNavigation: React.FC<Props> = ({ /* exampleProp, */ }) => 
             setNavLinkToggle3(false)
             setNavLinkToggle4(false)
             setNavLinkToggle5(false)
+            setNavLinkToggle6(false)
+            setNavLinkToggle7(false)
+            setNavLinkToggle8(false)
+            setNavLinkToggle9(false)
         }
         if (typeFilter === "lighting") {
             setNavLinkToggle1(false)
@@ -153,6 +169,10 @@ export const DashboardNavigation: React.FC<Props> = ({ /* exampleProp, */ }) => 
             setNavLinkToggle3(true)
             setNavLinkToggle4(false)
             setNavLinkToggle5(false)
+            setNavLinkToggle6(false)
+            setNavLinkToggle7(false)
+            setNavLinkToggle8(false)
+            setNavLinkToggle9(false)
         }
         if (typeFilter === "collectibles") {
             setNavLinkToggle1(false)
@@ -160,13 +180,65 @@ export const DashboardNavigation: React.FC<Props> = ({ /* exampleProp, */ }) => 
             setNavLinkToggle3(false)
             setNavLinkToggle4(true)
             setNavLinkToggle5(false)
+            setNavLinkToggle6(false)
+            setNavLinkToggle7(false)
+            setNavLinkToggle8(false)
+            setNavLinkToggle9(false)
+        }
+        if (typeFilter === "carpets") {
+            setNavLinkToggle1(false)
+            setNavLinkToggle2(false)
+            setNavLinkToggle3(false)
+            setNavLinkToggle4(false)
+            setNavLinkToggle5(true)
+            setNavLinkToggle6(false)
+            setNavLinkToggle7(false)
+            setNavLinkToggle8(false)
+            setNavLinkToggle9(false)
+        }
+        if (typeFilter === "mirrors") {
+            setNavLinkToggle1(false)
+            setNavLinkToggle2(false)
+            setNavLinkToggle3(false)
+            setNavLinkToggle4(false)
+            setNavLinkToggle5(false)
+            setNavLinkToggle6(true)
+            setNavLinkToggle7(false)
+            setNavLinkToggle8(false)
+            setNavLinkToggle9(false)
+        }
+        if (typeFilter === "objetdart") {
+            setNavLinkToggle1(false)
+            setNavLinkToggle2(false)
+            setNavLinkToggle3(false)
+            setNavLinkToggle4(false)
+            setNavLinkToggle5(false)
+            setNavLinkToggle6(false)
+            setNavLinkToggle7(true)
+            setNavLinkToggle8(false)
+            setNavLinkToggle9(false)
+        }
+        if (typeFilter === "misc") {
+            setNavLinkToggle1(false)
+            setNavLinkToggle2(false)
+            setNavLinkToggle3(false)
+            setNavLinkToggle4(false)
+            setNavLinkToggle5(false)
+            setNavLinkToggle6(false)
+            setNavLinkToggle7(false)
+            setNavLinkToggle8(true)
+            setNavLinkToggle9(false)
         }
         if (typeFilter === "all") {
             setNavLinkToggle1(false)
             setNavLinkToggle2(false)
             setNavLinkToggle3(false)
             setNavLinkToggle4(false)
-            setNavLinkToggle5(true)
+            setNavLinkToggle5(false)
+            setNavLinkToggle6(false)
+            setNavLinkToggle7(false)
+            setNavLinkToggle8(false)
+            setNavLinkToggle9(true)
         }
     }, [typeFilter])
 
@@ -208,34 +280,51 @@ export const DashboardNavigation: React.FC<Props> = ({ /* exampleProp, */ }) => 
 
                     </FlexGridColumn>
                     
-                    <FlexGridColumn width={9}>
+                    <FlexGridColumn width={10}>
                         <NavLinkDivContainer>
                             <NavLinkDiv onMouseEnter={() => setNavLinkHover1(true)} onMouseLeave={() => setNavLinkHover1(false)}>
-                                <NavLink style={typeFilter === "furniture" ? navLinkHoverStyles : {}} to={`/collections/#furniture`} onClick={() => navLinkClick("furniture")}>Furniture</NavLink>
+                                <NavLink style={typeFilter === "furniture" ? navLinkHoverStyles : {}} to={`/dashboard/#furniture`} onClick={() => navLinkClick("furniture")}>Furniture</NavLink>
                                 <NavLinkUnderline layout transition={{ duration: 0.4, ease: "easeInOut" }} animate={navLinkToggle1 === true || navLinkHover1 === true ? { opacity: 1, width: "100%", backgroundColor: "#4daca76b" } : { opacity: 0, width: "0%", backgroundColor: "#e2d8d8d5" }}></NavLinkUnderline>
                             </NavLinkDiv>
                             <NavLinkDiv onMouseEnter={() => setNavLinkHover2(true)} onMouseLeave={() => setNavLinkHover2(false)}>
-                                <NavLink style={typeFilter === "art" ? navLinkHoverStyles : {}} to={`/collections/#art`} onClick={() => navLinkClick("art")}>Art</NavLink>
+                                <NavLink style={typeFilter === "art" ? navLinkHoverStyles : {}} to={`/dashboard/#art`} onClick={() => navLinkClick("art")}>Art</NavLink>
                                 <NavLinkUnderline transition={{ duration: 0.4, ease: "easeInOut" }} animate={navLinkToggle2 === true || navLinkHover2 === true ? { opacity: 1, width: "100%", backgroundColor: "#4daca76b" } : { opacity: 0, width: "0%", backgroundColor: "#e2d8d8d5" }}></NavLinkUnderline>
                             </NavLinkDiv>
                             <NavLinkDiv onMouseEnter={() => setNavLinkHover3(true)} onMouseLeave={() => setNavLinkHover3(false)}>
-                                <NavLink style={typeFilter === "lighting" ? navLinkHoverStyles : {}} to={`/collections/#lighting`} onClick={() => navLinkClick("lighting")}>Lighting</NavLink>
+                                <NavLink style={typeFilter === "lighting" ? navLinkHoverStyles : {}} to={`/dashboard/#lighting`} onClick={() => navLinkClick("lighting")}>Lighting</NavLink>
                                 <NavLinkUnderline transition={{ duration: 0.4, ease: "easeInOut" }} animate={navLinkToggle3 === true || navLinkHover3 === true ? { opacity: 1, width: "100%", backgroundColor: "#4daca76b" } : { opacity: 0, width: "0%", backgroundColor: "#e2d8d8d5" }}></NavLinkUnderline>
                             </NavLinkDiv>
                             <NavLinkDiv onMouseEnter={() => setNavLinkHover4(true)} onMouseLeave={() => setNavLinkHover4(false)}>
-                                <NavLink style={typeFilter === "collectibles" ? navLinkHoverStyles : {}} to={`/collections/#collectibles`} onClick={() => navLinkClick("collectibles")}>Collectibles</NavLink>
+                                <NavLink style={typeFilter === "collectibles" ? navLinkHoverStyles : {}} to={`/dashboard/#collectibles`} onClick={() => navLinkClick("collectibles")}>Collectibles</NavLink>
                                 <NavLinkUnderline transition={{ duration: 0.4, ease: "easeInOut" }} animate={navLinkToggle4 === true || navLinkHover4 === true ? { opacity: 1, width: "100%", backgroundColor: "#4daca76b" } : { opacity: 0, width: "0%", backgroundColor: "#e2d8d8d5" }}></NavLinkUnderline>
                             </NavLinkDiv>
                             <NavLinkDiv onMouseEnter={() => setNavLinkHover5(true)} onMouseLeave={() => setNavLinkHover5(false)}>
-                                <NavLink style={typeFilter === "all" ? navLinkHoverStyles : {}} to={`/collections/#all`} onClick={() => navLinkClick("all")}>All</NavLink>
+                                <NavLink style={typeFilter === "carpets" ? navLinkHoverStyles : {}} to={`/dashboard/#carpets`} onClick={() => navLinkClick("carpets")}>Carpets & Rugs</NavLink>
                                 <NavLinkUnderline transition={{ duration: 0.4, ease: "easeInOut" }} animate={navLinkToggle5 === true || navLinkHover5 === true ? { opacity: 1, width: "100%", backgroundColor: "#4daca76b" } : { opacity: 0, width: "0%", backgroundColor: "#e2d8d8d5" }}></NavLinkUnderline>
+                            </NavLinkDiv>
+                            <NavLinkDiv onMouseEnter={() => setNavLinkHover6(true)} onMouseLeave={() => setNavLinkHover6(false)}>
+                                <NavLink style={typeFilter === "mirrors" ? navLinkHoverStyles : {}} to={`/dashboard/#mirrors`} onClick={() => navLinkClick("mirrors")}>Mirrors</NavLink>
+                                <NavLinkUnderline transition={{ duration: 0.4, ease: "easeInOut" }} animate={navLinkToggle6 === true || navLinkHover6 === true ? { opacity: 1, width: "100%", backgroundColor: "#4daca76b" } : { opacity: 0, width: "0%", backgroundColor: "#e2d8d8d5" }}></NavLinkUnderline>
+                            </NavLinkDiv>
+                            <NavLinkDiv onMouseEnter={() => setNavLinkHover7(true)} onMouseLeave={() => setNavLinkHover7(false)}>
+                                <NavLink style={typeFilter === "objetdart" ? navLinkHoverStyles : {}} to={`/dashboard/#objetdart`} onClick={() => navLinkClick("objetdart")}>Objet d'art</NavLink>
+                                <NavLinkUnderline transition={{ duration: 0.4, ease: "easeInOut" }} animate={navLinkToggle7 === true || navLinkHover7 === true ? { opacity: 1, width: "100%", backgroundColor: "#4daca76b" } : { opacity: 0, width: "0%", backgroundColor: "#e2d8d8d5" }}></NavLinkUnderline>
+                            </NavLinkDiv>
+                            <NavLinkDiv onMouseEnter={() => setNavLinkHover8(true)} onMouseLeave={() => setNavLinkHover8(false)}>
+                                <NavLink style={typeFilter === "misc" ? navLinkHoverStyles : {}} to={`/dashboard/#misc`} onClick={() => navLinkClick("misc")}>Misc</NavLink>
+                                <NavLinkUnderline transition={{ duration: 0.4, ease: "easeInOut" }} animate={navLinkToggle8 === true || navLinkHover8 === true ? { opacity: 1, width: "100%", backgroundColor: "#4daca76b" } : { opacity: 0, width: "0%", backgroundColor: "#e2d8d8d5" }}></NavLinkUnderline>
+                            </NavLinkDiv>
+
+                            <NavLinkDiv onMouseEnter={() => setNavLinkHover9(true)} onMouseLeave={() => setNavLinkHover9(false)}>
+                                <NavLink style={typeFilter === "all" ? navLinkHoverStyles : {}} to={`/dashboard/#all`} onClick={() => navLinkClick("all")}>All</NavLink>
+                                <NavLinkUnderline transition={{ duration: 0.4, ease: "easeInOut" }} animate={navLinkToggle9 === true || navLinkHover9 === true ? { opacity: 1, width: "100%", backgroundColor: "#4daca76b" } : { opacity: 0, width: "0%", backgroundColor: "#e2d8d8d5" }}></NavLinkUnderline>
                             </NavLinkDiv>
                         </NavLinkDivContainer>
 
                     </FlexGridColumn>
 
-                    <FlexGridColumn width={2}>
-                        <Button onClick={()=> addButtonClick()}>Add Item</Button>
+                    <FlexGridColumn width={1}>
+                        <Button onClick={()=> addButtonClick()}>Add</Button>
                     </FlexGridColumn>
 
                     <FlexGridColumn width={2}>

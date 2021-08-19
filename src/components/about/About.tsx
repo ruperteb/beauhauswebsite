@@ -35,12 +35,14 @@ padding-top: 0px !important;
 const AboutTextDiv = styled.div`
 display: flex;
 flex-direction: column;
-`
-const AboutHeadingTextDiv = styled(motion.h1)`
 margin-left: 10%;
 margin-right: 10%;
+`
+const AboutHeadingTextDiv = styled(motion.h1)`
+margin-left: auto;
+margin-right: auto;
 margin-top: auto !important;
-margin-bottom: 2rem;
+margin-bottom: 4rem;
 font-family: ${props => props.theme.primaryTextFont};
 font-size: 36px;
 /* color: #ccaa66;
@@ -50,10 +52,10 @@ text-shadow: 1px 1px 1px #eadede;
 `
 
 const AboutSubHeadingTextDiv = styled(motion.div)`
-margin-left: 20%;
-margin-right: 20%;
+margin-left: auto;
+margin-right: auto;
 margin-top: 0px;
-margin-bottom: auto;
+margin-bottom: 3rem;
 font-family: ${props => props.theme.secondaryTextFont};
 font-size: 16px;
 /* color: white; */
@@ -162,7 +164,17 @@ export const About: React.FunctionComponent<Props> = ({ }) => {
                                 About Us
                             </AboutHeadingTextDiv>
                             <AboutSubHeadingTextDiv initial={false} animate={visibility() ? "visible" : "hidden"} variants={textVariants} transition={{ duration: 1, delay: 0.2 }}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                BEAUHAUS is an emporium of delightful objects, perfect for the home and other interior spaces.
+                            </AboutSubHeadingTextDiv>
+                            <AboutSubHeadingTextDiv initial={false} animate={visibility() ? "visible" : "hidden"} variants={textVariants} transition={{ duration: 1, delay: 0.2 }}>
+                                All items are sourced, managed and marketed by Tim Illston, Beauhaus’ owner and principal curator. Tim has spent many years acquiring a collection of distinctive items, with an emphasis on pieces displaying a classical or rococo aesthetic.
+                            </AboutSubHeadingTextDiv>
+                            
+                            <AboutSubHeadingTextDiv  initial={false} animate={visibility() ? "visible" : "hidden"} variants={textVariants} transition={{ duration: 1, delay: 0.2 }}>
+                                Our heroes include: Mr and Mrs Charles Rennie Mackintosh, TH Robsjohn-Gibbings, Ray and Charles Eames, Mies van der Rohe, Zaha Hadid and Graham Carl Stirk.
+                            </AboutSubHeadingTextDiv>
+                            <AboutSubHeadingTextDiv style={{ marginBottom: "auto" }} initial={false} animate={visibility() ? "visible" : "hidden"} variants={textVariants} transition={{ duration: 1, delay: 0.2 }}>
+                            Let’s celebrate their contributions and the work of so many other great artists and designers!
                             </AboutSubHeadingTextDiv>
 
                         </AboutTextDiv>

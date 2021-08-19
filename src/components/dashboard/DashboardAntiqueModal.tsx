@@ -660,7 +660,9 @@ export const DashboardAntiqueModal: React.FunctionComponent<Props> = ({ }) => {
                     <StyledImageText>
                         Image {
                             // @ts-ignore: Unreachable code error
-                            galleryRef.current?.getCurrentIndex() + 1}
+                            galleryRef.current?.getCurrentIndex() !== undefined ?
+                                // @ts-ignore: Unreachable code error
+                                galleryRef.current?.getCurrentIndex() + 1 : "loading"}
                     </StyledImageText>
 
                 </StyledImageTextDiv>

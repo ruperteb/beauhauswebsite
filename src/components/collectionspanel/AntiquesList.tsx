@@ -47,7 +47,7 @@ export const AntiquesList: React.FunctionComponent<Props> = ({ /* propertyData, 
      if (!checkDatesEqual(filterData?.filterVariables!.earliestOccMax, startDate)) { if (!checkDatesLessThanOrEqual(getEarliestOccDate(property), filterData?.filterVariables!.earliestOccMax)) return false }
      return true */
      if(antique.active === false) return false
-    if (typeFilter !== "" && typeFilter !== "all" ) { if (!typeFilter?.includes(antique.type)) return false }
+    if (typeFilter !== "" && typeFilter !== "all" ) { if /* (!typeFilter?.includes(antique.type)) */ (typeFilter !== antique.type) return false }
     return true
   }
 

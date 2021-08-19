@@ -36,10 +36,14 @@ padding-top: 0px !important;
 const HomeTextDiv = styled.div`
 display: flex;
 flex-direction: column;
+margin-right: 10%;
 `
 const HomeHeadingTextDiv = styled.h1`
-margin-left: 10%;
-margin-right: 10%;
+display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+margin-left: auto;
+margin-right: auto;
 margin-top: auto !important;
 margin-bottom: 60px;
 font-family: ${props => props.theme.primaryTextFont};
@@ -51,11 +55,24 @@ text-shadow: 1px 1px 1px #eadede;
 
 `
 
+const HomeHeadingText = styled.p`
+display: flex;
+    margin: 0px auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: row;
+`
+
+const HomeHeadingTextBold = styled.b`
+color: white;
+text-shadow: 1px 1px 1px #887777;
+`
+
 const HomeSubHeadingTextDiv = styled.div`
-margin-left: 20%;
-margin-right: 20%;
+margin-left: auto;
+margin-right: auto;
 margin-top: 0px;
-margin-bottom: 60px;
+margin-bottom: 2rem;
 font-family: ${props => props.theme.secondaryTextFont};
 font-size: 16px;
 /* color: white; */
@@ -175,13 +192,20 @@ export const Home: React.FunctionComponent<Props> = ({ }) => {
                     <Grid.Column style={{ display: "flex" }} width={6}>
                         <HomeTextDiv>
                             <HomeHeadingTextDiv>
-                                Purveyors of antique furniture, art and vintage collectibles.
+                                {/* Purveyors of antique furniture, art and vintage collectibles. */}
+                                <HomeHeadingText>Welcome to&nbsp;<HomeHeadingTextBold>BEAUHAUS</HomeHeadingTextBold>,</HomeHeadingText>
+                                
+                                <HomeHeadingText>a novel and eclectic collection of wonderful artefacts</HomeHeadingText>
                             </HomeHeadingTextDiv>
-                            <HomeSubHeadingTextDiv>
-                                Our curated selection of items covers a range of styles, periods and areas of interest:
+                            <HomeSubHeadingTextDiv >
+                                {/* Our curated selection of items covers a range of styles, periods and areas of interest: */}
+                                We love and appreciate the skill and craftsmanship of the artisan. We revel in the history and life of each precious item.
+                            </HomeSubHeadingTextDiv>
+                            <HomeSubHeadingTextDiv style={{marginBottom: "3rem"}}>
+                            Great design is more than just style, it has soul.
                             </HomeSubHeadingTextDiv>
                             <HomeButton onClick={handleLinkClick} animated>
-                                <Button.Content visible style={{ marginRight: 0, fontSize: "1.2rem" /* textShadow: "1px 1px 1px black" */ }}>Collections</Button.Content>
+                                <Button.Content visible style={{ marginRight: 0, fontSize: "1.2rem" /* textShadow: "1px 1px 1px black" */ }}>Our Collections</Button.Content>
                                 <Button.Content hidden>
                                     <Icon name='arrow right' style={{ textShadow: "1px 1px 1px black" }} />
                                 </Button.Content>

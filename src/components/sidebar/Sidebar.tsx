@@ -27,7 +27,7 @@ const StyledSidebarDiv = styled(motion.div)`
     box-shadow: 1px 1px 3px 2px #0000003d;
   `
 const StyledSidebarInnerDiv = styled.div`
-    background-color: ${props => props.theme.secondaryColor};
+    background-color: #786963;
     height: 100%;
     width: 100%;
     height: 100vh;
@@ -53,14 +53,14 @@ const StyledMenuItem = styled(motion.div)`
 const StyledMenuHeading = styled(motion.h1)`
     font-family: ${props => props.theme.primaryTextFont};
     font-size: 25px;
-    color: ${props => props.theme.primaryTextColor};
+    color: #1d0c12;
     letter-spacing: 2px;
   `
 
 const StyledLineDiv = styled(motion.div)`
     height: 50px;
     width: 3px;
-    background-color: #195777;
+    background-color: white;
     position: absolute;
     left: 5px;
     top: 100px;
@@ -80,6 +80,8 @@ export const Sidebar: React.FunctionComponent<Props> = ({ }) => {
     const collectionsHeight = useAppSelector((state) => state.navigation.collectionsHeight)
 
     const currentPageURL = useAppSelector((state) => state.navigation.currentPageURL)
+
+    const showCollectionsPanel = useAppSelector((state) => state.navigation.showCollectionsPanel)
 
     const dispatch = useAppDispatch()
 
@@ -102,28 +104,59 @@ export const Sidebar: React.FunctionComponent<Props> = ({ }) => {
             default:
                 window.scrollTo({ behavior: 'smooth', top: 0 })
         }
-    
-    },[selectedItem])
+
+    }, [selectedItem])
 
     const handleItemClick = (selection: string) => {
-        setSelectedItem(selection)
-        dispatch(navigationSlice.actions.setCurrentPageURL(selection))
-        switch (selection) {
-            case "#home":
-                window.scrollTo({ behavior: 'smooth', top: 0 })
-                break;
-            case "#about":
-                window.scrollTo({ behavior: 'smooth', top: homeHeight + 25 })
-                break;
-            case "#collections":
-                window.scrollTo({ behavior: 'smooth', top: homeHeight + aboutHeight + 25 })
-                break;
-            case "#contact":
-                window.scrollTo({ behavior: 'smooth', top: homeHeight + aboutHeight + collectionsHeight + 100 })
-                break;
-            default:
-                window.scrollTo({ behavior: 'smooth', top: 0 })
+        
+        if (showCollectionsPanel) {
+            dispatch(navigationSlice.actions.setCollectionsPanelVisibility(false))
+            document.body.style.overflowY = "visible"
+            const timer = setTimeout(() => {
+                setSelectedItem(selection)
+                dispatch(navigationSlice.actions.setCurrentPageURL(selection))
+
+                switch (selection) {
+                    case "#home":
+                        window.scrollTo({ behavior: 'smooth', top: 0 })
+                        break;
+                    case "#about":
+                        window.scrollTo({ behavior: 'smooth', top: homeHeight + 25 })
+                        break;
+                    case "#collections":
+                        window.scrollTo({ behavior: 'smooth', top: homeHeight + aboutHeight + 25 })
+                        break;
+                    case "#contact":
+                        window.scrollTo({ behavior: 'smooth', top: homeHeight + aboutHeight + collectionsHeight + 100 })
+                        break;
+                    default:
+                        window.scrollTo({ behavior: 'smooth', top: 0 })
+                }
+            }, 500);
+            return () => clearTimeout(timer);
+        } else {
+            setSelectedItem(selection)
+            dispatch(navigationSlice.actions.setCurrentPageURL(selection))
+
+            switch (selection) {
+                case "#home":
+                    window.scrollTo({ behavior: 'smooth', top: 0 })
+                    break;
+                case "#about":
+                    window.scrollTo({ behavior: 'smooth', top: homeHeight + 25 })
+                    break;
+                case "#collections":
+                    window.scrollTo({ behavior: 'smooth', top: homeHeight + aboutHeight + 25 })
+                    break;
+                case "#contact":
+                    window.scrollTo({ behavior: 'smooth', top: homeHeight + aboutHeight + collectionsHeight + 100 })
+                    break;
+                default:
+                    window.scrollTo({ behavior: 'smooth', top: 0 })
+            }
         }
+
+
 
     }
 
@@ -134,7 +167,7 @@ export const Sidebar: React.FunctionComponent<Props> = ({ }) => {
 
     const menuTextVariants = {
         selected: { color: "#ffffff" },
-        unselected: { color: "#084b6d" },
+        unselected: { color: "#1d0c12" },
 
     }
 

@@ -79,7 +79,8 @@ margin-right: auto;
 margin-top: 2em !important;
 margin-bottom: 1em !important;
 font-family: ${props => props.theme.primaryTextFont};
-text-transform: uppercase;
+/* text-transform: uppercase; */
+text-shadow: 1px 1px 1px #eadede;
 font-size: 36px;
 color: ${props => props.theme.primaryTextColor};
 /* text-shadow: 1px 1px 1px black; */
@@ -343,11 +344,12 @@ export const Contact: React.FunctionComponent<Props> = ({ }) => {
     const mapContainer = React.useRef<any>(null);
     const marker = React.useRef<any>(null);
 
+
     React.useEffect(() => {
         if (mapContainer.current) {
             map.current = new Map({
                 container: mapContainer.current,
-                center: [-1.5862674555619845, 52.28327425698424],
+                center: [-1.5852803464067466, 52.279996598094165],
 
                 zoom: 15,
                 /* style: 'mapbox://styles/mapbox/navigation-night-v1', */
@@ -371,7 +373,7 @@ export const Contact: React.FunctionComponent<Props> = ({ }) => {
         if (marker.current)
             marker.current.remove()
         if (contactInView)
-            marker.current = new mapboxgl.Marker(markerNode).setLngLat([-1.5862674555619845, 52.28327425698424]).addTo(map.current)
+            marker.current = new mapboxgl.Marker(markerNode).setLngLat([-1.5852803464067466, 52.279996598094165]).addTo(map.current)
         ReactDOM.render(EBLogoMarker(), markerNode);
 
     }, [contactInView])
@@ -498,7 +500,7 @@ export const Contact: React.FunctionComponent<Props> = ({ }) => {
 
                 <ContactGridRow>
                     <ContactHeadingTextDiv>
-                        Contact Us:
+                        Contact Us
                     </ContactHeadingTextDiv>
                 </ContactGridRow>
 
@@ -509,7 +511,7 @@ export const Contact: React.FunctionComponent<Props> = ({ }) => {
                                 <StyledIcon size="big" circular inverted name='map marker alternate' />
                                 <ContactTextContainerDiv>
                                     <ContactDetailsHeading>Location:</ContactDetailsHeading>
-                                    <ContactDetailsSubHeading>36 Chapel Street, Warwick, CV344HL</ContactDetailsSubHeading>
+                                    <ContactDetailsSubHeading>Warwick, Warwickshire</ContactDetailsSubHeading>
                                 </ContactTextContainerDiv>
                             </ContactDetailsDiv>
                             <ContactDetailsDiv>

@@ -362,7 +362,6 @@ export const DashboardAntiquesListItem: React.FunctionComponent<Props> = ({ anti
       toggleValue = true
     } else toggleValue = false
 
-    console.log(toggleValue)
 
     updateItem({
       variables: {
@@ -384,7 +383,7 @@ export const DashboardAntiquesListItem: React.FunctionComponent<Props> = ({ anti
             return (t._id !== antique._id)
         });
 
-        const updatedAntique = updateItemData?.updateItem
+        const updatedAntique = data?.updateItem
         if (updatedAntique)
           cache.writeQuery<Query>({
             query: GET_ITEMS,

@@ -11,6 +11,7 @@ import styled from 'styled-components'
 import AntiquesList from "./AntiquesList"
 import CollectionsPanelNavigation from './CollectionsPanelNavigation';
 import AntiqueModal from './AntiqueModal';
+import { callbackify } from 'util';
 
 interface CardProps {
     headerHeight: number,
@@ -44,6 +45,7 @@ interface Props {
 export const CollectionsPanel: React.FunctionComponent<Props> = ({ }) => {
 
     const showCollectionsPanel = useAppSelector((state) => state.navigation.showCollectionsPanel)
+    const showSidebar = useAppSelector((state) => state.navigation.showSidebar)
 
     const headerHeight = useAppSelector((state) => state.navigation.headerHeight -25)
 
@@ -52,6 +54,16 @@ export const CollectionsPanel: React.FunctionComponent<Props> = ({ }) => {
     const panelVariants = {
         hidden: { x: "0px" },
         visible: { x: `-100vw` },
+        sidebarVisible: {x: `calc(-100vw + 260px)`}
+    }
+
+    const checkAnimationVariant = () => {
+        if (showCollectionsPanel === true && showSidebar === true) {
+            return "sidebarVisible"
+        } else if (showCollectionsPanel === true) {
+            return "visible"
+        } else return "hidden"
+
     }
 
 
@@ -59,7 +71,7 @@ export const CollectionsPanel: React.FunctionComponent<Props> = ({ }) => {
     return (
         <StyledCollectionsPanelDiv
             headerHeight={headerHeight}
-            animate={showCollectionsPanel ? "visible" : "hidden"}
+            animate={checkAnimationVariant()}
             variants={panelVariants}
             transition={{ duration: 0.5 }}>
             <CollectionsPanelNavigation></CollectionsPanelNavigation>

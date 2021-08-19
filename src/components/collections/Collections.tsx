@@ -43,14 +43,14 @@ const CollectionstCardDiv = styled(motion.div)`
 display: flex;
 flex-direction: column;
 padding: 2rem;
-background-color: #cedbe85c;
+/* background-color: #cedbe85c; */
 border-radius: 30px;
 margin-left: 1rem;
 margin-right: 1rem;
 margin-top: 1rem;
 margin-bottom: 1rem;
-box-shadow: 1px 1px 2px 1px rgb(34 36 38 / 15%);
-border: 1px solid rgba(34,36,38,.15);
+/* box-shadow: 1px 1px 2px 1px rgb(34 36 38 / 15%);
+border: 1px solid rgba(34,36,38,.15); */
 transition: transform 200ms ease, -webkit-transform 200ms ease;
 cursor: pointer;
 &:hover {
@@ -165,19 +165,35 @@ export const Collections: React.FunctionComponent<Props> = ({ }) => {
     const artImage = cld.image("Antiques_art_cqy3cl");
     const lightingImage = cld.image("Antiques_lighting_dwpoja");
     const collectiblesImage = cld.image("Antiques_collectibles_skr3yx");
+    const carpetsImage = cld.image("Antiques_carpet_asjpkt");
+    const mirrorsImage = cld.image("Antiques_mirror_hctfpz");
+    const objetdartImage = cld.image("Antiques_objetd_art_hrirad");
+    const miscImage = cld.image("Antiques_home_srmuhc");
 
-    var imageHeight = "300px"
+    var imageHeight = "150px"
 
-    furnitureImage.resize(fill().width(450).height(300)).delivery(format(auto()))
+    furnitureImage.resize(fill().width(225).height(150)).delivery(format(auto()))
     .delivery(quality(qAuto()));
 
-    artImage.resize(fill().width(450).height(300)).delivery(format(auto()))
+    artImage.resize(fill().width(225).height(150)).delivery(format(auto()))
     .delivery(quality(qAuto()));
 
-    lightingImage.resize(fill().width(450).height(300)).delivery(format(auto()))
+    lightingImage.resize(fill().width(225).height(150)).delivery(format(auto()))
     .delivery(quality(qAuto()));
 
-    collectiblesImage.resize(fill().width(450).height(300)).delivery(format(auto()))
+    collectiblesImage.resize(fill().width(225).height(150)).delivery(format(auto()))
+    .delivery(quality(qAuto()));
+
+    carpetsImage.resize(fill().width(225).height(150)).delivery(format(auto()))
+    .delivery(quality(qAuto()));
+
+    mirrorsImage.resize(fill().width(225).height(150)).delivery(format(auto()))
+    .delivery(quality(qAuto()));
+
+    objetdartImage.resize(fill().width(225).height(150)).delivery(format(auto()))
+    .delivery(quality(qAuto()));
+
+    miscImage.resize(fill().width(225).height(150)).delivery(format(auto()))
     .delivery(quality(qAuto()));
 
     return (
@@ -200,33 +216,59 @@ export const Collections: React.FunctionComponent<Props> = ({ }) => {
                         </CollectionsGridRow>
                         <CollectionsGridRow  >
 
-                            <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
+                            <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={4}>
                                 <CollectionstCardDiv onClick={() => handleCardClick("furniture")}>
-                                <AdvancedImage style={{display: "flex", height: imageHeight}} cldImg={furnitureImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
+                                <AdvancedImage style={{display: "flex", height: imageHeight, borderRadius: "15px"}} cldImg={furnitureImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
                                     <CollectionsCardSubHeading>Furniture</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>
 
                             </Grid.Column>
-                            <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
+                            <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={4}>
                                 <CollectionstCardDiv onClick={() => handleCardClick("art")}>
-                                <AdvancedImage style={{display: "flex", height: imageHeight}} cldImg={artImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
+                                <AdvancedImage style={{display: "flex", height: imageHeight, borderRadius: "15px"}} cldImg={artImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
                                     <CollectionsCardSubHeading>Art</CollectionsCardSubHeading>
+                                </CollectionstCardDiv>
+                            </Grid.Column>
+
+                            <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={4}>
+                                <CollectionstCardDiv onClick={() => handleCardClick("lighting")}>
+                                <AdvancedImage style={{display: "flex", height: imageHeight, borderRadius: "15px"}} cldImg={lightingImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
+                                    <CollectionsCardSubHeading>Lighting</CollectionsCardSubHeading>
+                                </CollectionstCardDiv>
+                            </Grid.Column>
+                            <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={4}>
+                                <CollectionstCardDiv onClick={() => handleCardClick("collectibles")}>
+                                <AdvancedImage style={{display: "flex", height: imageHeight, borderRadius: "15px" }} cldImg={collectiblesImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
+                                    <CollectionsCardSubHeading>Collectibles</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>
                             </Grid.Column>
 
                         </CollectionsGridRow>
                         <CollectionsGridRow >
 
-                            <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
-                                <CollectionstCardDiv onClick={() => handleCardClick("lighting")}>
-                                <AdvancedImage style={{display: "flex", height: imageHeight}} cldImg={lightingImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
-                                    <CollectionsCardSubHeading>Lighting</CollectionsCardSubHeading>
+                            <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={4}>
+                                <CollectionstCardDiv onClick={() => handleCardClick("carpets")}>
+                                <AdvancedImage style={{display: "flex", height: imageHeight, borderRadius: "15px"}} cldImg={carpetsImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
+                                    <CollectionsCardSubHeading>Carpets & </CollectionsCardSubHeading>
+                                    <CollectionsCardSubHeading style={{marginTop: "0.5rem"}}>Rugs</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>
                             </Grid.Column>
-                            <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={8}>
-                                <CollectionstCardDiv onClick={() => handleCardClick("collectibles")}>
-                                <AdvancedImage style={{display: "flex", height: imageHeight }} cldImg={collectiblesImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
-                                    <CollectionsCardSubHeading>Collectibles</CollectionsCardSubHeading>
+                            <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={4}>
+                                <CollectionstCardDiv onClick={() => handleCardClick("mirrors")}>
+                                <AdvancedImage style={{display: "flex", height: imageHeight, borderRadius: "15px" }} cldImg={mirrorsImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
+                                    <CollectionsCardSubHeading>Mirrors</CollectionsCardSubHeading>
+                                </CollectionstCardDiv>
+                            </Grid.Column>
+                            <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={4}>
+                                <CollectionstCardDiv onClick={() => handleCardClick("objetdart")}>
+                                <AdvancedImage style={{display: "flex", height: imageHeight, borderRadius: "15px"}} cldImg={objetdartImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
+                                    <CollectionsCardSubHeading>Objet d'art</CollectionsCardSubHeading>
+                                </CollectionstCardDiv>
+                            </Grid.Column>
+                            <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={4}>
+                                <CollectionstCardDiv onClick={() => handleCardClick("misc")}>
+                                <AdvancedImage style={{display: "flex", height: imageHeight, borderRadius: "15px" }} cldImg={miscImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
+                                    <CollectionsCardSubHeading>Miscellaneous</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>
                             </Grid.Column>
 

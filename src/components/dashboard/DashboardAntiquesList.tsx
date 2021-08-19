@@ -46,7 +46,7 @@ export const DashboardAntiquesList: React.FunctionComponent<Props> = ({ /* prope
      if (!checkDatesEqual(filterData?.filterVariables!.earliestOccMin, startDate)) { if (!checkDatesGreaterThanOrEqual(getEarliestOccDate(property), filterData?.filterVariables!.earliestOccMin)) return false }
      if (!checkDatesEqual(filterData?.filterVariables!.earliestOccMax, startDate)) { if (!checkDatesLessThanOrEqual(getEarliestOccDate(property), filterData?.filterVariables!.earliestOccMax)) return false }
      return true */
-    if (typeFilter !== "" && typeFilter !== "all" ) { if (!typeFilter?.includes(antique.type)) return false }
+    if (typeFilter !== "" && typeFilter !== "all" ) { if (typeFilter !== antique.type) return false }
     return true
   }
 
