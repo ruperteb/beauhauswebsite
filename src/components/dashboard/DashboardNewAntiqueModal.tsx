@@ -482,6 +482,10 @@ export const DashboardNewAntiqueModal: React.FunctionComponent<Props> = ({ }) =>
         { key: 2, text: 'Art', value: "art" },
         { key: 3, text: 'Lighting', value: "lighting" },
         { key: 4, text: 'Collectibles', value: "collectibles" },
+        { key: 5, text: 'Carpets & Rugs', value: "carpets" },
+        { key: 6, text: 'Mirrors', value: "mirrors" },
+        { key: 7, text: "Objet d'art", value: "objetdart" },
+        { key: 8, text: 'Miscellaneous', value: "misc" },
     ]
 
     const TypeInput = (props: OtherProps & FieldHookConfig<string>) => {

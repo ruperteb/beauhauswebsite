@@ -9,9 +9,14 @@ import { useAppSelector, useAppDispatch } from '../../redux/hooks'
 import styled from 'styled-components'
 
 import AntiquesList from "./AntiquesList"
+import AntiquesListMobile from "./AntiquesListMobile"
 import CollectionsPanelNavigation from './CollectionsPanelNavigation';
+import CollectionsPanelNavigationMobile from './CollectionsPanelNavigationMobile';
 import AntiqueModal from './AntiqueModal';
+import AntiqueModalMobile from './AntiqueModalMobile';
 import { callbackify } from 'util';
+
+import { useMediaQuery } from 'react-responsive'
 
 interface CardProps {
     headerHeight: number,
@@ -66,7 +71,9 @@ export const CollectionsPanel: React.FunctionComponent<Props> = ({ }) => {
 
     }
 
+    const isDesktopOrLaptop = useMediaQuery({ query: "(min-width: 1224px)" })
 
+    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
 
     return (
         <StyledCollectionsPanelDiv
@@ -74,9 +81,21 @@ export const CollectionsPanel: React.FunctionComponent<Props> = ({ }) => {
             animate={checkAnimationVariant()}
             variants={panelVariants}
             transition={{ duration: 0.5 }}>
+
+            {isDesktopOrLaptop && 
+            <>
             <CollectionsPanelNavigation></CollectionsPanelNavigation>
             <AntiquesList></AntiquesList>
             <AntiqueModal></AntiqueModal>
+            </>
+            }
+            {isTabletOrMobile && 
+            <>
+            <CollectionsPanelNavigationMobile></CollectionsPanelNavigationMobile>
+            <AntiquesListMobile></AntiquesListMobile>
+            <AntiqueModalMobile></AntiqueModalMobile>
+            </>
+            }
         </StyledCollectionsPanelDiv>
     );
 };

@@ -36,7 +36,8 @@ padding-top: 0px !important;
 const HomeTextDiv = styled.div`
 display: flex;
 flex-direction: column;
-margin-right: 10%;
+/* margin-right: 10%; */
+padding: 1rem;
 `
 const HomeHeadingTextDiv = styled.h1`
 display: flex;
@@ -44,10 +45,10 @@ display: flex;
     flex-wrap: wrap;
 margin-left: auto;
 margin-right: auto;
-margin-top: auto !important;
-margin-bottom: 60px;
+margin-top: 1rem !important;
+margin-bottom: 2rem;
 font-family: ${props => props.theme.primaryTextFont};
-font-size: 36px;
+font-size: 26px;
 /* color: #ccaa66; */
 color: ${props => props.theme.primaryTextColor};
 /* text-shadow: 1px 1px 1px black; */
@@ -113,7 +114,7 @@ box-shadow: ${props => props.theme.buttonBoxShadow} !important;
 
 const StyledGrid = styled(Grid)`
     &&&&& {
-    margin-top: 125px;
+    margin-top: 100px;
     margin-left: 0;
     margin-bottom: 0;
     /* backgroundColor: "#334a60" */ /* backgroundColor: "#b8c8bd" */ 
@@ -121,8 +122,15 @@ const StyledGrid = styled(Grid)`
 }
 `
 
+const StyledGridColumn = styled(Grid.Column)`
+    &&&&&&&&&&& {
+    padding: 0 !important;
+   
+}
+`
 
-export const Home: React.FunctionComponent<Props> = ({ }) => {
+
+export const HomeMobile: React.FunctionComponent<Props> = ({ }) => {
 
     const showSidebar = useAppSelector((state) => state.navigation.showSidebar)
     const homePixelsPassed = useAppSelector(selectHomePixelsPassed)
@@ -157,7 +165,7 @@ export const Home: React.FunctionComponent<Props> = ({ }) => {
     // cld.image returns a CloudinaryImage with the configuration set.
     const homeImage = cld.image("Antiques_home_srmuhc");
 
-    var imageHeight = window.innerHeight - 125
+    var imageHeight = window.innerHeight - 100
 
     homeImage.resize(fill()/* .width(675) */.height(imageHeight)).delivery(format(auto()))
         .delivery(quality(qAuto()));
@@ -184,11 +192,11 @@ export const Home: React.FunctionComponent<Props> = ({ }) => {
             transition={{ duration: 0.5 }}
         >
             <StyledGrid stackable>
-                <HomeGridRow >
-                    <Grid.Column width={10} style={{ paddingLeft: 0 }}>
+                <HomeGridRow style={{ paddingLeft: "0px !important", paddingRight: "0px !important" }} >
+                    <StyledGridColumn width={10}>
                         {/* <HomeImage src={Antiques}></HomeImage> */}
                         <AdvancedImage style={{ display: "flex" }} cldImg={homeImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
-                    </Grid.Column>
+                    </StyledGridColumn>
                     <Grid.Column style={{ display: "flex" }} width={6}>
                         <HomeTextDiv>
                             <HomeHeadingTextDiv>
@@ -222,4 +230,4 @@ export const Home: React.FunctionComponent<Props> = ({ }) => {
     );
 };
 
-export default Home
+export default HomeMobile

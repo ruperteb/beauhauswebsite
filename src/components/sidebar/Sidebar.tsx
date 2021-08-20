@@ -12,6 +12,8 @@ import { navigationSlice } from '../../redux/slices/navigationSlice';
 
 import styled from 'styled-components'
 
+import { useSwipeable } from 'react-swipeable';
+
 const StyledSidebarDiv = styled(motion.div)`
     background-color: white;
     display: flex;
@@ -108,7 +110,7 @@ export const Sidebar: React.FunctionComponent<Props> = ({ }) => {
     }, [selectedItem])
 
     const handleItemClick = (selection: string) => {
-        
+
         if (showCollectionsPanel) {
             dispatch(navigationSlice.actions.setCollectionsPanelVisibility(false))
             document.body.style.overflowY = "visible"
@@ -161,8 +163,15 @@ export const Sidebar: React.FunctionComponent<Props> = ({ }) => {
     }
 
     const panelVariants = {
-        hidden: { x: "0px" },
-        visible: { x: "260px" },
+        hidden: {
+            x: "0px",
+            boxShadow: "2px 0px 9px rgba(0, 0, 0, 0)",
+        },
+        visible: {
+            x: "260px",
+            boxShadow: "2px 0px 9px rgba(0, 0, 0, 0.5)",
+
+        },
     }
 
     const menuTextVariants = {
@@ -193,8 +202,15 @@ export const Sidebar: React.FunctionComponent<Props> = ({ }) => {
         }
     }
 
+    const handlers = useSwipeable({
+        /* onSwiped: (eventData) => console.log("User Swiped!", eventData), */
+        onSwipedLeft: () => dispatch(navigationSlice.actions.setSidebarVisibility(false)),
+
+    });
+
     return (
         <StyledSidebarDiv
+            {...handlers}
             animate={showSidebar ? "visible" : "hidden"}
             variants={panelVariants}
             transition={{ duration: 0.5 }}>

@@ -22,13 +22,20 @@ import {
 
 import Sidebar from './components/sidebar/Sidebar';
 import Header from './components/mainheader/MainHeader';
+import HeaderMobile from './components/mainheader/MainHeaderMobile';
 import Home from './components/home/Home';
+import HomeMobile from './components/home/HomeMobile';
 import About from './components/about/About';
-import Contact from './components/contact/Contact';
+import AboutMobile from './components/about/AboutMobile';
 import Collections from './components/collections/Collections';
+import CollectionsMobile from './components/collections/CollectionsMobile';
+import Contact from './components/contact/Contact';
+import ContactMobile from './components/contact/ContactMobile';
 import CollectionsPanel from './components/collectionspanel/CollectionsPanel';
 
 import { useAuth0 } from "@auth0/auth0-react";
+
+import { useMediaQuery } from 'react-responsive'
 
 import {
   motion,
@@ -42,14 +49,9 @@ import { navigationSlice } from "../src/redux/slices/navigationSlice";
 import { ThemeProvider } from 'styled-components';
 
 
+
+
 function App() {
-
-  const {
-    data: itemData,
-    loading: itemLoading,
-    error: itemError
-  } = useQuery<Query>(GET_ITEMS);
-
 
   const { logout, user } = useAuth0()
 
@@ -104,18 +106,40 @@ function App() {
 
   };
 
+  const isDesktopOrLaptop = useMediaQuery({ query: "(min-width: 1224px)" })
+
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
+
   return (
     <div className="App">
       <Router>
         <Redirect to={{ pathname: `/${currentPageURL}`, }} />
         <ThemeProvider theme={theme}>
-        <Header></Header>
-        <Home></Home>
-        <Sidebar></Sidebar>
-        <About></About>
-        <Collections></Collections>
-        <Contact></Contact>
-        <CollectionsPanel></CollectionsPanel>
+          
+            {isDesktopOrLaptop && 
+            <>
+            <Header></Header>
+            <Home></Home>
+            <Sidebar></Sidebar>
+            <About></About>
+            <Collections></Collections>
+            <Contact></Contact>
+            <CollectionsPanel></CollectionsPanel>
+            </>
+            }
+            {isTabletOrMobile &&
+            <>
+            <HeaderMobile></HeaderMobile>
+            <HomeMobile></HomeMobile>
+            <Sidebar></Sidebar>
+            <AboutMobile></AboutMobile>
+            <CollectionsMobile></CollectionsMobile>
+            <ContactMobile></ContactMobile>
+            <CollectionsPanel></CollectionsPanel>
+            </>
+            }
+         
+
         </ThemeProvider>
       </Router>
     </div>

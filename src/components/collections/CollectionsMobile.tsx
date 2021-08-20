@@ -43,7 +43,7 @@ text-shadow: 1px 1px 1px #eadede;
 const CollectionstCardDiv = styled(motion.div)`
 display: flex;
 flex-direction: column;
-padding: 2rem;
+/* padding: 2rem; */
 /* background-color: #cedbe85c; */
 border-radius: 30px;
 margin-left: 1rem;
@@ -90,7 +90,7 @@ const StyledGrid = styled(Grid)`
 
 
 
-export const Collections: React.FunctionComponent<Props> = ({ }) => {
+export const CollectionsMobile: React.FunctionComponent<Props> = ({ }) => {
 
     const showSidebar = useAppSelector((state) => state.navigation.showSidebar)
     const showCollectionsPanel = useAppSelector((state) => state.navigation.showCollectionsPanel)
@@ -213,7 +213,7 @@ export const Collections: React.FunctionComponent<Props> = ({ }) => {
             animate={checkAnimationVariant()}
             variants={panelVariants}
             transition={{ duration: 0.5 }}
-            style={{ marginBottom: "3rem" }}
+            style={{ marginBottom: "3rem", width: "100vw" }}
         >
             <motion.div
                 style={{ opacity, y }}
@@ -292,4 +292,4 @@ export const Collections: React.FunctionComponent<Props> = ({ }) => {
     );
 };
 
-export default Collections
+export default CollectionsMobile
