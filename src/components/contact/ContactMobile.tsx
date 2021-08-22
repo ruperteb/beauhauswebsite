@@ -366,6 +366,7 @@ export const ContactMobile: React.FunctionComponent<Props> = ({ }) => {
         if (contactPixelsPassed >= 300) {
             setContactInView(true)
             dispatch(navigationSlice.actions.setCurrentPageURL("#contact"))
+            window.gtag('event', 'screen_view', { 'screen_name': 'Contact'});
         } else setContactInView(false)
 
     }, [contactPixelsPassed])
@@ -452,6 +453,11 @@ export const ContactMobile: React.FunctionComponent<Props> = ({ }) => {
     const TextInput = (props: OtherProps & FieldHookConfig<string>) => {
 
         const [field, meta] = useField(props);
+        if (meta.touched ) {
+            window.gtag('event', 'EnquiryClick', {
+                'event_category' : 'engagement',
+              });
+        }
         return (
             <FormInputContainer /* style={props.name === "name" || props.name === "email" ? { width: "50%" } : {}} */>
                 <FormLabel htmlFor={props.id || props.name}>{props.label}</FormLabel>

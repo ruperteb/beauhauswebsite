@@ -64,6 +64,7 @@ export const CollectionsPanel: React.FunctionComponent<Props> = ({ }) => {
 
     const checkAnimationVariant = () => {
         if (showCollectionsPanel === true && showSidebar === true) {
+            window.gtag('event', 'screen_view', { 'screen_name': 'CollectionsPanel'});
             return "sidebarVisible"
         } else if (showCollectionsPanel === true) {
             return "visible"

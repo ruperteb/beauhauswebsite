@@ -217,6 +217,7 @@ export const AntiquesListItemMobile: React.FunctionComponent<Props> = ({ antique
   const handleClick = () => {
     dispatch(collectionsSlice.actions.setSelectedAntique(antique))
     dispatch(collectionsSlice.actions.setShowAntiqueModal(true))
+    window.gtag('event', 'screen_view', { 'screen_name': `Antique: ${antique.name}`});
   }
 
 

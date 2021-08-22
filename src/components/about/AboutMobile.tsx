@@ -126,6 +126,7 @@ export const AboutMobile: React.FunctionComponent<Props> = ({ }) => {
     React.useEffect(() => {
         if (aboutPixelsPassed >= 400)
             dispatch(navigationSlice.actions.setCurrentPageURL("#about"))
+            window.gtag('event', 'screen_view', { 'screen_name': 'About'});
     }, [aboutPixelsPassed])
 
     const aboutRef = React.useRef<HTMLDivElement>(null)

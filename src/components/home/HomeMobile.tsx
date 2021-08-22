@@ -59,9 +59,10 @@ text-shadow: 1px 1px 1px #eadede;
 const HomeHeadingText = styled.p`
 display: flex;
     margin: 0px auto;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
     flex-direction: row;
+    /* white-space: nowrap; */
 `
 
 const HomeHeadingTextBold = styled.b`
@@ -139,6 +140,7 @@ export const HomeMobile: React.FunctionComponent<Props> = ({ }) => {
     React.useEffect(() => {
         if (homePixelsPassed >= 400)
             dispatch(navigationSlice.actions.setCurrentPageURL("#home"))
+            window.gtag('event', 'screen_view', { 'screen_name': 'Home'});
     }, [homePixelsPassed])
 
     const panelVariants = {
@@ -201,9 +203,9 @@ export const HomeMobile: React.FunctionComponent<Props> = ({ }) => {
                         <HomeTextDiv>
                             <HomeHeadingTextDiv>
                                 {/* Purveyors of antique furniture, art and vintage collectibles. */}
-                                <HomeHeadingText>Welcome to&nbsp;<HomeHeadingTextBold>BEAUHAUS</HomeHeadingTextBold>,</HomeHeadingText>
+                                <HomeHeadingText style={{whiteSpace: "nowrap"}}>Welcome to&nbsp;<HomeHeadingTextBold>BEAUHAUS</HomeHeadingTextBold></HomeHeadingText>
                                 
-                                <HomeHeadingText>a novel and eclectic collection of wonderful artefacts</HomeHeadingText>
+                                <HomeHeadingText style={{fontSize: "20px", marginTop: "1.5rem"}}>- a novel and eclectic collection of wonderful artefacts -</HomeHeadingText>
                             </HomeHeadingTextDiv>
                             <HomeSubHeadingTextDiv >
                                 {/* Our curated selection of items covers a range of styles, periods and areas of interest: */}

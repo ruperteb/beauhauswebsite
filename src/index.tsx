@@ -18,13 +18,6 @@ import "typeface-montserrat"
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-/* import GA4React, { useGA4React } from "ga-4-react";
-
-const ga4react = new GA4React("G-XJDR325FGS");
-
-(async () => {
-  await ga4react.initialize(); */
-
 ReactDOM.render(
   <React.StrictMode>
     <Auth0Provider

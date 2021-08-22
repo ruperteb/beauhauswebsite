@@ -130,6 +130,7 @@ export const Collections: React.FunctionComponent<Props> = ({ }) => {
     React.useEffect(()=> {
         if(collectionsPixelsPassed >=400)
         dispatch(navigationSlice.actions.setCurrentPageURL("#collections"))
+        window.gtag('event', 'screen_view', { 'screen_name': 'Collections'});
     },[collectionsPixelsPassed])
 
     const collectionsRef = React.createRef<HTMLDivElement>()

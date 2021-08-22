@@ -117,12 +117,11 @@ export const About: React.FunctionComponent<Props> = ({ }) => {
     React.useEffect(() => {
         if (aboutPixelsPassed >= 400)
             dispatch(navigationSlice.actions.setCurrentPageURL("#about"))
-            window.gtag('event', 'page_view', {
+            /* window.gtag('event', 'page_view', {
                 page_title: 'About',
-               /*  page_location: '<Page Location>', */
                 page_path: '/#about',
-                send_to: process.env.REACT_APP_GA_MEASUREMENT_ID
-              })
+              }) */
+              window.gtag('event', 'screen_view', { 'screen_name': 'About'});
     }, [aboutPixelsPassed])
 
     const aboutRef = React.useRef<HTMLDivElement>(null)
