@@ -48,9 +48,6 @@ import { useAppSelector, useAppDispatch } from './redux/hooks'
 import { navigationSlice } from "../src/redux/slices/navigationSlice";
 import { ThemeProvider } from 'styled-components';
 
-
-
-
 function App() {
 
   const { logout, user } = useAuth0()

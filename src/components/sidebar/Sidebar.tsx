@@ -197,8 +197,8 @@ export const Sidebar: React.FunctionComponent<Props> = ({ }) => {
                 return lineVariants.collections
             case "#contact":
                 return lineVariants.contact
-            default:
-                return lineVariants.home
+            /* default:
+                return lineVariants.home */
         }
     }
 

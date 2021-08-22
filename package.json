@@ -22,6 +22,7 @@
     "faunadb": "^4.3.0",
     "formik": "^2.2.9",
     "framer-motion": "^4.1.17",
+    "ga-4-react": "^0.1.281",
     "graphql": "^15.5.1",
     "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^2.0.2",
