@@ -121,7 +121,7 @@ export const About: React.FunctionComponent<Props> = ({ }) => {
                 page_title: 'About',
                /*  page_location: '<Page Location>', */
                 page_path: '/#about',
-                send_to: 'G-XJDR325FGS'
+                send_to: process.env.REACT_APP_GA_MEASUREMENT_ID
               })
     }, [aboutPixelsPassed])
 

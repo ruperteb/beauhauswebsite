@@ -131,6 +131,12 @@ export const Home: React.FunctionComponent<Props> = ({ }) => {
     React.useEffect(() => {
         if (homePixelsPassed >= 400)
             dispatch(navigationSlice.actions.setCurrentPageURL("#home"))
+            window.gtag('event', 'page_view', {
+                page_title: 'Home',
+               /*  page_location: '<Page Location>', */
+                page_path: '/#home',
+                send_to: process.env.REACT_APP_GA_MEASUREMENT_ID
+              })
     }, [homePixelsPassed])
 
     const panelVariants = {
