@@ -18,12 +18,12 @@ import "typeface-montserrat"
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-import GA4React, { useGA4React } from "ga-4-react";
+/* import GA4React, { useGA4React } from "ga-4-react";
 
 const ga4react = new GA4React("G-XJDR325FGS");
 
 (async () => {
-  await ga4react.initialize();
+  await ga4react.initialize(); */
 
 ReactDOM.render(
   <React.StrictMode>
@@ -43,7 +43,7 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-})();
+/* })(); */
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
