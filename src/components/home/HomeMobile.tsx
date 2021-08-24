@@ -197,7 +197,7 @@ export const HomeMobile: React.FunctionComponent<Props> = ({ }) => {
                 <HomeGridRow style={{ paddingLeft: "0px !important", paddingRight: "0px !important" }} >
                     <StyledGridColumn width={10}>
                         {/* <HomeImage src={Antiques}></HomeImage> */}
-                        <AdvancedImage style={{ display: "flex" }} cldImg={homeImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
+                        <AdvancedImage style={{ display: "flex" }} cldImg={homeImage}  plugins={[lazyload('10px 20px 10px 30px', 0.25)]} />
                     </StyledGridColumn>
                     <Grid.Column style={{ display: "flex" }} width={6}>
                         <HomeTextDiv>

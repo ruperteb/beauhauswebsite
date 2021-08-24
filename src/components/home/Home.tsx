@@ -190,7 +190,7 @@ export const Home: React.FunctionComponent<Props> = ({ }) => {
                 <HomeGridRow >
                     <Grid.Column width={10} style={{ paddingLeft: 0 }}>
                         {/* <HomeImage src={Antiques}></HomeImage> */}
-                        <AdvancedImage style={{ display: "flex" }} cldImg={homeImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
+                        <AdvancedImage style={{ display: "flex" }} cldImg={homeImage}  plugins={[lazyload('10px 20px 10px 30px', 0.25)]} />
                     </Grid.Column>
                     <Grid.Column style={{ display: "flex" }} width={6}>
                         <HomeTextDiv>

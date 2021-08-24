@@ -186,7 +186,7 @@ export const About: React.FunctionComponent<Props> = ({ }) => {
 
                     </Grid.Column>
                     <Grid.Column width={10} style={{ paddingLeft: 0, paddingRight: 0 }}>
-                        <AdvancedImage style={{ display: "flex" }} cldImg={aboutImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
+                        <AdvancedImage style={{ display: "flex" }} cldImg={aboutImage}  plugins={[lazyload('10px 20px 10px 30px', 0.25)]} />
 
                         <BlankDiv
                             animate={visibility() ? "visible" : "hidden"}

@@ -230,27 +230,27 @@ export const CollectionsMobile: React.FunctionComponent<Props> = ({ }) => {
 
                             <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={4}>
                                 <CollectionstCardDiv onClick={() => handleCardClick("furniture")}>
-                                <AdvancedImage style={imageStyles} cldImg={furnitureImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
+                                <AdvancedImage style={imageStyles} cldImg={furnitureImage}  plugins={[lazyload('10px 20px 10px 30px', 0.25)]} />
                                     <CollectionsCardSubHeading>Furniture</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>
 
                             </Grid.Column>
                             <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={4}>
                                 <CollectionstCardDiv onClick={() => handleCardClick("art")}>
-                                <AdvancedImage style={imageStyles} cldImg={artImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
+                                <AdvancedImage style={imageStyles} cldImg={artImage}  plugins={[lazyload('10px 20px 10px 30px', 0.25)]} />
                                     <CollectionsCardSubHeading>Art</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>
                             </Grid.Column>
 
                             <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={4}>
                                 <CollectionstCardDiv onClick={() => handleCardClick("lighting")}>
-                                <AdvancedImage style={imageStyles} cldImg={lightingImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
+                                <AdvancedImage style={imageStyles} cldImg={lightingImage}  plugins={[lazyload('10px 20px 10px 30px', 0.25)]} />
                                     <CollectionsCardSubHeading>Lighting</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>
                             </Grid.Column>
                             <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={4}>
                                 <CollectionstCardDiv onClick={() => handleCardClick("collectibles")}>
-                                <AdvancedImage style={imageStyles} cldImg={collectiblesImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
+                                <AdvancedImage style={imageStyles} cldImg={collectiblesImage}  plugins={[lazyload('10px 20px 10px 30px', 0.25)]} />
                                     <CollectionsCardSubHeading>Collectibles</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>
                             </Grid.Column>
@@ -260,26 +260,26 @@ export const CollectionsMobile: React.FunctionComponent<Props> = ({ }) => {
 
                             <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={4}>
                                 <CollectionstCardDiv onClick={() => handleCardClick("carpets")}>
-                                <AdvancedImage style={imageStyles} cldImg={carpetsImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
+                                <AdvancedImage style={imageStyles} cldImg={carpetsImage}  plugins={[lazyload('10px 20px 10px 30px', 0.25)]} />
                                     <CollectionsCardSubHeading>Carpets & </CollectionsCardSubHeading>
                                     <CollectionsCardSubHeading style={{marginTop: "0.5rem"}}>Rugs</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>
                             </Grid.Column>
                             <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={4}>
                                 <CollectionstCardDiv onClick={() => handleCardClick("mirrors")}>
-                                <AdvancedImage style={imageStyles} cldImg={mirrorsImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
+                                <AdvancedImage style={imageStyles} cldImg={mirrorsImage}  plugins={[lazyload('10px 20px 10px 30px', 0.25)]} />
                                     <CollectionsCardSubHeading>Mirrors</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>
                             </Grid.Column>
                             <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={4}>
                                 <CollectionstCardDiv onClick={() => handleCardClick("objetdart")}>
-                                <AdvancedImage style={imageStyles} cldImg={objetdartImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
+                                <AdvancedImage style={imageStyles} cldImg={objetdartImage}  plugins={[lazyload('10px 20px 10px 30px', 0.25)]} />
                                     <CollectionsCardSubHeading>Objet d'art</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>
                             </Grid.Column>
                             <Grid.Column style={{ display: "flex", justifyContent: "center" }} width={4}>
                                 <CollectionstCardDiv onClick={() => handleCardClick("misc")}>
-                                <AdvancedImage style={imageStyles} cldImg={miscImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
+                                <AdvancedImage style={imageStyles} cldImg={miscImage}  plugins={[lazyload('10px 20px 10px 30px', 0.25)]} />
                                     <CollectionsCardSubHeading>Miscellaneous</CollectionsCardSubHeading>
                                 </CollectionstCardDiv>
                             </Grid.Column>

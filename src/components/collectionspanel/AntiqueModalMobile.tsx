@@ -458,7 +458,7 @@ export const AntiqueModalMobile: React.FunctionComponent<Props> = ({ }) => {
     };
 
     const checkAllDimensions =() => {
-        if (selectedAntique?.length && selectedAntique.width && selectedAntique.height) {
+        if (selectedAntique?.length || selectedAntique?.width || selectedAntique?.height) {
             return true
         } else return false
     }
@@ -482,7 +482,7 @@ export const AntiqueModalMobile: React.FunctionComponent<Props> = ({ }) => {
             </StyledModalHeader>
             <StyledModalContent image scrolling>
                 <GalleryContainer>
-                    <ImageGallery showPlayButton={false} items={images!} />
+                    <ImageGallery useBrowserFullscreen={false} showPlayButton={false} items={images!} />
                 </GalleryContainer>
 
 
@@ -490,9 +490,9 @@ export const AntiqueModalMobile: React.FunctionComponent<Props> = ({ }) => {
                     <DescriptionText style={{ margin: "1rem" }}>{selectedAntique?.description}</DescriptionText>
                     <DimensionsContainer >
                         {checkAllDimensions() ? <DescriptionTextDimensionsSubHeading>Dimensions:</DescriptionTextDimensionsSubHeading>: <div></div>}
-                        {selectedAntique?.length !== null ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Length:   ${selectedAntique?.length}cm`}</DescriptionText>: <div></div>}
-                        {selectedAntique?.length !== null ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Width:   ${selectedAntique?.width}cm`}</DescriptionText>: <div></div>}
-                        {selectedAntique?.length !== null ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Height:   ${selectedAntique?.height}cm`}</DescriptionText>: <div></div>}
+                        {selectedAntique?.length !== (null || undefined || 0) ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Length:   ${selectedAntique?.length}cm`}</DescriptionText>: <div></div>}
+                        {selectedAntique?.length !== (null || undefined || 0) ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Width:   ${selectedAntique?.width}cm`}</DescriptionText>: <div></div>}
+                        {selectedAntique?.length !== (null || undefined || 0) ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Height:   ${selectedAntique?.height}cm`}</DescriptionText>: <div></div>}
                     </DimensionsContainer>
                     <DescriptionTextPriceSubHeading>{`Price:  £${selectedAntique?.price}.00`}</DescriptionTextPriceSubHeading>
                     <EnquiryButton onClick={() => dispatch(collectionsSlice.actions.setShowAntiqueEnquiryModal(true))}>Enquire</EnquiryButton>

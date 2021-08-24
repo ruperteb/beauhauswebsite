@@ -18,7 +18,7 @@ import useResizeObserver from "@react-hook/resize-observer";
 // @ts-ignore
 import mapboxgl, { Map } from '!mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
 
-import SmallLogoCircle from "../../assets/Small Logo 3.png"
+import Logo from "../../assets/Logo196.png"
 
 interface Props {
 
@@ -332,7 +332,7 @@ export const Contact: React.FunctionComponent<Props> = ({ }) => {
         return (
             <MapMarker
                 animate={{ scale: 0.15, opacity: 1, y: 0 }}
-                transition={{ duration: 1 }} style={{ opacity: 0, scale: 0.15, y: "-20%" }} /* className={classes.smallLogo} */ src={SmallLogoCircle}></MapMarker>
+                transition={{ duration: 1 }} style={{ opacity: 0, scale: 0.15, y: "-20%" }} /* className={classes.smallLogo} */ src={Logo}></MapMarker>
         )
     }
 
@@ -451,11 +451,12 @@ export const Contact: React.FunctionComponent<Props> = ({ }) => {
     const TextInput = (props: OtherProps & FieldHookConfig<string>) => {
 
         const [field, meta] = useField(props);
-        if (meta.touched ) {
-            window.gtag('event', 'EnquiryClick', {
-                'event_category' : 'engagement',
-              });
-        }
+        React.useCallback(()=>{
+                window.gtag('event', 'EnquiryClick', {
+                    'event_category' : 'engagement',
+                  });   
+        },[meta.touched])
+        
         return (
             <FormInputContainer style={props.name === "name" || props.name === "email" ? { width: "50%" } : {}}>
                 <FormLabel htmlFor={props.id || props.name}>{props.label}</FormLabel>

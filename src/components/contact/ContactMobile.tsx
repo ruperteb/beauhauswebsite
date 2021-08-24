@@ -18,7 +18,7 @@ import useResizeObserver from "@react-hook/resize-observer";
 // @ts-ignore
 import mapboxgl, { Map } from '!mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
 
-import SmallLogoCircle from "../../assets/Small Logo 3.png"
+import Logo from "../../assets/Logo196.png"
 
 interface Props {
 
@@ -334,7 +334,7 @@ export const ContactMobile: React.FunctionComponent<Props> = ({ }) => {
         return (
             <MapMarker
                 animate={{ scale: 0.15, opacity: 1, y: 0 }}
-                transition={{ duration: 1 }} style={{ opacity: 0, scale: 0.15, y: "-20%" }} /* className={classes.smallLogo} */ src={SmallLogoCircle}></MapMarker>
+                transition={{ duration: 1 }} style={{ opacity: 0, scale: 0.15, y: "-20%" }} /* className={classes.smallLogo} */ src={Logo}></MapMarker>
         )
     }
 

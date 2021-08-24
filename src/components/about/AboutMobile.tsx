@@ -169,7 +169,7 @@ export const AboutMobile: React.FunctionComponent<Props> = ({ }) => {
             <StyledGrid stackable>
                 <AboutGridRow >
                 <StyledGridColumn width={10}>
-                        <AdvancedImage style={{ display: "flex" }} cldImg={aboutImage}  /* plugins={[lazyload('10px 20px 10px 30px', 0.25)]} */ />
+                        <AdvancedImage style={{ display: "flex" }} cldImg={aboutImage}  plugins={[lazyload('10px 20px 10px 30px', 0.25)]} />
 
                         <BlankDiv
                             animate={visibility() ? "visible" : "hidden"}
