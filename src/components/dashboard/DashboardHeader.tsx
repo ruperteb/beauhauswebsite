@@ -1,19 +1,14 @@
 import * as React from 'react';
-import { Image, Icon, Grid, Button } from 'semantic-ui-react'
+import { Grid, Button } from 'semantic-ui-react'
 import styled from 'styled-components'
 import {
-    motion,
-    useViewportScroll,
-    useSpring,
-    useTransform,
-    useCycle,
-    useMotionValue,
+    motion
+    
 } from "framer-motion";
 
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { useAppSelector, useAppDispatch } from '../../redux/hooks'
-import { navigationSlice } from '../../redux/slices/navigationSlice';
+
 
 export interface StyledProps {
 
@@ -44,19 +39,6 @@ const HeaderLogoText = styled(motion.h1)`
     }
 `
 
-const HeaderImage = styled(Image)`
-    /* height: ${(p: StyledProps) => p.height}; */
-    height: 100%;
-    margin-left: auto;
-    margin-right: auto;
-  `
-const HeaderIcon = styled(Icon)`
-    color: #334a60;
-    margin-top: auto !important;
-    margin-bottom: auto !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-`
 const FlexGridColumn = styled(Grid.Column)`
     display: flex !important;
     `
@@ -69,7 +51,7 @@ interface Props {
 export const DashboardHeader: React.FunctionComponent<Props> = ({ }) => {
 
     const { logout, user, loginWithRedirect, isAuthenticated } = useAuth0()
-    const dispatch = useAppDispatch()
+    
 
     return (
         <HeaderDiv

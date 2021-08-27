@@ -4,7 +4,7 @@ import {
     motion
 } from "framer-motion";
 
-import { useAppSelector, useAppDispatch } from '../../redux/hooks'
+import { useAppSelector } from '../../redux/hooks'
 
 import styled from 'styled-components'
 
@@ -14,7 +14,6 @@ import CollectionsPanelNavigation from './CollectionsPanelNavigation';
 import CollectionsPanelNavigationMobile from './CollectionsPanelNavigationMobile';
 import AntiqueModal from './AntiqueModal';
 import AntiqueModalMobile from './AntiqueModalMobile';
-import { callbackify } from 'util';
 
 import { useMediaQuery } from 'react-responsive'
 

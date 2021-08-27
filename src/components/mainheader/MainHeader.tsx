@@ -1,15 +1,14 @@
 import * as React from 'react';
-import { Image, Icon, Grid } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 import styled from 'styled-components'
 import {
     motion,
-    useViewportScroll,
-    useSpring,
+    /* useViewportScroll,
+    useSpring, */
     useTransform,
-    useCycle,
+    /* useCycle, */
     useMotionValue,
 } from "framer-motion";
-import Logo from "../../assets/Logo 3.png"
 
 import MenuToggle from "./MenuToggle"
 
@@ -44,19 +43,6 @@ const HeaderLogoText = styled(motion.h1)`
     }
 `
 
-const HeaderImage = styled(Image)`
-    /* height: ${(p: StyledProps) => p.height}; */
-    height: 100%;
-    margin-left: auto;
-    margin-right: auto;
-  `
-const HeaderIcon = styled(Icon)`
-    color: #334a60;
-    margin-top: auto !important;
-    margin-bottom: auto !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-`
 const FlexGridColumn = styled(Grid.Column)`
     display: flex !important;
     `

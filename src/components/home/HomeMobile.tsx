@@ -20,14 +20,7 @@ interface Props {
 
 }
 
-const HomeImage = styled(Image)`
-    /* height: 150px; */
-    margin-left: auto;
-    margin-right: auto;
-    min-height: 500px;
-   /*  position: relative;
-    z-index: -1; */
-  `
+
 const HomeGridRow = styled(Grid.Row)`
 padding-bottom: 0px !important;
 padding-top: 0px !important;
@@ -165,7 +158,7 @@ export const HomeMobile: React.FunctionComponent<Props> = ({ }) => {
 
 
     // cld.image returns a CloudinaryImage with the configuration set.
-    const homeImage = cld.image("Antiques_home_srmuhc");
+    const homeImage = cld.image("Assets/Bust_psbj24");
 
     var imageHeight = window.innerHeight - 100
 

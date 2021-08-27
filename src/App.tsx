@@ -1,22 +1,11 @@
 import React from 'react';
 import './App.css';
 
-import { GET_ITEMS, GET_SINGLE_ITEM } from "./gql/gql"
-import { Query } from "./schematypes/schematypes"
-
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  useQuery,
-  gql
-} from "@apollo/client";
-
 import {
   BrowserRouter as Router,
-  Switch,
+ /*  Switch,
   Route,
-  Link,
+  Link, */
   Redirect
 } from "react-router-dom";
 
@@ -33,15 +22,15 @@ import Contact from './components/contact/Contact';
 import ContactMobile from './components/contact/ContactMobile';
 import CollectionsPanel from './components/collectionspanel/CollectionsPanel';
 
-import { useAuth0 } from "@auth0/auth0-react";
+/* import { useAuth0 } from "@auth0/auth0-react"; */
 
 import { useMediaQuery } from 'react-responsive'
 
 import {
-  motion,
+ /*  motion, */
   useViewportScroll,
-  useSpring,
-  useTransform
+ /*  useSpring,
+  useTransform */
 } from "framer-motion";
 
 import { useAppSelector, useAppDispatch } from './redux/hooks'
@@ -50,7 +39,7 @@ import { ThemeProvider } from 'styled-components';
 
 function App() {
 
-  const { logout, user } = useAuth0()
+ /*  const { logout, user } = useAuth0() */
 
   const dispatch = useAppDispatch()
 

@@ -5,20 +5,20 @@ import styled from 'styled-components'
 
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
 import { dashboardSlice } from '../../redux/slices/dashboardSlice';
-import ImageGallery from 'react-image-gallery';
-import "react-image-gallery/styles/css/image-gallery.css";
+/* import ImageGallery from 'react-image-gallery';
+import "react-image-gallery/styles/css/image-gallery.css"; */
 
-import { Cloudinary } from "@cloudinary/base";
+/* import { Cloudinary } from "@cloudinary/base";
 import { fill } from "@cloudinary/base/actions/resize";
 import { format, quality } from "@cloudinary/base/actions/delivery";
 import { auto } from "@cloudinary/base/qualifiers/format";
-import { auto as qAuto } from "@cloudinary/base/qualifiers/quality";
+import { auto as qAuto } from "@cloudinary/base/qualifiers/quality"; */
 
 import { useMutation } from '@apollo/client';
 import { CREATE_ITEM, GET_ITEMS} from "../../gql/gql"
 import { Mutation, MutationCreateItemArgs, Query } from "../../schematypes/schematypes"
 
-import { Formik, Form, useField, useFormikContext, FieldHookConfig } from "formik";
+import { Formik, Form, useField, FieldHookConfig } from "formik";
 import * as Yup from "yup";
 
 
@@ -28,53 +28,9 @@ interface Props {
 }
 
 
-const EnquiryButton = styled(Button)`
 
-&&&& {
-padding: 1em !important;
-padding-left: 2em !important;
-padding-right: 2em !important;
-margin-left: auto !important;
-margin-right: auto !important;
-margin-top: auto;
-margin-bottom: 1rem !important;
-}
 
-font-family: sans-serif;
-font-size: 16px;
-/* color: white  !important; */
-color: #084b6d  !important;
-display:flex;
-width: fit-content;
-border-style: solid  !important;
-border-width: 2px  !important;
-/* border-color: #a29064  !important; */
-border-color: #084b6d  !important;
-background-color: transparent  !important;
--webkit-transition: color 200ms ease, background-color 200ms ease  !important;
-transition: color 200ms ease, background-color 200ms ease  !important;
-border-radius: 0 !important;
-box-shadow: 0px 0px 2px 2px #0000001f !important;
-&:hover {
-color: white !important;
-/* color: white !important;
-background-color: #a29064 !important;
-border-color: #a29064 !important;
-box-shadow: -1px 1px 1px 2px #0000001f !important; */
-background-color: #084b6d !important;
-border-color: #084b6d !important;
-box-shadow: 0px 0px 2px 2px #0000001f !important;
-  }
-`
 
-const StyledModal = styled(Modal)`
-&&&&&&& {
-    left: auto !important;
-    height: 90%;
-    display: flex !important;
-    flex-direction: column;
-}
-`
 
 const StyledModalHeader = styled(Modal.Header)`
 &&&&&&& {
@@ -105,63 +61,6 @@ const StyledModalHeaderIcon = styled(Icon)`
         color: #000;
     }
 }
-`
-
-const StyledModalContent = styled(Modal.Content)`
-&&&&&&& {
-    /* width: 775px; */
-    height: fit-content;
-    max-height: fit-content;
-    display: flex;
-    margin: auto;
-}
-`
-
-const GalleryContainer = styled.div`
-    width: 70%;
-    height: 100%;
-`
-
-const DescriptionContainer = styled(Modal.Description)`
-   &&&&& {width: 30%;
-    height: 100%;
-    border: 1px solid rgba(34,36,38,.15);
-    margin-left: 1rem;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    
-    }
-`
-
-const DescriptionText = styled.p`
-    /* margin-left: 1rem;  */
-    font-size: 1.2rem;
-    font-family: 'Mulish', sans-serif;
-`
-const DescriptionTextDimensionsSubHeading = styled.p`
-    /* margin-left: 1rem; */ 
-    font-family: 'Mulish', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-    text-align: center;
-`
-
-const DimensionsContainer = styled.div`
-margin-top: 2rem;
-margin-bottom: 2rem;
-`
-
-const DescriptionTextPriceSubHeading = styled.p`
-    /* margin-left: 1rem;  */
-    font-family: 'Mulish', sans-serif;
-    text-transform: uppercase;
-    font-size: 1.6rem;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-    letter-spacing: 2px;
-    text-align: center;
 `
 
 const FormInputContainer = styled.div`
@@ -351,16 +250,16 @@ box-shadow: 0px 0px 2px 2px #0000001f !important;
 
 export const DashboardNewAntiqueModal: React.FunctionComponent<Props> = ({ }) => {
 
-    /* const showAntiqueModal = useAppSelector((state) => state.collections.showAntiqueModal) */
+    
     const showNewAntiqueModal = useAppSelector((state) => state.dashboard.showNewAntiqueModal)
-    const selectedAntique = useAppSelector((state) => state.dashboard.selectedAntique)
+    
     const dispatch = useAppDispatch()
 
-    const cld = new Cloudinary({
+    /* const cld = new Cloudinary({
         cloud: {
             cloudName: process.env.REACT_APP_CLOUD_NAME
         }
-    });
+    }); */
 
 
 

@@ -17,11 +17,9 @@ import { auto as qAuto } from "@cloudinary/base/qualifiers/quality";
 import DashboardUpdateAntiqueModal from './DashboardUpdateAntiqueModal';
 
 import { useMutation } from '@apollo/client';
-import { UPDATE_IMAGES, GET_ITEMS } from "../../gql/gql"
-import { Mutation, MutationUpdateImagesArgs, Query } from "../../schematypes/schematypes"
+import { UPDATE_IMAGES } from "../../gql/gql"
+import { Mutation, MutationUpdateImagesArgs } from "../../schematypes/schematypes"
 
-import { Formik, Form, useField, useFormikContext, FieldHookConfig } from "formik";
-import * as Yup from "yup";
 
 
 
@@ -206,151 +204,6 @@ const DescriptionTextPriceSubHeading = styled.p`
     text-align: center;
 `
 
-const FormInputContainer = styled.div`
-width: 100%;
-display: flex;
-position: relative;
-flex-direction: column;
-padding: 1rem;
-padding-top: 0;
-`
-const StyledFormGroup = styled.div`
-width: 100%;
-display: flex;
-flex-direction: row;
-flex-wrap: wrap;
-`
-
-const FormLabel = styled.label`
- &&&& {
-display: flex;
-color: black;
-margin-bottom: 0.5rem;
-margin-left: 1rem;
-margin-right: auto;
-font-family: "Montserrat", sans-serif;
-font-size: 1.3rem;
-font-weight: 500;
-/* text-shadow: 1px 1px 1px black; */
-}
-`
-
-const FormInput = styled.input`
-&&&& {
-    width: 100%;
-    padding: 0.65rem 0.5rem;
-  font-size: 1rem;
-  border: 2px solid grey;
-  /* background-color: var(--gray-100); */
-  color: black;
-  border-radius: 5px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-&&&&:focus {
-    /* border-color: #78bbe9; */
-    outline: none;
-  border: 2px solid #78bbe9;
-}
-`
-
-const FormTextArea = styled.textarea`
-&&&& {
-    padding: 0.65rem 0.5rem;
-  font-size: 1rem;
-  border: 2px solid grey;
-  /* background-color: var(--gray-100); */
-  color: black;
-  border-radius: 5px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-    min-height: 200px;
-    margin-bottom: 2rem;
-}
-&&&&:focus {
-    outline: none;
-    border: 2px solid #78bbe9;
-}
-`
-
-const FormError = styled.div`
-position: absolute;
-    right: 1rem;
-    top: -0.5rem;
-    border: 1px solid #ff000070;
-    color: red;
-    border-radius: 4px;
-    padding: 0.2rem;
-    padding-left: 0.4rem;
-    padding-right: 0.4rem;
-    background-color: #f3dfdf;
-    &:before {
-    content: "";
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-top: 10px solid #ff000070;
-  border-bottom: 10px solid transparent;
-  right: 50%;
-  bottom: -20.25px;
-    }
-    &:after {
-    content: "";
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-top: 10px solid #f3dfdf;
-  border-bottom: 10px solid transparent;
-  right: 50%;
-  bottom: -18.75px;
-    }
-`
-
-const SubmitButton = styled(Button)`
-
-&&&& {
-padding: 1em !important;
-padding-left: 2em !important;
-padding-right: 2em !important;
-margin-left: auto !important;
-margin-right: auto !important;
-margin-top: auto;
-/* margin-bottom: 1rem !important; */
-}
-
-font-family: sans-serif;
-font-size: 16px;
-/* color: white  !important; */
-color: #084b6d  !important;
-display:flex;
-width: fit-content;
-border-style: solid  !important;
-border-width: 2px  !important;
-/* border-color: #a29064  !important; */
-border-color: #084b6d  !important;
-background-color: transparent  !important;
--webkit-transition: color 200ms ease, background-color 200ms ease  !important;
-transition: color 200ms ease, background-color 200ms ease  !important;
-border-radius: 0 !important;
-box-shadow: 0px 0px 2px 2px #0000001f !important;
-&:hover {
-color: white !important;
-/* color: white !important;
-background-color: #a29064 !important;
-border-color: #a29064 !important;
-box-shadow: -1px 1px 1px 2px #0000001f !important; */
-background-color: #084b6d !important;
-border-color: #084b6d !important;
-box-shadow: 0px 0px 2px 2px #0000001f !important;
-  }
-`
-
 const StyledImageTextDiv = styled.div`
     position: absolute;
     z-index:500;
@@ -443,7 +296,6 @@ margin-top: auto;
 export const DashboardAntiqueModal: React.FunctionComponent<Props> = ({ }) => {
 
     const showAntiqueModal = useAppSelector((state) => state.dashboard.showAntiqueModal)
-    const showAntiqueEnquiryModal = useAppSelector((state) => state.collections.showAntiqueEnquiryModal)
     const selectedAntique = useAppSelector((state) => state.dashboard.selectedAntique)
     const dispatch = useAppDispatch()
 
@@ -737,8 +589,8 @@ export const DashboardAntiqueModal: React.FunctionComponent<Props> = ({ }) => {
                     <DimensionsContainer >
                         {checkAllDimensions() ? <DescriptionTextDimensionsSubHeading>Dimensions:</DescriptionTextDimensionsSubHeading> : <div></div>}
                         {selectedAntique?.length !== (null || undefined || 0) ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Length:   ${selectedAntique?.length}cm`}</DescriptionText> : <div></div>}
-                        {selectedAntique?.length !== (null || undefined || 0) ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Width:   ${selectedAntique?.width}cm`}</DescriptionText> : <div></div>}
-                        {selectedAntique?.length !== (null || undefined || 0) ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Height:   ${selectedAntique?.height}cm`}</DescriptionText> : <div></div>}
+                        {selectedAntique?.width !== (null || undefined || 0) ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Width:   ${selectedAntique?.width}cm`}</DescriptionText> : <div></div>}
+                        {selectedAntique?.height !== (null || undefined || 0) ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Height:   ${selectedAntique?.height}cm`}</DescriptionText> : <div></div>}
                     </DimensionsContainer>
                     <DescriptionTextPriceSubHeading>{`Price:  £${selectedAntique?.price}.00`}</DescriptionTextPriceSubHeading>
                     <ContentButtonContainer >

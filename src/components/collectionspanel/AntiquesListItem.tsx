@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { CSSProperties } from "react";
-import { Query, Item } from "../../schematypes/schematypes"
+import { Item } from "../../schematypes/schematypes"
 
 import { AdvancedImage, lazyload } from '@cloudinary/react';
 import { Cloudinary } from "@cloudinary/base";
@@ -9,7 +9,7 @@ import { format, quality } from "@cloudinary/base/actions/delivery";
 import { auto } from "@cloudinary/base/qualifiers/format";
 import { auto as qAuto } from "@cloudinary/base/qualifiers/quality";
 
-import { useAppSelector, useAppDispatch } from '../../redux/hooks'
+import { useAppDispatch } from '../../redux/hooks'
 import { collectionsSlice } from '../../redux/slices/collectionsSlice';
 
 import { Button } from 'semantic-ui-react'
@@ -189,19 +189,31 @@ export const AntiquesListItem: React.FunctionComponent<Props> = ({ antique }) =>
 
     switch (antique.type) {
       case "furniture":
-        return "Antiques_furniture_okpb1m"
-        break;
+        return "Assets/Antiques_furniture_t784hh"
+        
       case "art":
-        return "Antiques_art_cqy3cl"
-        break;
+        return "Assets/Antiques_art_j5ypxv"
+       
       case "lighting":
-        return "Antiques_lighting_dwpoja"
-        break;
+        return "Antiques_lighting_pxfo7g"
+        
       case "collectibles":
-        return "Antiques_collectibles_skr3yx"
-        break;
+        return "Assets/Antiques_collectibles_qjjp4h"
+
+        case "carpets":
+        return "Assets/Antiques_carpet_w4naql"
+        
+      case "mirrors":
+        return "Assets/Antiques_mirror_vdl6vc"
+       
+      case "objetdart":
+        return "Assets/Antiques_objetd_art_ukbywt"
+        
+      case "misc":
+        return "Assets/Antiques_home_pkxpmg"
+        
       default:
-        return "Antiques_furniture_okpb1m"
+        return "Assets/Antiques_home_pkxpmg"
     }
   }
 

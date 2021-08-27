@@ -3,11 +3,11 @@ import { CSSProperties } from "react";
 import {Container, Grid, Image } from 'semantic-ui-react'
 import styled from 'styled-components'
 
-import { motion, useMotionValue, useTransform, useViewportScroll } from "framer-motion";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 
 
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
-import { navigationSlice, selectCollectionsPixelsPassed, selectAboutPixelsPassed } from '../../redux/slices/navigationSlice';
+import { navigationSlice, selectCollectionsPixelsPassed } from '../../redux/slices/navigationSlice';
 import { collectionsSlice } from '../../redux/slices/collectionsSlice';
 
 import { AdvancedImage, lazyload } from '@cloudinary/react';
@@ -16,6 +16,8 @@ import { fill } from "@cloudinary/base/actions/resize";
 import {format, quality} from "@cloudinary/base/actions/delivery";
 import {auto} from "@cloudinary/base/qualifiers/format";
 import {auto as qAuto} from "@cloudinary/base/qualifiers/quality";
+
+import { useHistory } from "react-router-dom";
 
 interface Props {
 
@@ -59,12 +61,6 @@ cursor: pointer;
 }
 `
 
-const CollectionstCardImage = styled(Image)`
-height: 300px;
-width: 450px;
-border-radius: 30px;
-`
-
 const CollectionsCardSubHeading = styled.div`
 margin-left: auto;
 margin-right: auto;
@@ -91,6 +87,8 @@ const StyledGrid = styled(Grid)`
 
 
 export const Collections: React.FunctionComponent<Props> = ({ }) => {
+
+    let history = useHistory();
 
     const showSidebar = useAppSelector((state) => state.navigation.showSidebar)
     const showCollectionsPanel = useAppSelector((state) => state.navigation.showCollectionsPanel)
@@ -140,10 +138,13 @@ export const Collections: React.FunctionComponent<Props> = ({ }) => {
             dispatch(navigationSlice.actions.setCollectionsHeight(collectionsRef.current?.getBoundingClientRect().height))
     }, [])
 
+    
+
     const handleCardClick = (type: string) => {
         dispatch(collectionsSlice.actions.setTypeFilter(type))
         dispatch(navigationSlice.actions.setCollectionsPanelVisibility(true))
         document.body.style.overflowY = "hidden"
+        history.push(`/collections/#${type}`);
 
     }
 

@@ -1,21 +1,16 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
 
 import {
-    BrowserRouter as Router,
+    /* BrowserRouter as Router,
     Switch,
-    Route,
+    Route, */
     Link,
-    useLocation,
-    withRouter
+    /* useLocation,
+    withRouter */
 
 } from "react-router-dom";
 
-import {
-    motion,
-    useViewportScroll,
-    useSpring,
-    useTransform
-} from "framer-motion";
+import { useHistory } from "react-router-dom";
 
 import { Container, Grid, Icon, Search, SearchProps, Dropdown } from 'semantic-ui-react'
 
@@ -35,43 +30,6 @@ const NavLinkDivContainer = styled.div`
     display: flex;
     /* margin: auto; */
     width: 100%;
-`
-
-const NavLinkDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    /* height: 40, */
-    width: fit-content;
-    padding-bottom: 5px;
-    padding-top: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
-    margin: auto;
-    line-height: 20;
-`
-const NavLink = styled(Link)`
-    font-family: ${props => props.theme.primaryTextFont};
-    text-decoration: none;
-    /* font-weight: 100; */
-    text-transform: uppercase;
-    font-size: 14px;
-    letter-spacing: 2px;
-    color: #404040;
-    line-height: 25px;
-    -webkit-transition: all 0.2s ease;
-    -moz-transition: all 0.2s ease;
-    -o-transition: all 0.2s ease;
-    transition: all 0.2s ease;
-    &&&&&&:hover { 
-        color: #ffffff;
-        text-shadow: 1px 1px 1px #423333ad;
-    };
-    margin-top: auto;
-`
-
-const NavLinkUnderline = styled(motion.div)`
-    height: 2px;
-    margin-bottom: auto;
 `
 
 const StyledBackIcon = styled(Icon)`
@@ -158,10 +116,11 @@ export const CollectionsPanelNavigationMobile: React.FC<Props> = ({ /* examplePr
     const typeFilter = useAppSelector((state) => state.collections.typeFilter)
     /* const currentPageURL = useAppSelector((state) => state.navigation.currentPageURL) */
 
+    let history = useHistory();
 
     const dispatch = useAppDispatch()
 
-    const [navLinkToggle1, setNavLinkToggle1] = React.useState(false)
+    /* const [navLinkToggle1, setNavLinkToggle1] = React.useState(false)
     const [navLinkToggle2, setNavLinkToggle2] = React.useState(false)
     const [navLinkToggle3, setNavLinkToggle3] = React.useState(false)
     const [navLinkToggle4, setNavLinkToggle4] = React.useState(false)
@@ -179,9 +138,9 @@ export const CollectionsPanelNavigationMobile: React.FC<Props> = ({ /* examplePr
     const [navLinkHover6, setNavLinkHover6] = React.useState(false)
     const [navLinkHover7, setNavLinkHover7] = React.useState(false)
     const [navLinkHover8, setNavLinkHover8] = React.useState(false)
-    const [navLinkHover9, setNavLinkHover9] = React.useState(false)
+    const [navLinkHover9, setNavLinkHover9] = React.useState(false) */
 
-    React.useEffect(() => {
+    /* React.useEffect(() => {
         if (typeFilter === "furniture") {
             setNavLinkToggle1(true)
             setNavLinkToggle2(false)
@@ -281,25 +240,27 @@ export const CollectionsPanelNavigationMobile: React.FC<Props> = ({ /* examplePr
             setNavLinkToggle8(false)
             setNavLinkToggle9(true)
         }
-    }, [typeFilter])
+    }, [typeFilter]) */
 
     const navLinkClick = (type: string) => {
 
         dispatch(collectionsSlice.actions.setTypeFilter(type))
         dispatch(navigationSlice.actions.setCurrentPageURL(`collections/#${type}`))
+        history.push(`#/collections/#${type}`);
 
     }
 
-    const navLinkHoverStyles: CSSProperties = {
+    /* const navLinkHoverStyles: CSSProperties = {
         color: "#ffffff",
         textShadow: "1px 1px 1px #423333ad",
 
-    }
+    } */
 
     const handleBackClick = () => {
 
         dispatch(navigationSlice.actions.setCollectionsPanelVisibility(false))
         document.body.style.overflowY = "visible"
+        history.push(`/collections`);
     }
 
     const [search, setSearch] = React.useState<string | undefined>()

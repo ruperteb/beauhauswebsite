@@ -375,12 +375,12 @@ export const AntiqueModalMobile: React.FunctionComponent<Props> = ({ }) => {
         text: String
     }
 
-    const [formInput, setFormInput] = React.useState<FormInput>({
+    /* const [formInput, setFormInput] = React.useState<FormInput>({
         name: "",
         from: "",
         subject: "",
         text: "",
-    })
+    }) */
 
     const [formState, setFormState] = React.useState<boolean | undefined>(undefined)
 
@@ -398,7 +398,7 @@ export const AntiqueModalMobile: React.FunctionComponent<Props> = ({ }) => {
         }
     );
 
-    const handleSubmit = () => {
+    /* const handleSubmit = () => {
 
         sendMessage({
             variables: {
@@ -409,7 +409,7 @@ export const AntiqueModalMobile: React.FunctionComponent<Props> = ({ }) => {
             }
 
         })
-    }
+    } */
 
     const buttonRef = React.useRef(null)
 
@@ -491,8 +491,8 @@ export const AntiqueModalMobile: React.FunctionComponent<Props> = ({ }) => {
                     <DimensionsContainer >
                         {checkAllDimensions() ? <DescriptionTextDimensionsSubHeading>Dimensions:</DescriptionTextDimensionsSubHeading>: <div></div>}
                         {selectedAntique?.length !== (null || undefined || 0) ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Length:   ${selectedAntique?.length}cm`}</DescriptionText>: <div></div>}
-                        {selectedAntique?.length !== (null || undefined || 0) ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Width:   ${selectedAntique?.width}cm`}</DescriptionText>: <div></div>}
-                        {selectedAntique?.length !== (null || undefined || 0) ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Height:   ${selectedAntique?.height}cm`}</DescriptionText>: <div></div>}
+                        {selectedAntique?.width !== (null || undefined || 0) ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Width:   ${selectedAntique?.width}cm`}</DescriptionText>: <div></div>}
+                        {selectedAntique?.height !== (null || undefined || 0) ? <DescriptionText style={{ marginBottom: "0.5rem" }}>{`Height:   ${selectedAntique?.height}cm`}</DescriptionText>: <div></div>}
                     </DimensionsContainer>
                     <DescriptionTextPriceSubHeading>{`Price:  £${selectedAntique?.price}.00`}</DescriptionTextPriceSubHeading>
                     <EnquiryButton onClick={() => dispatch(collectionsSlice.actions.setShowAntiqueEnquiryModal(true))}>Enquire</EnquiryButton>

@@ -2,9 +2,9 @@ import * as React from 'react';
 
 import {
     motion,
-    useViewportScroll,
+   /*  useViewportScroll,
     useSpring,
-    useTransform
+    useTransform */
 } from "framer-motion";
 
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'

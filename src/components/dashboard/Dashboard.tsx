@@ -4,8 +4,6 @@ import {
     motion
 } from "framer-motion";
 
-import { useAppSelector, useAppDispatch } from '../../redux/hooks'
-
 import styled from 'styled-components'
 
 import DashboardAntiquesList from "./DashboardAntiquesList"

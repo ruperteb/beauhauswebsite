@@ -1,21 +1,23 @@
 import React, { CSSProperties } from 'react';
 
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
+    /* BrowserRouter as Router, */
+    /* Switch,
+    Route, */
     Link,
-    useLocation,
-    withRouter
+   /*  useLocation,
+    withRouter */
 
 } from "react-router-dom";
 
 import {
     motion,
-    useViewportScroll,
+    /* useViewportScroll,
     useSpring,
-    useTransform
+    useTransform */
 } from "framer-motion";
+
+import { useHistory } from "react-router-dom";
 
 import { Container, Grid, Icon, Search, SearchProps } from 'semantic-ui-react'
 
@@ -116,6 +118,7 @@ export const CollectionsPanelNavigation: React.FC<Props> = ({ /* exampleProp, */
     const typeFilter = useAppSelector((state) => state.collections.typeFilter)
     /* const currentPageURL = useAppSelector((state) => state.navigation.currentPageURL) */
 
+    let history = useHistory();
 
     const dispatch = useAppDispatch()
 
@@ -258,6 +261,7 @@ export const CollectionsPanelNavigation: React.FC<Props> = ({ /* exampleProp, */
 
         dispatch(navigationSlice.actions.setCollectionsPanelVisibility(false))
         document.body.style.overflowY = "visible"
+        history.push(`/#collections`);
     }
 
     const [search, setSearch] = React.useState<string | undefined>()

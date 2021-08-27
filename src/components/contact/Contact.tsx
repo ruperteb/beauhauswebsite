@@ -11,7 +11,7 @@ import { useMutation } from '@apollo/client';
 import { SEND_MESSAGE } from "../../gql/gql"
 import { Mutation, MutationSendMessageArgs } from "../../schematypes/schematypes"
 
-import { Formik, Form, useField, useFormikContext, FieldHookConfig } from "formik";
+import { Formik, Form, useField, FieldHookConfig } from "formik";
 import * as Yup from "yup";
 
 import useResizeObserver from "@react-hook/resize-observer";
@@ -87,46 +87,6 @@ color: ${props => props.theme.primaryTextColor};
 /* color: #084b6d; */
 /* text-shadow: 1px 1px 1px #eadede; */
 
-`
-
-
-const ContactButton = styled(Button)`
-margin-left: auto !important;
-margin-right: auto !important;
-margin-top: 0px;
-margin-bottom: auto !important;
-&&&& {
-padding: 1em !important;
-padding-left: 2em !important;
-padding-right: 2em !important;
-}
-
-font-family: sans-serif;
-font-size: 16px;
-color: white  !important;
-/* color: #084b6d  !important; */
-display:flex;
-width: fit-content;
-border-style: solid  !important;
-border-width: 2px  !important;
-border-color: #a29064  !important;
-/* border-color: #084b6d  !important; */
-background-color: transparent  !important;
--webkit-transition: color 200ms ease, background-color 200ms ease  !important;
-transition: color 200ms ease, background-color 200ms ease  !important;
-border-radius: 0 !important;
-box-shadow: 0px 0px 2px 2px #0000001f !important;
-&:hover {
-
-color: white !important;
-background-color: #a29064 !important;
-border-color: #a29064 !important;
-box-shadow: -1px 1px 1px 2px #0000001f !important;
-/* color: white !important;
-background-color: #084b6d !important;
-border-color: #084b6d !important;
-box-shadow: 0px 0px 2px 2px #0000001f !important; */
-  }
 `
 
 const ContactButton2 = styled(Button)`
@@ -386,12 +346,12 @@ export const Contact: React.FunctionComponent<Props> = ({ }) => {
         text: String
     }
 
-    const [formInput, setFormInput] = React.useState<FormInput>({
+    /* const [formInput, setFormInput] = React.useState<FormInput>({
         name: "",
         from: "",
         subject: "",
         text: "",
-    })
+    }) */
 
 /*     const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => setFormInput({ ...formInput, name: data.value })
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => setFormInput({ ...formInput, from: data.value })

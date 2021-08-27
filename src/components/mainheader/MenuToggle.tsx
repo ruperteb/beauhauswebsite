@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { motion, useCycle } from "framer-motion";
+import { motion, /* useCycle  */} from "framer-motion";
 
 import styled from 'styled-components'
 

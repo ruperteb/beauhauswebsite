@@ -1,23 +1,21 @@
 import React, { CSSProperties } from 'react';
 
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
+    /* BrowserRouter as Router, */
+   /*  Switch,
+    Route, */
     Link,
-    useLocation,
-    withRouter
+    /* useLocation,
+    withRouter */
 
 } from "react-router-dom";
 
 import {
     motion,
-    useViewportScroll,
-    useSpring,
-    useTransform
+    
 } from "framer-motion";
 
-import { Container, Grid, Icon, Search, SearchProps, Button, ButtonProps } from 'semantic-ui-react'
+import { Container, Grid, Search, SearchProps, Button} from 'semantic-ui-react'
 
 import _ from 'lodash'
 
@@ -74,23 +72,7 @@ const NavLinkUnderline = styled(motion.div)`
     margin-bottom: auto;
 `
 
-const StyledBackIcon = styled(Icon)`
-   &&&&&& {
-    color: black !important; 
-    background-color: transparent !important;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin: auto;
-   } 
-   &&&&&&:hover {
-    color: white !important; 
-    /* background-color: #fff!important; */
-    transform: scale(1.2);
-    
-   }
-`
+
 
 const StyledContainer = styled(Container)`
     &&&&& {

@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { /* createAsyncThunk,  */createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../../redux/store';
-import { current } from '@reduxjs/toolkit'
+/* import { current } from '@reduxjs/toolkit' */
 
 
 export interface NavigationState {

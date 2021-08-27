@@ -1,9 +1,9 @@
-import React from "react";
+/* import React from "react"; */
 import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link,
+   /*  Link, */
     Redirect
 } from "react-router-dom";
 
@@ -17,7 +17,7 @@ import PrivateRoute from "./components/login/PrivateRoute";
 export default function AppRouter() {
 
     const { isAuthenticated } = useAuth0();
-    console.log(isAuthenticated)
+    /* console.log(isAuthenticated) */
 
     return (
         <Router>

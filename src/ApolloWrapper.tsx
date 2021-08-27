@@ -4,11 +4,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 import {
     ApolloClient,
     InMemoryCache,
-    gql,
+    /* gql, */
     NormalizedCacheObject,
     ApolloProvider,
-    ApolloLink,
-    HttpLink, useQuery,
+    /* ApolloLink, */
+    HttpLink, /* useQuery, */
 } from '@apollo/client';
 import { setContext } from "@apollo/client/link/context"
 
@@ -31,7 +31,7 @@ const ApolloWrapper: React.FC<Props> = ({ children }) => {
             try {
                 const token = await getAccessTokenSilently();
                 setBearerToken(token);
-                console.log(bearerToken)
+                /* console.log(bearerToken) */
             } catch (e) {
                 console.log(e.message);
             }

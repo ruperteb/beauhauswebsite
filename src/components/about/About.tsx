@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 import * as React from 'react';
-import { Grid, Image } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
-import { navigationSlice, selectAboutPixelsPassed, selectHomePixelsPassed } from '../../redux/slices/navigationSlice';
+import { navigationSlice, selectAboutPixelsPassed } from '../../redux/slices/navigationSlice';
 
 import useResizeObserver from "@react-hook/resize-observer";
 
@@ -19,14 +19,6 @@ interface Props {
 
 }
 
-const AboutImage = styled(Image)`
-    /* height: 150px; */
-    margin-left: auto;
-    margin-right: auto;
-    min-height: 400px;
-   /*  position: relative;
-    z-index: -1; */
-  `
 const AboutGridRow = styled(Grid.Row)`
 padding-bottom: 0px !important;
 padding-top: 0px !important;
@@ -145,7 +137,7 @@ export const About: React.FunctionComponent<Props> = ({ }) => {
         }
     });
 
-    const aboutImage = cld.image("Antiques_about_gaw4k6");
+    const aboutImage = cld.image("Assets/Antiques_about_ygry8c");
 
     var imageHeight = window.innerHeight
     var imageWidth = (window.innerWidth * 0.7).toFixed()
