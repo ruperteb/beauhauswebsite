@@ -246,7 +246,7 @@ export const CollectionsPanelNavigationMobile: React.FC<Props> = ({ /* examplePr
 
         dispatch(collectionsSlice.actions.setTypeFilter(type))
         dispatch(navigationSlice.actions.setCurrentPageURL(`collections/#${type}`))
-        history.push(`#/collections/#${type}`);
+        history.push(`/collections/#${type}`);
 
     }
 
@@ -260,7 +260,7 @@ export const CollectionsPanelNavigationMobile: React.FC<Props> = ({ /* examplePr
 
         dispatch(navigationSlice.actions.setCollectionsPanelVisibility(false))
         document.body.style.overflowY = "visible"
-        history.push(`/collections`);
+        history.push(`/#collections`);
     }
 
     const [search, setSearch] = React.useState<string | undefined>()
